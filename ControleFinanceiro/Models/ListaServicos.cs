@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ControleFinanceiro.Models
 {
-    public class Remuneracao
+    public class ListaServicos
     {
     }
 }
