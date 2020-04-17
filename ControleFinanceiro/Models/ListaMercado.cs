@@ -7,5 +7,9 @@ namespace ControleFinanceiro.Models
 {
     public class ListaMercado
     {
+
+        public int MercadoId { get; set; }
+        public double MercadoValor { get; set; }
+        
     }
 }

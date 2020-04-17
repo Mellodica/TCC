@@ -8,7 +8,7 @@ namespace ControleFinanceiro.Models
     public class Salario
     {
 
-        public long? SalarioId { get; set; }
+        public int SalarioId { get; set; }
         public decimal SalarioValor { get; set; }
         public DateTime SalarioData { get; set; }
 

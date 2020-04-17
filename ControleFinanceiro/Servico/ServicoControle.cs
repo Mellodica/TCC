@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ControleFinanceiro.Models
+namespace ControleFinanceiro.Servico
 {
-    public class ListaProdutos
+    public class ServicoControle
     {
     }
 }

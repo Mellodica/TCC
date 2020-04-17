@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ControleFinanceiro.Models
+namespace ControleFinanceiro.Models.enums
 {
-    public class ListaServicos
+    public enum Status
     {
+
+        Pendente,
+        Comprado
     }
 }

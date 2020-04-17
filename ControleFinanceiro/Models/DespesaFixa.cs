@@ -7,5 +7,9 @@ namespace ControleFinanceiro.Models
 {
     public class DespesaFixa
     {
+
+        public int DespFixaId { get; set; }
+        public double DespFixaValor { get; set; }
+        public DateTime DespFixaData { get; set; }
     }
 }
