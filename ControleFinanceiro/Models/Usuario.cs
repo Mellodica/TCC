@@ -12,6 +12,8 @@ namespace ControleFinanceiro.Models
         public string PrimeiroNome { get; set; }
         public string SegundoNome { get; set; }
         public DateTime DataNascimento { get; set; }
+        public Login Login { get; set; }
+        
 
 
     }

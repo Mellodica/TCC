@@ -22,18 +22,14 @@ namespace ControleFinanceiro.Models
         public string Perfil { get; set; }
 
         public char Ativo { get; set; }
+        public Usuario Usuario { get; set; }
+
 
         public Login()
         {
 
         }
 
-        public Login(string email, string senha, string perfil, char ativo)
-        {
-            Email = email;
-            Senha = senha;
-            Perfil = perfil;
-            Ativo = ativo;
-        }
+     
     }
 }

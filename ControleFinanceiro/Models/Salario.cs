@@ -11,6 +11,7 @@ namespace ControleFinanceiro.Models
         public int SalarioId { get; set; }
         public decimal SalarioValor { get; set; }
         public DateTime SalarioData { get; set; }
+        public Usuario Usuario { get; set; }
 
     }
 }
