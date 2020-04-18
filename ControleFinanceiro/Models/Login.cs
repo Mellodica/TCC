@@ -12,19 +12,21 @@ namespace ControleFinanceiro.Models
         public int LoginId { get; set; }
 
         [Display(Name = "E-mail")]
-        [Required(ErrorMessage ="{0} Digite usuario")]
-        [StringLength(60, MinimumLength = 10, ErrorMessage = "{0} deve conter entre {2} e {1} caracteres.")]
+        [Required(ErrorMessage = "Digite seu {0}")]
+        //[StringLength(60, MinimumLength = 10, ErrorMessage = "{0} deve conter entre {2} e {1} caracteres.")]
         public string Email { get; set; }
 
 
         [Display(Name = "Senha")]
-        [Required(ErrorMessage =" {0} Digite sua senha")]
+        [Required(ErrorMessage ="Digite sua {0}")]
         public string Senha { get; set; }
 
 
         public string Perfil { get; set; }
 
         public char Ativo { get; set; }
+
+        [Display(Name ="Usuário")]
         public Usuario Usuario { get; set; }
 
 
@@ -32,9 +34,15 @@ namespace ControleFinanceiro.Models
         {
 
         }
-       
-        
 
-
+        public Login(int loginId, string email, string senha, string perfil, char ativo, Usuario usuario)
+        {
+            LoginId = loginId;
+            Email = email;
+            Senha = senha;
+            Perfil = perfil;
+            Ativo = ativo;
+            Usuario = usuario;
+        }
     }
 }

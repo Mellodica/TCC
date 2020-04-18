@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,7 +8,7 @@ namespace ControleFinanceiro.Models
 {
     public class ListaProduto
     {
-
+        [Key]
         public int ProdutoId { get; set; }
         public string ProdutoNome { get; set; }
         public string ProdutoDescricao { get; set; }

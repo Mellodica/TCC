@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ControleFinanceiro.Models
 {
-    public enum Categoria
+    public enum Categoria : int
     {
         [Display(Name = "Acessórios")]
         Acessorios,

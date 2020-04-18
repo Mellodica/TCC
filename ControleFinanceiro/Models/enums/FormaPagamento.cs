@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ControleFinanceiro.Models
 {
-    public enum FormaPagamento
+    public enum FormaPagamento : int
     {
 
         [Display(Name ="Cartão de Crédito")]

@@ -1,0 +1,72 @@
+﻿@model ControleFinanceiro.Models.DespesaFixa
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DespesaFixa</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DespFixaValor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DespFixaValor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DespFixaData)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DespFixaData)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StatusId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FormaPagamento)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FormaPagamento)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FormaPagamentoId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FormaPagamentoId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Categoria)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoriaId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategoriaId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ListaProduto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ListaProduto.ProdutoId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.DespFixaId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

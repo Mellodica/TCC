@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ControleFinanceiro.Models.enums
 {
-    public enum Status
+    public enum Status : int
     {
 
         Pendente,

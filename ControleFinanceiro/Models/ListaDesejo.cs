@@ -1,6 +1,7 @@
 ﻿using ControleFinanceiro.Models.enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace ControleFinanceiro.Models
     public class ListaDesejo
     {
 
+        [Key]
         public int DesejoId { get; set; }
         public double DesejoValor { get; set; }
         public DateTime DesejoData { get; set; }
@@ -24,6 +26,17 @@ namespace ControleFinanceiro.Models
 
         }
 
-
+        public ListaDesejo(int desejoId, double desejoValor, DateTime desejoData, Status status, int statusId, FormaPagamento formaPagamento, int formaPagamentoId, ListaProduto produto, int listaProdutoId)
+        {
+            DesejoId = desejoId;
+            DesejoValor = desejoValor;
+            DesejoData = desejoData;
+            Status = status;
+            StatusId = statusId;
+            FormaPagamento = formaPagamento;
+            FormaPagamentoId = formaPagamentoId;
+            Produto = produto;
+            ListaProdutoId = listaProdutoId;
+        }
     }
 }
