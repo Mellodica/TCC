@@ -4,7 +4,7 @@
     ViewData["tittle"] = "Controle Acesso";
     Layout = null;
 }
-@model ControleFinanceiro.Models.Login;
+
 
 
 
@@ -45,10 +45,10 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <form method="post" asp-action="Login">
+                        <div asp-validation-summary="All" class="text-danger"></div>
 
-                    <div asp-validation-summary="All" class="text-danger"></div>
 
-                    <form>
 
 
 
@@ -56,23 +56,24 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input asp-for="Usuario" type="text" class="form-control" placeholder="Usuário">
-                            <span asp-validation-for="Usuario" class="text-danger"></span>
+
+                            <input   asp-for="Email" type="email"  class="form-control" placeholder="Email" required>
+                            <span asp-validation-for="Email" class="text-danger"></span>
 
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input asp-for="Senha" type="password" class="form-control" placeholder="Senha">
+                            <input asp-for="Senha" type="password" class="form-control" placeholder="Senha" >
                             <span asp-validation-for="Senha" class="text-danger"></span>
                         </div>
                         <div class="row align-items-center remember">
                             <input type="checkbox">lembrar
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Login" asp-action="Logar"  class="btn float-right login_btn">
-                        </div> 
+                            <input type="submit" value="Login" asp-action="Logar" class="btn float-right login_btn">
+                        </div>
                     </form>
                 </div>
                 <div class="card-footer">
@@ -106,13 +107,10 @@
         </div>
     </div>
 
-    <script language="javascript">
-        $(document).on("click", ".btn-danger", function () {
-            valorId = $(this).data('customer');
-            $(".modal-footer").html('<a href="/Views/modal.cshtml' + valorId + '" class="btn btn-success waves-effect waves-light"> Excluir </a> <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-ok-sign"></span> Cancelar</button>');
-            $('#myModal').modal('show');
-        });
+    <script >
+
     </script>
+    
 </body>
 </html>
 

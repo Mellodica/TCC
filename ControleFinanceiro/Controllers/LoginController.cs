@@ -19,17 +19,21 @@ namespace ControleFinanceiro.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        
 
-        public IActionResult Logar( [FromForm]Login login)
+        public  IActionResult Logar( [FromForm]Login login)
         {
             if (login.Email =="breno" && login.Senha == "123456")
             {
-             
-                return new ContentResult() { Content = "Não foi possível logar" };
+                return RedirectToAction("Index", "Home");
+
             }
            else
             {
-                return RedirectToAction("Index","Home");
+               
+
+                return new ContentResult() { Content = "Não foi possível logar" };
             }
             
         }
