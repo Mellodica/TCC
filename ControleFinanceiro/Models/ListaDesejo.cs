@@ -18,5 +18,12 @@ namespace ControleFinanceiro.Models
         public int FormaPagamentoId { get; set; }
         public ListaProduto Produto { get; set; }
         public int ListaProdutoId { get; set; }
+
+        public ListaDesejo()
+        {
+
+        }
+
+
     }
 }

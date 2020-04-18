@@ -20,6 +20,11 @@ namespace ControleFinanceiro.Models
         {
         }
 
-       
+        public ListaProduto(int produtoId, string produtoNome, string produtoDescricao)
+        {
+            ProdutoId = produtoId;
+            ProdutoNome = produtoNome;
+            ProdutoDescricao = produtoDescricao;
+        }
     }
 }
