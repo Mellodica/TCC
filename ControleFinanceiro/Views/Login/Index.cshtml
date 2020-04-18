@@ -2,6 +2,7 @@
     ViewData["Login"] = "Home Page";
     Layout = null;
 }
+@model ControleFinanceiro.Models.Login;
 
 
 
@@ -42,26 +43,26 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form method="post">
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="usuário">
+                            <input type="text" class="form-control" asp-for="Email" placeholder="usuário">
 
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" class="form-control" placeholder="senha">
+                            <input type="password" asp-for="Senha" class="form-control" placeholder="senha">
                         </div>
                         <div class="row align-items-center remember">
                             <input type="checkbox">lembrar
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Login" class="btn float-right login_btn">
-                        </div>
+                            <input type="submit" value="Login" asp-action="Logar"  class="btn float-right login_btn">
+                        </div> 
                     </form>
                 </div>
                 <div class="card-footer">
@@ -69,11 +70,38 @@
                         Não tem uma conta?<a href="#">Cadastrar</a>
                     </div>-->
                     <div class="d-flex justify-content-center">
-                        <a href="#">Esqueceu sua senha?</a>
+                        <a href="/Views/modal.cshtml">Esqueceu sua senha?</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <a href="#myModal" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal" ><i class="fa fa-trash"></i> Abrir Modal </a>
+
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Excluir id</h4>
+                </div>
+                <div class="modal-body">
+                    ............
+                    ............
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script language="javascript">
+        $(document).on("click", ".btn-danger", function () {
+            valorId = $(this).data('customer');
+            $(".modal-footer").html('<a href="/Views/modal.cshtml' + valorId + '" class="btn btn-success waves-effect waves-light"> Excluir </a> <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-ok-sign"></span> Cancelar</button>');
+            $('#myModal').modal('show');
+        });
+    </script>
 </body>
 </html>

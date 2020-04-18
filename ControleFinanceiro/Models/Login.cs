@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ControleFinanceiro.Models
 {
+   
     public class Login
     {
         public int LoginId { get; set; }
@@ -29,7 +30,9 @@ namespace ControleFinanceiro.Models
         {
 
         }
+       
+        
 
-     
+
     }
 }
