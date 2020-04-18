@@ -12,13 +12,13 @@ namespace ControleFinanceiro.Models
         public int LoginId { get; set; }
 
         [Display(Name = "E-mail")]
-        [Required(ErrorMessage ="{0}digite usuario")]
+        [Required(ErrorMessage ="{0} Digite usuario")]
         [StringLength(60, MinimumLength = 10, ErrorMessage = "{0} deve conter entre {2} e {1} caracteres.")]
         public string Email { get; set; }
 
 
         [Display(Name = "Senha")]
-        [Required(ErrorMessage =" {0}digite sua senha")]
+        [Required(ErrorMessage =" {0} Digite sua senha")]
         public string Senha { get; set; }
 
 

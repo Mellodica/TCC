@@ -18,13 +18,15 @@ namespace ControleFinanceiro.Controllers
         {
             return View();
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        
 
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]    
         public  IActionResult Logar( [FromForm]Login login)
         {
-            if (login.Email =="breno" && login.Senha == "123456")
+            if (login.Email == "breno@gmail.com" && login.Senha == "123456")
             {
                 return RedirectToAction("Index", "Home");
 
