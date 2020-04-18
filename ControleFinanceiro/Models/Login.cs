@@ -20,6 +20,7 @@ namespace ControleFinanceiro.Models
         [Required]
         public string Senha { get; set; }
 
+
         public string Perfil { get; set; }
 
         public char Ativo { get; set; }
