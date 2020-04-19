@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -18,27 +19,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.DespFixaData)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StatusId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FormaPagamento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FormaPagamentoId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoriaId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ListaProduto)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -50,27 +30,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DespFixaData)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StatusId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FormaPagamento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FormaPagamentoId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoriaId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ListaProduto.ProdutoId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DespFixaId">Edit</a> |

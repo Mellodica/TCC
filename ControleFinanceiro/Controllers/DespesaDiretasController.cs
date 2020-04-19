@@ -22,8 +22,7 @@ namespace ControleFinanceiro.Controllers
         // GET: DespesaDiretas
         public async Task<IActionResult> Index()
         {
-            var controleFinanceiroContext = _context.DespesaDireta.Include(d => d.ListaProduto);
-            return View(await controleFinanceiroContext.ToListAsync());
+            return View(await _context.DespesaDireta.ToListAsync());
         }
 
         // GET: DespesaDiretas/Details/5
@@ -35,7 +34,6 @@ namespace ControleFinanceiro.Controllers
             }
 
             var despesaDireta = await _context.DespesaDireta
-                .Include(d => d.ListaProduto)
                 .FirstOrDefaultAsync(m => m.DespDirId == id);
             if (despesaDireta == null)
             {
@@ -48,7 +46,6 @@ namespace ControleFinanceiro.Controllers
         // GET: DespesaDiretas/Create
         public IActionResult Create()
         {
-            ViewData["ListaProdutoId"] = new SelectList(_context.ListaProduto, "ProdutoId", "ProdutoId");
             return View();
         }
 
@@ -57,7 +54,7 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DespDirId,DespDirValor,DespDirData,Status,StatusId,FormaPagamento,FormaPagamentoId,Categoria,CategoriaId,ListaProdutoId")] DespesaDireta despesaDireta)
+        public async Task<IActionResult> Create([Bind("DespDirId,DespDirValor,DespDirData")] DespesaDireta despesaDireta)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +62,6 @@ namespace ControleFinanceiro.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ListaProdutoId"] = new SelectList(_context.ListaProduto, "ProdutoId", "ProdutoId", despesaDireta.ListaProdutoId);
             return View(despesaDireta);
         }
 
@@ -82,7 +78,6 @@ namespace ControleFinanceiro.Controllers
             {
                 return NotFound();
             }
-            ViewData["ListaProdutoId"] = new SelectList(_context.ListaProduto, "ProdutoId", "ProdutoId", despesaDireta.ListaProdutoId);
             return View(despesaDireta);
         }
 
@@ -91,7 +86,7 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DespDirId,DespDirValor,DespDirData,Status,StatusId,FormaPagamento,FormaPagamentoId,Categoria,CategoriaId,ListaProdutoId")] DespesaDireta despesaDireta)
+        public async Task<IActionResult> Edit(int id, [Bind("DespDirId,DespDirValor,DespDirData")] DespesaDireta despesaDireta)
         {
             if (id != despesaDireta.DespDirId)
             {
@@ -118,7 +113,6 @@ namespace ControleFinanceiro.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ListaProdutoId"] = new SelectList(_context.ListaProduto, "ProdutoId", "ProdutoId", despesaDireta.ListaProdutoId);
             return View(despesaDireta);
         }
 
@@ -131,7 +125,6 @@ namespace ControleFinanceiro.Controllers
             }
 
             var despesaDireta = await _context.DespesaDireta
-                .Include(d => d.ListaProduto)
                 .FirstOrDefaultAsync(m => m.DespDirId == id);
             if (despesaDireta == null)
             {

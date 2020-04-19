@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Details</h2>
@@ -21,36 +22,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.MercadoData)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Produto)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Produto.ProdutoId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FormaPagamento)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FormaPagamento)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FormaPagamentoId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FormaPagamentoId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.StatusId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.StatusId)
         </dd>
     </dl>
 </div>

@@ -22,8 +22,7 @@ namespace ControleFinanceiro.Controllers
         // GET: DespesaFixas
         public async Task<IActionResult> Index()
         {
-            var controleFinanceiroContext = _context.DespesaFixa.Include(d => d.ListaProduto);
-            return View(await controleFinanceiroContext.ToListAsync());
+            return View(await _context.DespesaFixa.ToListAsync());
         }
 
         // GET: DespesaFixas/Details/5
@@ -35,7 +34,6 @@ namespace ControleFinanceiro.Controllers
             }
 
             var despesaFixa = await _context.DespesaFixa
-                .Include(d => d.ListaProduto)
                 .FirstOrDefaultAsync(m => m.DespFixaId == id);
             if (despesaFixa == null)
             {
@@ -48,7 +46,6 @@ namespace ControleFinanceiro.Controllers
         // GET: DespesaFixas/Create
         public IActionResult Create()
         {
-            ViewData["ListaProdutoId"] = new SelectList(_context.ListaProduto, "ProdutoId", "ProdutoId");
             return View();
         }
 
@@ -57,7 +54,7 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DespFixaId,DespFixaValor,DespFixaData,Status,StatusId,FormaPagamento,FormaPagamentoId,Categoria,CategoriaId,ListaProdutoId")] DespesaFixa despesaFixa)
+        public async Task<IActionResult> Create([Bind("DespFixaId,DespFixaValor,DespFixaData")] DespesaFixa despesaFixa)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +62,6 @@ namespace ControleFinanceiro.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ListaProdutoId"] = new SelectList(_context.ListaProduto, "ProdutoId", "ProdutoId", despesaFixa.ListaProdutoId);
             return View(despesaFixa);
         }
 
@@ -82,7 +78,6 @@ namespace ControleFinanceiro.Controllers
             {
                 return NotFound();
             }
-            ViewData["ListaProdutoId"] = new SelectList(_context.ListaProduto, "ProdutoId", "ProdutoId", despesaFixa.ListaProdutoId);
             return View(despesaFixa);
         }
 
@@ -91,7 +86,7 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DespFixaId,DespFixaValor,DespFixaData,Status,StatusId,FormaPagamento,FormaPagamentoId,Categoria,CategoriaId,ListaProdutoId")] DespesaFixa despesaFixa)
+        public async Task<IActionResult> Edit(int id, [Bind("DespFixaId,DespFixaValor,DespFixaData")] DespesaFixa despesaFixa)
         {
             if (id != despesaFixa.DespFixaId)
             {
@@ -118,7 +113,6 @@ namespace ControleFinanceiro.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ListaProdutoId"] = new SelectList(_context.ListaProduto, "ProdutoId", "ProdutoId", despesaFixa.ListaProdutoId);
             return View(despesaFixa);
         }
 
@@ -131,7 +125,6 @@ namespace ControleFinanceiro.Controllers
             }
 
             var despesaFixa = await _context.DespesaFixa
-                .Include(d => d.ListaProduto)
                 .FirstOrDefaultAsync(m => m.DespFixaId == id);
             if (despesaFixa == null)
             {

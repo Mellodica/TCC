@@ -22,8 +22,7 @@ namespace ControleFinanceiro.Controllers
         // GET: ListaDesejos
         public async Task<IActionResult> Index()
         {
-            var controleFinanceiroContext = _context.ListaDesejo.Include(l => l.Produto);
-            return View(await controleFinanceiroContext.ToListAsync());
+            return View(await _context.ListaDesejo.ToListAsync());
         }
 
         // GET: ListaDesejos/Details/5
@@ -35,7 +34,6 @@ namespace ControleFinanceiro.Controllers
             }
 
             var listaDesejo = await _context.ListaDesejo
-                .Include(l => l.Produto)
                 .FirstOrDefaultAsync(m => m.DesejoId == id);
             if (listaDesejo == null)
             {
@@ -48,7 +46,6 @@ namespace ControleFinanceiro.Controllers
         // GET: ListaDesejos/Create
         public IActionResult Create()
         {
-            ViewData["ListaProdutoId"] = new SelectList(_context.ListaProduto, "ProdutoId", "ProdutoId");
             return View();
         }
 
@@ -57,7 +54,7 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DesejoId,DesejoValor,DesejoData,Status,StatusId,FormaPagamento,FormaPagamentoId,ListaProdutoId")] ListaDesejo listaDesejo)
+        public async Task<IActionResult> Create([Bind("DesejoId,DesejoValor,DesejoData")] ListaDesejo listaDesejo)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +62,6 @@ namespace ControleFinanceiro.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ListaProdutoId"] = new SelectList(_context.ListaProduto, "ProdutoId", "ProdutoId", listaDesejo.ListaProdutoId);
             return View(listaDesejo);
         }
 
@@ -82,7 +78,6 @@ namespace ControleFinanceiro.Controllers
             {
                 return NotFound();
             }
-            ViewData["ListaProdutoId"] = new SelectList(_context.ListaProduto, "ProdutoId", "ProdutoId", listaDesejo.ListaProdutoId);
             return View(listaDesejo);
         }
 
@@ -91,7 +86,7 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DesejoId,DesejoValor,DesejoData,Status,StatusId,FormaPagamento,FormaPagamentoId,ListaProdutoId")] ListaDesejo listaDesejo)
+        public async Task<IActionResult> Edit(int id, [Bind("DesejoId,DesejoValor,DesejoData")] ListaDesejo listaDesejo)
         {
             if (id != listaDesejo.DesejoId)
             {
@@ -118,7 +113,6 @@ namespace ControleFinanceiro.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ListaProdutoId"] = new SelectList(_context.ListaProduto, "ProdutoId", "ProdutoId", listaDesejo.ListaProdutoId);
             return View(listaDesejo);
         }
 
@@ -131,7 +125,6 @@ namespace ControleFinanceiro.Controllers
             }
 
             var listaDesejo = await _context.ListaDesejo
-                .Include(l => l.Produto)
                 .FirstOrDefaultAsync(m => m.DesejoId == id);
             if (listaDesejo == null)
             {

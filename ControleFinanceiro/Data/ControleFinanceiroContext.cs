@@ -14,14 +14,19 @@ namespace ControleFinanceiro.Data
         {
         }
 
-        public DbSet<ControleFinanceiro.Models.ListaProduto> ListaProduto { get; set; }
+        public DbSet<ListaProduto> ListaProduto { get; set; }
 
-        public DbSet<ControleFinanceiro.Models.ListaMercado> ListaMercado { get; set; }
+        public DbSet<ListaMercado> ListaMercado { get; set; }
 
-        public DbSet<ControleFinanceiro.Models.DespesaDireta> DespesaDireta { get; set; }
+        public DbSet<DespesaDireta> DespesaDireta { get; set; }
 
-        public DbSet<ControleFinanceiro.Models.DespesaFixa> DespesaFixa { get; set; }
+        public DbSet<DespesaFixa> DespesaFixa { get; set; }
 
-        public DbSet<ControleFinanceiro.Models.ListaDesejo> ListaDesejo { get; set; }
+        public DbSet<ListaDesejo> ListaDesejo { get; set; }
+
+        public DbSet<ControleFinanceiro.Models.Categoria> Categoria { get; set; }
+
+        public DbSet<ControleFinanceiro.Models.FormaPagamento> FormaPagamento { get; set; }
+        public DbSet<StatusCompra> StatusCompra { get; set; }
     }
 }

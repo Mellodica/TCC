@@ -28,14 +28,13 @@ namespace ControleFinanceiro.Controllers
         {
             if (login.Email == "breno@gmail.com" && login.Senha == "123456")
             {
-                return RedirectToAction("Index", "Home");
-
+                return RedirectToAction("Index", "Controles");
             }
            else
             {
-               
 
-                return new ContentResult() { Content = "Não foi possível logar" };
+
+                return RedirectToAction("Index", "Home");
             }
             
         }

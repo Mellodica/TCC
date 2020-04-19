@@ -7,20 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
-using ControleFinanceiro.Servico;
 
 namespace ControleFinanceiro.Controllers
 {
     public class ListaProdutosController : Controller
     {
         private readonly ControleFinanceiroContext _context;
-
-        private readonly ServicoProduto _servicoProduto;
-
-        public ListaProdutosController(ServicoProduto servicoProduto)
-        {
-            _servicoProduto = servicoProduto;
-        }
 
         public ListaProdutosController(ControleFinanceiroContext context)
         {
@@ -30,10 +22,7 @@ namespace ControleFinanceiro.Controllers
         // GET: ListaProdutos
         public async Task<IActionResult> Index()
         {
-            //await _context.ListaProduto.ToListAsync
-
-            var list = _servicoProduto.EncontrarTudo();
-            return View(list);
+            return View(await _context.ListaProduto.ToListAsync());
         }
 
         // GET: ListaProdutos/Details/5

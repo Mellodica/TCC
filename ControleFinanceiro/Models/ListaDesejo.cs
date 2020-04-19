@@ -1,5 +1,4 @@
-﻿using ControleFinanceiro.Models.enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,31 +11,31 @@ namespace ControleFinanceiro.Models
 
         [Key]
         public int DesejoId { get; set; }
+
+        [Display(Name ="Valor")]
         public double DesejoValor { get; set; }
+        [Display(Name = "Data para Compra")]
         public DateTime DesejoData { get; set; }
-        public Status Status { get; set; }
-        public int StatusId { get; set; }        
+        [Display(Name = "Situação")]
+        public StatusCompra StatusCompra { get; set; }
+        public Categoria Categoria { get; set; }
         public FormaPagamento FormaPagamento { get; set; }
-        public int FormaPagamentoId { get; set; }
-        public ListaProduto Produto { get; set; }
-        public int ListaProdutoId { get; set; }
+
 
         public ListaDesejo()
         {
 
         }
 
-        public ListaDesejo(int desejoId, double desejoValor, DateTime desejoData, Status status, int statusId, FormaPagamento formaPagamento, int formaPagamentoId, ListaProduto produto, int listaProdutoId)
+        public ListaDesejo(int desejoId, double desejoValor, DateTime desejoData, StatusCompra statusCompra, Categoria categoria, FormaPagamento formaPagamento)
         {
             DesejoId = desejoId;
             DesejoValor = desejoValor;
             DesejoData = desejoData;
-            Status = status;
-            StatusId = statusId;
+            StatusCompra = statusCompra;
+            Categoria = categoria;
             FormaPagamento = formaPagamento;
-            FormaPagamentoId = formaPagamentoId;
-            Produto = produto;
-            ListaProdutoId = listaProdutoId;
+            
         }
     }
 }

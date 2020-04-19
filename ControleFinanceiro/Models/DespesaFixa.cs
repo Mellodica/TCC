@@ -1,5 +1,4 @@
-﻿using ControleFinanceiro.Models.enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,15 +13,10 @@ namespace ControleFinanceiro.Models
         public int DespFixaId { get; set; }
         public double DespFixaValor { get; set; }
         public DateTime DespFixaData { get; set; }
-
-        public Status Status { get; set; }
-        public int StatusId { get; set; }
+        public StatusCompra StatusCompra { get; set; }
         public FormaPagamento FormaPagamento { get; set; }
-        public int FormaPagamentoId { get; set; }
-        public Categoria Categoria { get; set; }
-        public int CategoriaId { get; set; }
         public ListaProduto ListaProduto { get; set; }
-        public int ListaProdutoId { get; set; }
+        public Categoria Categoria { get; set; }
 
 
         public DespesaFixa()
@@ -30,19 +24,15 @@ namespace ControleFinanceiro.Models
 
         }
 
-        public DespesaFixa(int despFixaId, double despFixaValor, DateTime despFixaData, Status status, int statusId, FormaPagamento formaPagamento, int formaPagamentoId, Categoria categoria, int categoriaId, ListaProduto listaProduto, int listaProdutoId)
+        public DespesaFixa(int despFixaId, double despFixaValor, DateTime despFixaData, StatusCompra statusCompra, FormaPagamento formaPagamento, ListaProduto listaProduto, Categoria categoria)
         {
             DespFixaId = despFixaId;
             DespFixaValor = despFixaValor;
             DespFixaData = despFixaData;
-            Status = status;
-            StatusId = statusId;
+            StatusCompra = statusCompra;
             FormaPagamento = formaPagamento;
-            FormaPagamentoId = formaPagamentoId;
-            Categoria = categoria;
-            CategoriaId = categoriaId;
             ListaProduto = listaProduto;
-            ListaProdutoId = listaProdutoId;
+            Categoria = categoria;
         }
     }
 }

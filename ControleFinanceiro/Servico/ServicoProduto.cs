@@ -19,7 +19,13 @@ namespace ControleFinanceiro.Servico
 
         public List<ListaProduto> EncontrarTudo()
         {
-            return _context.ListaProduto.ToList();
+            return _context.ListaProduto.OrderBy(i => i.ProdutoNome).ToList();
+        }
+
+        public void Insert(ListaProduto produto)
+        {
+            _context.Add(produto);
+            _context.SaveChanges();
         }
 
     }
