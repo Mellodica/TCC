@@ -1,4 +1,4 @@
-﻿@model ControleFinanceiro.Models.ListaDesejo
+﻿@model ControleFinanceiro.Models.ViewModel.DesejoViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -13,19 +13,40 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
-                <label asp-for="DesejoValor" class="control-label"></label>
-                <input asp-for="DesejoValor" class="form-control" />
-                <span asp-validation-for="DesejoValor" class="text-danger"></span>
+                <label asp-for="ListaDesejos.DesejoValor" class="control-label"></label>
+                <input asp-for="ListaDesejos.DesejoValor" class="form-control" />
+                <span asp-validation-for="ListaDesejos.DesejoValor" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DesejoData" class="control-label"></label>
-                <input asp-for="DesejoData" class="form-control" />
-                <span asp-validation-for="DesejoData" class="text-danger"></span>
+                <label asp-for="ListaDesejos.DesejoData" class="control-label"></label>
+                <input asp-for="ListaDesejos.DesejoData" class="form-control" />
+                <span asp-validation-for="ListaDesejos.DesejoData" class="text-danger"></span>
             </div>
+           
+
+
+            <div class="form-group">
+                <label asp-for="ListaDesejos.Categoria" class="control-label"></label>
+                <select asp-for="ListaDesejos.CategoriaId" class="form-control" asp-items="@(new SelectList(Model.Categorias, "CategoriaId", "CategoriaNome"))"> </select>
+                <span asp-validation-for="ListaDesejos.CategoriaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ListaDesejos.FormaPagamento" class="control-label"></label>
+                <select asp-for="ListaDesejos.FormaPagamento" class="form-control" asp-items="@(new SelectList(Model.FormaPagamentos, "FormaId", "FormaNome"))"></select>
+                <span asp-validation-for="ListaDesejos.FormaPagamento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ListaDesejos.StatusCompra" class="control-label"></label>
+                <select asp-for="ListaDesejos.StatusId" class="form-control" asp-items="@(new SelectList(Model.StatusCompras, "StatusId", "StatusNome"))"></select>
+                <span asp-validation-for="ListaDesejos.StatusId" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
+
         </form>
     </div>
 </div>

@@ -149,5 +149,7 @@ namespace ControleFinanceiro.Controllers
         {
             return _context.FormaPagamento.Any(e => e.FormaId == id);
         }
+
+       
     }
 }

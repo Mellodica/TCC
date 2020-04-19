@@ -8,8 +8,12 @@ namespace ControleFinanceiro.Models.ViewModel
     public class DesejoViewModel
     {
 
-        public ListaProduto ListaProdutos { get; set; }
-        
+        public ListaDesejo ListaDesejos { get; set; }
+        public ICollection<ListaProduto> ListaProdutos { get; set; }
+        public ICollection<Categoria> Categorias { get; set; }
+        public ICollection<FormaPagamento> FormaPagamentos { get; set; }
+        public ICollection<StatusCompra> StatusCompras { get; set; }
+
 
 
     }

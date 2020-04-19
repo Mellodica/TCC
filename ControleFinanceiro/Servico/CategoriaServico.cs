@@ -70,5 +70,10 @@ namespace ControleFinanceiro.Servico
             _context.Add(obj);
             await _context.SaveChangesAsync();
         }
+
+        public List<Categoria> PegarTudo()
+        {
+            return _context.Categoria.OrderBy(i => i.CategoriaNome).ToList();
+        }
     }
 }

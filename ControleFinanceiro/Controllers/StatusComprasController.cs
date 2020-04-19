@@ -149,5 +149,10 @@ namespace ControleFinanceiro.Controllers
         {
             return _context.StatusCompra.Any(e => e.StatusId == id);
         }
+
+        public List<StatusCompra> PegarTudo()
+        {
+            return _context.StatusCompra.OrderBy(i => i.StatusNome).ToList();
+        }
     }
 }

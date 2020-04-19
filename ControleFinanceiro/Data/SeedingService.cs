@@ -18,13 +18,15 @@ namespace ControleFinanceiro.Servico
 
         public void Seed()
         {
-             if(_context.Categoria.Any() || _context.FormaPagamento.Any() || _context.StatusCompra.Any())
+             if(_context.Categoria.Any() || _context.FormaPagamento.Any() || _context.StatusCompra.Any() || _context.ListaProduto.Any())
             {
                 return; //Já tem dados.
             }
 
+            ListaProduto p1 = new ListaProduto(new int(), "CELULAR A50", "CELULAR SAMSUNG A50 128GB");
+
             StatusCompra s1 = new StatusCompra(new int(), "Pendente");
-            StatusCompra s2 = new StatusCompra(new int(), "Comprador");
+            StatusCompra s2 = new StatusCompra(new int(), "Comprado");
             StatusCompra s3 = new StatusCompra(new int(), "Cancelado");
 
 
@@ -83,6 +85,7 @@ namespace ControleFinanceiro.Servico
                 c11, c12, c13, c14, c15, c16, c17, c18, c19, c20,
                 c21, c22, c23, c24, c25, c26, c27, c28, c29, c30,
                 c31, c32, c33, c34, c35, c36, c37, c38);
+            _context.ListaProduto.AddRange(p1);
 
             _context.SaveChanges();
         }

@@ -7,16 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
+using ControleFinanceiro.Servico;
+using ControleFinanceiro.Models.ViewModel;
 
 namespace ControleFinanceiro.Controllers
 {
     public class ListaDesejosController : Controller
     {
         private readonly ControleFinanceiroContext _context;
+        private readonly CategoriaServico _categoriaServico;
+        private readonly FormaPagamentoServico _formaPagamentoServico;
+        private readonly StatusCompraServico _statusCompraServico;
+        private readonly ServicoProduto _listaProdutoServico;
 
-        public ListaDesejosController(ControleFinanceiroContext context)
+        public ListaDesejosController(ControleFinanceiroContext context, CategoriaServico categoriaServico, ServicoProduto listaProdutoServico, FormaPagamentoServico formaPagamentoServico, StatusCompraServico statusCompraServico)
         {
             _context = context;
+            _listaProdutoServico = listaProdutoServico;
+            _categoriaServico = categoriaServico;
+            _formaPagamentoServico = formaPagamentoServico;
+            _statusCompraServico =  statusCompraServico;
         }
 
         // GET: ListaDesejos
@@ -46,7 +56,12 @@ namespace ControleFinanceiro.Controllers
         // GET: ListaDesejos/Create
         public IActionResult Create()
         {
-            return View();
+            var prod = _listaProdutoServico.PegarTudo();
+            var cat = _categoriaServico.PegarTudo();
+            var forma = _formaPagamentoServico.PegarTudo();
+            var status = _statusCompraServico.PegarTudo();
+            var viewModel = new DesejoViewModel { Categorias = cat, FormaPagamentos = forma, StatusCompras = status, ListaProdutos = prod };
+            return View(viewModel);
         }
 
         // POST: ListaDesejos/Create
