@@ -9,6 +9,24 @@
 
 <h4>ListaDesejo</h4>
 <hr />
+
+<div>
+    <a asp-action="Index" asp-controller="Controles" class="btn btn-info">Voltar ao Painel</a>
+    <a asp-action="Index" class="btn btn-default">Voltar à Lista</a>
+</div>
+
+
+<div class="container">
+    <h2>Escolha o produto sua lista de Desejo!</h2>
+    <form>
+        <div class="input-field">
+            <input type="text" name="" required="">
+            <label>Digite o nome do Produto</label>
+            <span></span>
+        </div>
+        <input type="submit" value="Inserir" name="" class="btn">
+    </form>
+</div>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -24,7 +42,7 @@
                 <input asp-for="ListaDesejos.DesejoData" class="form-control" />
                 <span asp-validation-for="ListaDesejos.DesejoData" class="text-danger"></span>
             </div>
-           
+
 
 
             <div class="form-group">
@@ -51,9 +69,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -9,14 +9,12 @@
     font-family: 'Poppins', sans-serif;
 }
 
-body
-{
+body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 300vh;
     background: #111;
-    
 }
 
 .container
@@ -26,12 +24,11 @@ body
     padding: 40px;
     background: #151515;
 }
-.container h2
-{
-    color: #999;
-    margin-bottom: 45px;
-    /*text-align: center;*/ 
-}
+    .container h2 {
+        color: #999;
+        margin-bottom: 45px;
+        text-align: center;
+    }
 
 .input-field
 {
@@ -118,4 +115,5 @@ body
 {
     background: #00bcd4;
 }
+
 
