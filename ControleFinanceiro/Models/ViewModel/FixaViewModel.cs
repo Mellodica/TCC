@@ -5,16 +5,14 @@ using System.Threading.Tasks;
 
 namespace ControleFinanceiro.Models.ViewModel
 {
-    public class DesejoViewModel
+    public class FixaViewModel
     {
 
-        public ListaDesejo ListaDesejos { get; set; }
+        public DespesaFixa DespesaFixa { get; set; }
+
         public ICollection<ListaProduto> ListaProdutos { get; set; }
         public ICollection<Categoria> Categorias { get; set; }
         public ICollection<FormaPagamento> FormaPagamentos { get; set; }
         public ICollection<StatusCompra> StatusCompras { get; set; }
-
-      
-
     }
 }
