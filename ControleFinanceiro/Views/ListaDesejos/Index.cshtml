@@ -12,7 +12,7 @@
         <a asp-action="Create" class="btn btn-default">Create New</a>
     </p>
 </div>
-<table class="table">
+<table class="table table-hover success">
     <thead>
         <tr>
             <th>
@@ -20,6 +20,18 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DesejoData)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormaPagamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ListaProduto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusCompra)
             </th>
             <th></th>
         </tr>
@@ -32,6 +44,18 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DesejoData)
+            </td>
+            <td>
+                @Html.DisplayFor(ModelItem => item.Categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(ModelItem => item.FormaPagamento)
+            </td>
+            <td>
+                @Html.DisplayFor(ModelItem => item.ListaProduto)
+            </td>
+            <td>
+                @Html.DisplayFor(ModelItem => item.StatusCompra)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DesejoId">Edit</a> |

@@ -18,12 +18,12 @@ namespace ControleFinanceiro.Controllers
         private readonly CategoriaServico _categoriaServico;
         private readonly FormaPagamentoServico _formaPagamentoServico;
         private readonly StatusCompraServico _statusCompraServico;
-        private readonly ServicoProduto _listaProdutoServico;
+        private readonly ServicoProduto _servicoProduto;
 
-        public ListaDesejosController(ControleFinanceiroContext context, CategoriaServico categoriaServico, ServicoProduto listaProdutoServico, FormaPagamentoServico formaPagamentoServico, StatusCompraServico statusCompraServico)
+        public ListaDesejosController(ControleFinanceiroContext context, CategoriaServico categoriaServico, ServicoProduto servicoProduto, FormaPagamentoServico formaPagamentoServico, StatusCompraServico statusCompraServico)
         {
             _context = context;
-            _listaProdutoServico = listaProdutoServico;
+            _servicoProduto = servicoProduto;
             _categoriaServico = categoriaServico;
             _formaPagamentoServico = formaPagamentoServico;
             _statusCompraServico =  statusCompraServico;
@@ -56,7 +56,7 @@ namespace ControleFinanceiro.Controllers
         // GET: ListaDesejos/Create
         public IActionResult Create()
         {
-            var prod = _listaProdutoServico.PegarTudo();
+            var prod = _servicoProduto.PegarTudo();
             var cat = _categoriaServico.PegarTudo();
             var forma = _formaPagamentoServico.PegarTudo();
             var status = _statusCompraServico.PegarTudo();

@@ -4,14 +4,16 @@ using ControleFinanceiro.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ControleFinanceiro.Migrations
 {
     [DbContext(typeof(ControleFinanceiroContext))]
-    partial class ControleFinanceiroContextModelSnapshot : ModelSnapshot
+    [Migration("20200421003544_AlteracaoFKProdDesejoViewDesejo")]
+    partial class AlteracaoFKProdDesejoViewDesejo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,9 +131,7 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<int>("ProdId");
 
-                    b.Property<int>("StatId");
-
-                    b.Property<int?>("StatusCompraStatusId");
+                    b.Property<int>("StatusId");
 
                     b.HasKey("DesejoId");
 
@@ -141,7 +141,7 @@ namespace ControleFinanceiro.Migrations
 
                     b.HasIndex("ListaProdutoProdutoId");
 
-                    b.HasIndex("StatusCompraStatusId");
+                    b.HasIndex("StatusId");
 
                     b.ToTable("ListaDesejo");
                 });
@@ -259,7 +259,8 @@ namespace ControleFinanceiro.Migrations
 
                     b.HasOne("ControleFinanceiro.Models.StatusCompra", "StatusCompra")
                         .WithMany("ListaDesejos")
-                        .HasForeignKey("StatusCompraStatusId");
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ControleFinanceiro.Models.ListaMercado", b =>

@@ -27,9 +27,11 @@ namespace ControleFinanceiro.Servico
             _context.Add(produto);
             _context.SaveChanges();
         }
+
         public List<ListaProduto> PegarTudo()
         {
             return _context.ListaProduto.OrderBy(i => i.ProdutoNome).ToList();
+            //return _context.ListaProduto.OrderBy(p => p.ProdutoId).ToList();
         }
 
     }

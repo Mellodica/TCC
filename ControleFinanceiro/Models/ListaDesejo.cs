@@ -13,21 +13,30 @@ namespace ControleFinanceiro.Models
         public int DesejoId { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:F2}")]
-        [Display(Name ="Valor Do Produto")]
+        [Display(Name = "Valor Do Produto")]
         public double DesejoValor { get; set; }
+
+
         [Display(Name = "Previsão de Compra")]
-        [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "0{dd:MM:yyyy")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DesejoData { get; set; }
+
+
         [Display(Name = "Situação da Compra")]
         public StatusCompra StatusCompra { get; set; }
-        public int StatusId { get; set; }
+        public int StatId { get; set; }
         public Categoria Categoria { get; set; }
-        public int CategoriaId { get; set; }
+        public int CategoId { get; set; }
+
+
         [Display(Name = "Método de Pagamento")]
         public FormaPagamento FormaPagamento { get; set; }
-        public int FormaId { get; set; }
+        public int FormId { get; set; }
+
+        [Display(Name = "Produto")]
+        public ListaProduto ListaProduto { get; set; }
+        public int ProdId { get; set; }
 
 
         public ListaDesejo()

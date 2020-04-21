@@ -46,6 +46,7 @@ namespace ControleFinanceiro
             services.AddScoped<CategoriaServico>();
             services.AddScoped<FormaPagamentoServico>();
             services.AddScoped<StatusCompraServico>();
+            services.AddScoped<ServicoProduto>();
             
            
         }

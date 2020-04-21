@@ -4,14 +4,16 @@ using ControleFinanceiro.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ControleFinanceiro.Migrations
 {
     [DbContext(typeof(ControleFinanceiroContext))]
-    partial class ControleFinanceiroContextModelSnapshot : ModelSnapshot
+    [Migration("20200420231603_ErroDesejoProduto")]
+    partial class ErroDesejoProduto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,27 +123,21 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<double>("DesejoValor");
 
-                    b.Property<int>("FormId");
+                    b.Property<int>("FormaId");
 
-                    b.Property<int?>("FormaPagamentoFormaId");
+                    b.Property<int>("ProdutoId");
 
-                    b.Property<int?>("ListaProdutoProdutoId");
-
-                    b.Property<int>("ProdId");
-
-                    b.Property<int>("StatId");
-
-                    b.Property<int?>("StatusCompraStatusId");
+                    b.Property<int>("StatusId");
 
                     b.HasKey("DesejoId");
 
                     b.HasIndex("CategoriaId");
 
-                    b.HasIndex("FormaPagamentoFormaId");
+                    b.HasIndex("FormaId");
 
-                    b.HasIndex("ListaProdutoProdutoId");
+                    b.HasIndex("ProdutoId");
 
-                    b.HasIndex("StatusCompraStatusId");
+                    b.HasIndex("StatusId");
 
                     b.ToTable("ListaDesejo");
                 });
@@ -251,15 +247,18 @@ namespace ControleFinanceiro.Migrations
 
                     b.HasOne("ControleFinanceiro.Models.FormaPagamento", "FormaPagamento")
                         .WithMany("ListaDesejos")
-                        .HasForeignKey("FormaPagamentoFormaId");
+                        .HasForeignKey("FormaId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ControleFinanceiro.Models.ListaProduto", "ListaProduto")
                         .WithMany("Desejos")
-                        .HasForeignKey("ListaProdutoProdutoId");
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ControleFinanceiro.Models.StatusCompra", "StatusCompra")
                         .WithMany("ListaDesejos")
-                        .HasForeignKey("StatusCompraStatusId");
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ControleFinanceiro.Models.ListaMercado", b =>
