@@ -1,33 +1,14 @@
-@import url('http:fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700&display=swap');
-
-*
-{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    font-family: 'Poppins', sans-serif;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 300vh;
-    background: #111;
-}
-
 .container
 {
     position: relative;
     width: 500px;
-    padding: 40px;
-    background: #151515;
+    padding: 40px
+
 }
-    .container h2 {
+    .container h4 {
         color: #999;
         margin-bottom: 45px;
-        text-align: center;
+        text-align: left;
     }
 
 .input-field
@@ -106,8 +87,8 @@ body {
     border: none;
     box-shadow: none;
     padding: 10px 25px;
-    background: #333;
-    color: #fff;
+    background: #111;
+    color: white;
     font-size: 16px;
     cursor: pointer;
 }
@@ -115,6 +96,7 @@ body {
 {
     background: #00bcd4;
 }
+<<<<<<< HEAD:ControleFinanceiro/wwwroot/css/estilodesejo.css
 
 .purple-border textarea {
     border: 1px solid #ba68c8;
@@ -131,3 +113,5 @@ body {
 }
 
 
+=======
+>>>>>>> 0f41d93900d1cd9011bbd30361b375186b8f4805:ControleFinanceiro/wwwroot/css/estilodejeso2.css
