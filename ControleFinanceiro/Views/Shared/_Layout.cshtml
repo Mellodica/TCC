@@ -3,11 +3,12 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<link rel="icon" type="image/png" href="~/assets/img/favicon.ico">
+	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>@ViewData["Title"] - LAYOUT CONTROLE</title>
+	<title>@ViewData["Title"] Controle Pessoal</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<meta name="viewport" content="width=device-width" />
+
 
 	<environment include="Development">
 		<link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -24,13 +25,190 @@
 	@RenderSection("Styles", required: false)
 </head>
 <body>
+	<div class="wrapper">
+		<div class="sidebar" data-color="purple" data-image="assets/img/sidebar-4.jpg">
+			<div class="sidebar-wrapper">
+				<div class="logo">
+					<a class="simple-text" asp-controller="Controles" asp-action="Index">
+						Painel de Controle
+					</a>
+				</div>
+				<ul class="nav">
+					<li class="active">
+						<a asp-controller="Controles" asp-action="Index">
+							<i class="pe-7s-graph"></i>
+							<p>Painel de Controle</p>
+						</a>
+					</li>
+					<li>
+						<a asp-controller="ListaMercados" asp-action="Index">
+							<!--redireciona para supermercado, trocar action index para Supermercado-->
+							<i class="pe-7s-cart"></i>
+							<p>Supermercado</p>
+						</a>
+					</li>
+					<li>
+						<a asp-controller="DespesaFixas" asp-action="Index">
+							<!--redireciona para despesas fixas, trocar action index para DespesasFixas-->
+							<i class="fa fa-usd"></i>
+							<p>Despesas Fixas</p>
+						</a>
+					</li>
+					<li>
+						<a asp-controller="DespesaDiretas" asp-action="Index">
+							<!--redireciona para despesas diretas, trocar action index para DespesasDiretas-->
+							<i class="pe-7s-calculator"></i>
+							<p>Despesas Diretas</p>
+						</a>
+					</li>
+					<li>
+						<a asp-controller="ListaDesejos" asp-action="Index">
+							<!--redireciona para lista de desejos, trocar action index para ListaDesejos-->
+							<i class="pe-7s-note2"></i>
+							<p>Lista de Desejos</p>
+						</a>
+					</li>
+					<li>
+						<a asp-controller="ListaProdutos" asp-action="Index">
+							<!--redireciona para Produtos, trocar action index para Produtos-->
+							<i class="pe-7s-box1"></i>
+							<p>Produtos</p>
+						</a>
+					</li>
+					<!-- <li>
+						<a asp-controller="Controle" asp-action="Index">
+						redireciona para serviços, trocar action index para Serviços
+						<i class="pe-7s-tools"></i>
+						<p>Serviços</p>
+						</a>
+					</li>-->
+					<li>
+						<a asp-controller="Controles" asp-action="Index">
+							<!--redireciona para Configuirações, trocar action index para Configurações-->
+							<!--  icone 1<i class="pe-7s-config"></i>  -->
+							<!--icone 2--><i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+							<span class="sr-only">Loading...</span>
+							<p>Configurações</p>
+						</a>
+					</li>
+					<li class="divider">
+						<!--<li class="active-pro">
+							<a asp-controller="Controle" asp-action="Index">
+								redireciona para Usuario Pro, trocar action index para UsuarioPro
+						<i class="pe-7s-rocket"></i>
+						<p>Eleve para PRO</p>
+						</a>
+						-->
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="main-panel">
+			<nav class="navbar navbar-default navbar-fixed">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" asp-controller="Controle" asp-action="Index">Painel de Controle</a>
+						<!-- redireciona a algum link, estava dashbord -->
+					</div>
+					<div class="collapse navbar-collapse">
+						<ul class="nav navbar-nav navbar-left">
+							<li>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
-	<div>
-		@RenderBody()
-		
+									<i class="fa fa-dashboard"></i>
+									<p class="hidden-lg hidden-md">Controle</p>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Ação</a></li>
+									<!--pode ser uma drop down para mês ou algo do genero-->
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-globe"></i>
+									<b class="caret hidden-lg hidden-md"></b>
+									<p class="hidden-lg hidden-md">
+										5 Notificações
+										<b class="caret"></b>
+									</p>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Notificação 1</a></li>
+									<li><a href="#">Notificação 2</a></li>
+									<li><a href="#">Notificação 3</a></li>
+									<li><a href="#">Notificação 4</a></li>
+									<li><a href="#">Mais uma notificação</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="">
+									<!-- buscador precisa de uma action -->
+									<i class="fa fa-search"></i>
+									<p class="hidden-lg hidden-md">Search</p>
+								</a>
+							</li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								<a href="">
+									<p>Conta</p>
+								</a>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<p>
+										Categorias
+										<b class="caret"></b>
+									</p>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Ação link</a></li>
+									<li><a href="#">Ação link</a></li>
+									<li><a href="#">Ação link</a></li>
+									<li><a href="#">Ação link</a></li>
+									<li><a href="#">Ação link</a></li>
+									<li class="divider"></li>
+									<li><a href="#">Ação link</a></li>
+									<!--precisa de asp para categorias,ou data, ou algo que va na drop down-->
+								</ul>
+							</li>
+							<li>
+								<a href="#">
+									<!--asp para metodo encerrar sessão, logout ou algo do tipo-->
+									<p>Sair</p>
+								</a>
+							</li>
+							<li class="separator hidden-lg hidden-md"></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			
+				@RenderBody()
+
+			
+			
+			<footer class="footer" style="background-color: #222;">
+				<div class="container-fluid">
+					<nav class="pull-right">
+					</nav>
+					<p class="copyright pull-right">
+						&copy;
+						<script>document.write(new Date().getFullYear())</script> <a href="http://www.google.com.br">ControleFinanceiro</a>
+					</p>
+				</div>
+			</footer>
+			
+		</div>
 	</div>
-	
-	
+
+
 	<partial name="_CookieConsentPartial" />
 
 	<environment include="Development">
