@@ -10,11 +10,12 @@
 	<meta name="viewport" content="width=device-width" />
 
 	<environment include="Development">
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
 		<link rel=" stylesheet" href="~/assets/css/font-awesome.min.css" />
-		<link href="assets/css/animate.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="assets/css/light-bootstrap-dashboard.css?v=1.4.0" />
-		<link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+		<link href="~/assets/css/animate.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="~/assets/css/light-bootstrap-dashboard.css" />
+		<link href="~/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+		<link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
 	</environment>
 	<environment exclude="Development">
 		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
@@ -55,6 +56,6 @@
 		</script>
 	</environment>
 
-	@RenderSection("ScriptPage", false);
+	@RenderSection("Scripts", required: false)
 </body>
 </html>
