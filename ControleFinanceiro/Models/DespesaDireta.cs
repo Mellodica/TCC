@@ -11,11 +11,26 @@ namespace ControleFinanceiro.Models
     {
         [Key]
         public int DespDirId { get; set; }
+
+        [Display(Name = "Valor")]
         public double DespDirValor { get; set; }
+
+        [Display(Name = "Data")]
         public DateTime DespDirData { get; set; }
+
+        [Display(Name = "Situação da Compra")]
         public StatusCompra StatusCompra { get; set; }
+        public int CategoId { get; set; }
+
+        [Display(Name = "Forma Pagamento")]
         public FormaPagamento FormaPagamento { get; set; }
+        public int FormId { get; set; }
+
+        [Display(Name = "Produto")]
         public ListaProduto ListaProduto { get; set; }
+        public int ProdId { get; set; }
+
+        [Display(Name = "Categoria")]
         public Categoria Categoria { get; set; }
 
    

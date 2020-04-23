@@ -19,6 +19,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.DespDirData)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria.CategoriaNome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ListaProduto.ProdutoNome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormaPagamento.FormaNome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusCompra.StatusNome)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -30,6 +42,18 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DespDirData)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria.CategoriaNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ListaProduto.ProdutoNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FormaPagamento.FormaNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusCompra.StatusNome)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DespDirId">Edit</a> |

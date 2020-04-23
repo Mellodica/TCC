@@ -1,5 +1,4 @@
-﻿@model ControleFinanceiro.Models.DespesaDireta
-
+﻿@model ControleFinanceiro.Models.ViewModel.DiretaViewModel
 @{
     ViewData["Title"] = "Despesas Diárias";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -27,15 +26,31 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="DespDirValor" class="control-label"></label>
-                <input asp-for="DespDirValor" class="form-control" />
-                <span asp-validation-for="DespDirValor" class="text-danger"></span>
+                <label asp-for="DespesaDireta.DespDirValor" class="control-label"></label>
+                <input asp-for="DespesaDireta.DespDirValor" class="form-control" />
+                <span asp-validation-for="DespesaDireta.DespDirValor" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DespDirData" class="control-label"></label>
-                <input asp-for="DespDirData" class="form-control" />
-                <span asp-validation-for="DespDirData" class="text-danger"></span>
+                <label asp-for="DespesaDireta.DespDirData" class="control-label"></label>
+                <input asp-for="DespesaDireta.DespDirData" class="form-control" />
+                <span asp-validation-for="DespesaDireta.DespDirData" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="DespesaDireta.ListaProduto" class="control-label"></label>
+                <select asp-for="DespesaDireta.ListaProduto.ProdutoId" class="form-control" asp-items="@(new SelectList(Model.ListaProdutos, "ProdutoId", "ProdutoNome"))"> </select>               
+                <span asp-validation-for="DespesaDireta.ListaProduto.ProdutoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DespesaDireta.DespDirData" class="control-label"></label>
+                <input asp-for="DespesaDireta.DespDirData" class="form-control" />
+                <span asp-validation-for="DespesaDireta.DespDirData" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DespesaDireta.DespDirData" class="control-label"></label>
+                <input asp-for="DespesaDireta.DespDirData" class="form-control" />
+                <span asp-validation-for="DespesaDireta.DespDirData" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>

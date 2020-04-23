@@ -52,10 +52,10 @@
                 @Html.DisplayFor(ModelItem => item.FormaPagamento)
             </td>
             <td>
-                @Html.DisplayFor(ModelItem => item.ListaProduto)
+                @Html.DisplayFor(ModelItem => item.ListaProduto.ProdutoNome)
             </td>
             <td>
-                @Html.DisplayFor(ModelItem => item.StatusCompra)
+                @Html.DisplayFor(ModelItem => item.StatusCompra.StatusNome)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DesejoId">Edit</a> |

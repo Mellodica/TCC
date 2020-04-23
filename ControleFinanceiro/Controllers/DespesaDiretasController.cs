@@ -7,18 +7,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
+using ControleFinanceiro.Servico;
 
 namespace ControleFinanceiro.Controllers
 {
     public class DespesaDiretasController : Controller
     {
         private readonly ControleFinanceiroContext _context;
+        private readonly CategoriaServico _categoriaServico;
+        private readonly FormaPagamentoServico _formaPagamentoServico;
+        private readonly StatusCompraServico _statusCompraServico;
+        private readonly ServicoProduto _servicoProduto;
 
-        public DespesaDiretasController(ControleFinanceiroContext context)
+        public DespesaDiretasController(ControleFinanceiroContext context, CategoriaServico categoriaServico, FormaPagamentoServico formaPagamentoServico, StatusCompraServico statusCompraServico, ServicoProduto servicoProduto)
         {
+            _categoriaServico = categoriaServico;
+            _formaPagamentoServico = formaPagamentoServico;
+            _statusCompraServico = statusCompraServico;
+            _servicoProduto = servicoProduto;
             _context = context;
         }
 
+       
         // GET: DespesaDiretas
         public async Task<IActionResult> Index()
         {
