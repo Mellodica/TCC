@@ -1,0 +1,117 @@
+.container
+{
+    position: relative;
+    width: 500px;
+    padding: 40px
+
+}
+    .container h4 {
+        color: #999;
+        margin-bottom: 45px;
+        text-align: left;
+    }
+
+.input-field
+{
+    position: relative;
+    height: 40px;
+    width: 100%;
+}
+.input-field input[type="text"]
+{
+    position: absolute;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    font-size: 16px;
+    color: #fff;
+    width: 100%;
+}
+
+.input-field label
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #555;
+    pointer-events: none;
+    display: block;
+    transition: 0.5s;
+
+}
+
+.input-field input[type="text"]:focus + label,
+.input-field input[type="text"]:valid + label
+{
+    transform: translateY(-35px);
+    font-size: 14px;
+    color: #fff;
+    background: #ff006a;
+    padding: 2px 6px;
+
+}
+.input-field span
+{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: block;
+    background: #555;
+    width: 100%;
+    height: 2px;
+
+}
+.input-field span::before
+{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00b0ff;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.9 ease-in-out;
+}
+.input-field input[type="text"]:focus ~ span::before,
+.input-field input[type="text"]:valid ~ span::before
+{
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 0.9 ease-in-out;
+}
+.btn
+{
+    margin-top: 20px;
+    border: none;
+    box-shadow: none;
+    padding: 10px 25px;
+    background: #111;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+.btn:hover
+{
+    background: #00bcd4;
+}
+<<<<<<< HEAD:ControleFinanceiro/wwwroot/css/estilodesejo.css
+
+.purple-border textarea {
+    border: 1px solid #ba68c8;
+}
+
+.purple-border .form-control:focus {
+    border: 1px solid #ba68c8;
+    box-shadow: 0 0 0 0.2rem rgba(186, 104, 200, .25);
+}
+
+.green-border-focus .form-control:focus {
+    border: 1px solid #8bc34a;
+    box-shadow: 0 0 0 0.2rem rgba(139, 195, 74, .25);
+}
+
+
+=======
+>>>>>>> 0f41d93900d1cd9011bbd30361b375186b8f4805:ControleFinanceiro/wwwroot/css/estilodejeso2.css
