@@ -75,5 +75,6 @@ namespace ControleFinanceiro.Servico
         {
             return _context.Categoria.OrderBy(i => i.CategoriaNome).ToList();
         }
+        
     }
 }

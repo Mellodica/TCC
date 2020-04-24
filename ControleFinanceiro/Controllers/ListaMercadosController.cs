@@ -46,7 +46,9 @@ namespace ControleFinanceiro.Controllers
         // GET: ListaMercados/Create
         public IActionResult Create()
         {
-            return View();
+            ListaMercado listaMercado= new ListaMercado();
+            var obj1 = listaMercado;
+            return View(listaMercado);
         }
 
         // POST: ListaMercados/Create
@@ -54,10 +56,13 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MercadoId,MercadoValor,MercadoData")] ListaMercado listaMercado)
+        public async Task<IActionResult> Create([Bind("MercadoId,MercadoValor,MercadoData","StatusValor","StatId")] ListaMercado listaMercado)
         {
+            
+            
             if (ModelState.IsValid)
             {
+               
                 _context.Add(listaMercado);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

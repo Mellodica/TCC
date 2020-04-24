@@ -18,7 +18,7 @@ namespace ControleFinanceiro.Servico
 
         public void Seed()
         {
-             if(_context.Categoria.Any() || _context.FormaPagamento.Any() || _context.StatusCompra.Any() || _context.ListaProduto.Any())
+            if (_context.Categoria.Any() || _context.FormaPagamento.Any() || _context.StatusCompra.Any() || _context.ListaProduto.Any() || _context.ListaDesejo.Any())
             {
                 return; //Já tem dados.
             }
@@ -88,7 +88,9 @@ namespace ControleFinanceiro.Servico
             Categoria c37 = new Categoria(new int(), "Vestuário");
             Categoria c38 = new Categoria(new int(), "Compras");
 
+            ListaDesejo l1 = new ListaDesejo(new int(), 4, "400", 200, DateTime.Now, s1, c38, f1);
 
+            
             _context.StatusCompra.AddRange(s1, s2, s3);
             _context.FormaPagamento.AddRange(f1, f2, f3, f4, f5, f6);
             _context.Categoria.AddRange(
@@ -97,6 +99,8 @@ namespace ControleFinanceiro.Servico
                 c21, c22, c23, c24, c25, c26, c27, c28, c29, c30,
                 c31, c32, c33, c34, c35, c36, c37, c38);
             _context.ListaProduto.AddRange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+
+            _context.ListaDesejo.AddRange(l1);
 
             _context.SaveChanges();
         }
