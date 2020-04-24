@@ -47,8 +47,9 @@ namespace ControleFinanceiro
             services.AddScoped<FormaPagamentoServico>();
             services.AddScoped<StatusCompraServico>();
             services.AddScoped<ServicoProduto>();
-            
            
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

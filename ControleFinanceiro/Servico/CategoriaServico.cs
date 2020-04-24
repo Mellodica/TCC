@@ -26,7 +26,7 @@ namespace ControleFinanceiro.Servico
 
         public async Task<Categoria> EncontraPorId(int id)
         {
-            return  _context.Categoria.FirstOrDefault(item => item.CategoriaId == id);
+            return _context.Categoria.FirstOrDefault(item => item.CategoriaId == id);
         }
 
         public void DeleteConfirma(int id)
@@ -75,5 +75,6 @@ namespace ControleFinanceiro.Servico
         {
             return _context.Categoria.OrderBy(i => i.CategoriaNome).ToList();
         }
+        
     }
 }

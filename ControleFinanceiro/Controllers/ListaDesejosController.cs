@@ -12,13 +12,17 @@ using ControleFinanceiro.Models.ViewModel;
 
 namespace ControleFinanceiro.Controllers
 {
+   
     public class ListaDesejosController : Controller
-    {
+    { 
         private readonly ControleFinanceiroContext _context;
         private readonly CategoriaServico _categoriaServico;
         private readonly FormaPagamentoServico _formaPagamentoServico;
         private readonly StatusCompraServico _statusCompraServico;
         private readonly ServicoProduto _servicoProduto;
+        private readonly DesejoViewModel _desejoViewModel;
+        
+
 
         public ListaDesejosController(ControleFinanceiroContext context, CategoriaServico categoriaServico, ServicoProduto servicoProduto, FormaPagamentoServico formaPagamentoServico, StatusCompraServico statusCompraServico)
         {
@@ -69,15 +73,33 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DesejoId,DesejoValor,DesejoData,StatId,StatusCompra,Categoria,FormaPagamento,FormId,ListaProduto,ListaProdId")] ListaDesejo listaDesejo)
+        public IActionResult Create(ListaDesejo listaDesejo)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(listaDesejo);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                this._context.Entry(listaDesejo).State = EntityState.Modified;
+                this._context.SaveChanges();
+
+                return this.RedirectToAction("Index");
             }
-            return View(listaDesejo);
+
+            //this.ViewBa = new SelectList(this._context.ListaDesejo, "StatusId", "StatusNome", listaDesejo.StatId);
+            //this.ViewBag.ArtistId = new SelectList(this._context.ListaDesejo, "FormaId", "FormaNome", listaDesejo.FormId);
+
+            return this.View(listaDesejo);
+
+
+
+
+
+
+            //if (ModelState.IsValid)
+            //{
+            //    _desejoServico.Insert(listaDesejo);
+            //    await _context.SaveChangesAsync();
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //return View(listaDesejo);
         }
 
         // GET: ListaDesejos/Edit/5

@@ -14,7 +14,7 @@ namespace ControleFinanceiro.Models.ViewModel
         public ICollection<FormaPagamento> FormaPagamentos { get; set; }
         public ICollection<StatusCompra> StatusCompras { get; set; }
 
-      
+
 
     }
 }

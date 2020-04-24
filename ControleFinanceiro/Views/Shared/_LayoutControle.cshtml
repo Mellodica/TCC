@@ -11,11 +11,14 @@
 	
 
 	<environment include="Development">
+<<<<<<< HEAD
+=======
+		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+>>>>>>> 558f74c4dff2ad252a48ddbfad52990c8c2b7a34
 		<link rel=" stylesheet" href="~/assets/css/font-awesome.min.css" />
-		<link href="~/assets/css/animate.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="~/assets/css/light-bootstrap-dashboard.css" />
-		<link href="~/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
-		<link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="assets/css/animate.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="assets/css/light-bootstrap-dashboard.css?v=1.4.0" />
+		<link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 	</environment>
 	<environment exclude="Development">
 		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
@@ -249,6 +252,6 @@
 		<script src="~/js/site.min.js" asp-append-version="true"></script>
 	</environment>
 
-	@RenderSection("Scripts", required: false)
+	@RenderSection("ScriptPage", false);
 </body>
 </html>

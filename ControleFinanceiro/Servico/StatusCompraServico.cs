@@ -22,5 +22,7 @@ namespace ControleFinanceiro.Servico
         {
             return _context.StatusCompra.OrderBy(i => i.StatusNome).ToList();
         }
+        
+        
     }
 }
