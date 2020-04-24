@@ -5,9 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<<<<<<< HEAD
 
 <body>
 	<div class="content">
@@ -95,64 +92,5 @@
 		</div>
 	</div>
 </body>
-=======
-<div>
-    <p>
-        <a asp-action="Create" class="btn btn-default">Create New</a>
-    </p>
-</div>
-<table class="table table-hover success">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DesejoValor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DesejoData)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FormaPagamento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ListaProduto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StatusCompra)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DesejoValor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DesejoData)
-            </td>
-            <td>
-                @Html.DisplayFor(ModelItem => item.Categoria)
-            </td>
-            <td>
-                @Html.DisplayFor(ModelItem => item.FormaPagamento)
-            </td>
-            <td>
-                @Html.DisplayFor(ModelItem => item.ListaProduto)
-            </td>
-            <td>
-                @Html.DisplayFor(ModelItem => item.StatusCompra)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DesejoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DesejoId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DesejoId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
->>>>>>> 558f74c4dff2ad252a48ddbfad52990c8c2b7a34
+
+
