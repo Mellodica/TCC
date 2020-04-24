@@ -7,7 +7,8 @@
 html {
 	font-family: sans-serif;
 	-webkit-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%
+	-ms-text-size-adjust: 100%;
+	max-width:
 }
 
 body {
@@ -189,7 +190,8 @@ table {
 }
 
 td, th {
-	padding: 0
+	padding: 0;
+	color: #fff;
 }
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 
@@ -1365,8 +1367,9 @@ button, input, select, textarea {
 }
 
 a {
-	color: #337ab7;
-	text-decoration: none
+	color: #00bc8c;
+    text-decoration: none;
+    background-color: transparent;
 }
 
 	a:focus, a:hover {
@@ -3474,8 +3477,8 @@ a.btn.disabled, fieldset[disabled] a.btn {
 
 .btn-primary {
 	color: #fff;
-	background-color: #337ab7;
-	border-color: #2e6da4
+	background-color: #00bcd4;
+	border-color: #00bcd4
 }
 
 	.btn-primary.focus, .btn-primary:focus {
@@ -4866,8 +4869,13 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
 }
 
 .navbar-default {
-	background-color: #f8f8f8;
-	border-color: #e7e7e7
+	background-color: #111;
+    background: border-box;
+    z-index: 99;
+    top: 0;
+    width: 100%;
+    border-bottom: 1px solid #222;
+  
 }
 
 	.navbar-default .navbar-brand {

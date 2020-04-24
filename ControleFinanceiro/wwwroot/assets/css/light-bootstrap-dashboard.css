@@ -339,7 +339,7 @@ input:focus {
 		.sidebar .nav li.active > a {
 			color: #FFFFFF;
 			opacity: 1;
-			background: rgba(255, 255, 255, 0.23);
+			/*background: rgba(255, 255, 255, 0.23);*/
 		}
 
 		.sidebar .nav li.separator {
@@ -428,7 +428,7 @@ input:focus {
 
 	.sidebar:before {
 		opacity: .33;
-		background: #000000;
+		background: ##A9A9A9;
 	}
 
 	.sidebar:after {
@@ -527,7 +527,7 @@ input:focus {
 	}
 
 	.main-panel > .footer {
-		border-top: 1px solid #e7e7e7; 
+		border-top: 1px solid darkgrey;
 	}
 
 	.main-panel .navbar {
@@ -1986,7 +1986,7 @@ input:focus {
 	}
 
 .footer {
-	background-color: #222;
+	background-color: #111;
 	line-height: 20px;
 }
 
@@ -2206,8 +2206,7 @@ input:focus {
 
 .card {
 	border-radius: 4px;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(63, 63, 68, 0.1);
-	background-color: #333;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(63, 63, 68, 0.55);
 	margin-bottom: 30px;
 }
 
@@ -2291,7 +2290,7 @@ input:focus {
 
 	.card .title {
 		margin: 0;
-		color: #DDDDDD;
+		color: #00bc8c;
 		font-weight: 300;
 	}
 
@@ -2316,6 +2315,7 @@ input:focus {
 
 		.card .footer .legend {
 			padding: 5px 0;
+			color: #fff;
 		}
 
 		.card .footer hr {
@@ -2324,8 +2324,9 @@ input:focus {
 		}
 
 	.card .stats {
-		color: #a9a9a9;
+		color: #00bc8c;
 	}
+
 
 	.card .footer div {
 		display: inline-block;
