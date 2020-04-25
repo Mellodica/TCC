@@ -11,14 +11,13 @@
 	<div class="content">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-md-10">
+				<div class="col-md-10"   style="float:left; padding-left:180px">
 					<div class="card">
 						<hr />
 						<div class="container">
 							<div class="row">
 								<div class="header">
-									<h4 class="title">Escolha o produto da lista de Desejo!</h4>
-									<!--<p class="category">Subtitulo..</p>-->
+									<h4 class="title">Escolha o produto da lista de Desejo!</h4>									
 									<br />
 								</div>
 								<form>
@@ -29,6 +28,10 @@
 												<label>Digite o Nome do Produto</label>
 												<span></span>
 											</div>
+											<div class="col-md-5">
+												<input type="submit" value="Buscar" name="" class="btn btn-info btn-fill pull-left">
+											</div>
+											<br />
 										</div>
 									</div>
 								</form>
@@ -36,9 +39,9 @@
 									<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 									<div class="row">
 										<div class="col-md-10">
-											<div class="input-field">
+											<div class="form-group">
+												<label asp-for="ListaDesejos.DesejoValor"></label>
 												<input asp-for="ListaDesejos.DesejoValor" class="form-control" name="" required="" />
-												<label>Valor Do produto</label>
 												<span asp-validation-for="ListaDesejos.DesejoValor" class="text-danger"></span>
 											</div>
 										</div>
@@ -94,7 +97,7 @@
 								<form>
 									<div class="row">
 										<div class="col-md-5">
-											<input type="submit" value="Create" name="" class="btn">
+											<input type="submit" value="Create" name="" class="btn btn-info btn-fill pull-left">
 										</div>
 										<div class="col-md-1">
 											<a asp-action="Index" class="btn btn-info btn-fill pull-left">Voltar à Lista</a>
