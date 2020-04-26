@@ -73,34 +73,16 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ListaDesejo listaDesejo)
-        {
-            if (ModelState.IsValid)
+        public async Task<IActionResult> Create([Bind("DesejoValor,DesejoId,DesejoData")] ListaDesejo listaDesejo)
             {
-                this._context.Entry(listaDesejo).State = EntityState.Modified;
-                this._context.SaveChanges();
-
-                return this.RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _context.Add(listaDesejo);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(listaDesejo);
             }
-
-            //this.ViewBa = new SelectList(this._context.ListaDesejo, "StatusId", "StatusNome", listaDesejo.StatId);
-            //this.ViewBag.ArtistId = new SelectList(this._context.ListaDesejo, "FormaId", "FormaNome", listaDesejo.FormId);
-
-            return this.View(listaDesejo);
-
-
-
-
-
-
-            //if (ModelState.IsValid)
-            //{
-            //    _desejoServico.Insert(listaDesejo);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //return View(listaDesejo);
-        }
 
         // GET: ListaDesejos/Edit/5
         public async Task<IActionResult> Edit(int? id)
