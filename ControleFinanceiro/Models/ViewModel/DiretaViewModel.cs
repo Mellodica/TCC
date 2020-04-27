@@ -8,7 +8,7 @@ namespace ControleFinanceiro.Models.ViewModel
     public class DiretaViewModel
     {
 
-        public DespesaDireta DespesaDireta { get; set; }
+        public DespesaDireta DespesaDiretas { get; set; }
 
         public ICollection<ListaProduto> ListaProdutos { get; set; }
         public ICollection<Categoria> Categorias { get; set; }

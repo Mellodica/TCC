@@ -14,10 +14,22 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.ListaProduto)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.DespDirValor)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DespDirData)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormaPagamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusCompra)
             </th>
             <th></th>
         </tr>
@@ -26,10 +38,22 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.ListaProduto.ProdutoNome)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.DespDirValor)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DespDirData)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FormaPagamento.FormaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria.CategoriaNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria.CategoriaNome)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DespDirId">Edit</a> |

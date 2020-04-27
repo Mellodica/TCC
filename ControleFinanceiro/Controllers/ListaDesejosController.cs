@@ -20,7 +20,7 @@ namespace ControleFinanceiro.Controllers
         private readonly FormaPagamentoServico _formaPagamentoServico;
         private readonly StatusCompraServico _statusCompraServico;
         private readonly ServicoProduto _servicoProduto;
-        private readonly DesejoViewModel _desejoViewModel;
+        
         
 
 
@@ -73,7 +73,7 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DesejoValor,DesejoId,DesejoData")] ListaDesejo listaDesejo)
+        public async Task<IActionResult> Create(ListaDesejo listaDesejo)
             {
                 if (ModelState.IsValid)
                 {
