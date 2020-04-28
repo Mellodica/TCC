@@ -34,7 +34,7 @@ namespace ControleFinanceiro.Controllers
             }
 
             var listaProduto = await _context.ListaProduto
-                .FirstOrDefaultAsync(m => m.ProdutoId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (listaProduto == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace ControleFinanceiro.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProdutoId,ProdutoNome,ProdutoDescricao")] ListaProduto listaProduto)
         {
-            if (id != listaProduto.ProdutoId)
+            if (id != listaProduto.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace ControleFinanceiro.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ListaProdutoExists(listaProduto.ProdutoId))
+                    if (!ListaProdutoExists(listaProduto.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace ControleFinanceiro.Controllers
             }
 
             var listaProduto = await _context.ListaProduto
-                .FirstOrDefaultAsync(m => m.ProdutoId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (listaProduto == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace ControleFinanceiro.Controllers
 
         private bool ListaProdutoExists(int id)
         {
-            return _context.ListaProduto.Any(e => e.ProdutoId == id);
+            return _context.ListaProduto.Any(e => e.Id == id);
         }
     }
 }

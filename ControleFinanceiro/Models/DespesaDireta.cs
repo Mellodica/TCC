@@ -14,13 +14,13 @@ namespace ControleFinanceiro.Models
         public double DespDirValor { get; set; }
         public DateTime DespDirData { get; set; }
         public StatusCompra StatusCompra { get; set; }
-        public int StatusId { get; set; }
+        public int StatId { get; set; }
         public FormaPagamento FormaPagamento { get; set; }
-        public int FormaId { get; set; }
+        public int FormId { get; set; }
         public ListaProduto ListaProduto { get; set; }
-        public int ListaProdutoId { get; set; }
+        public int ProdId { get; set; }
         public Categoria Categoria { get; set; }
-        public int CategoriaId { get; set; }
+        public int CategoId { get; set; }
 
 
         public DespesaDireta()

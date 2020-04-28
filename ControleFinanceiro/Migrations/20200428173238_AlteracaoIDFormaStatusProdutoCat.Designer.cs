@@ -4,14 +4,16 @@ using ControleFinanceiro.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ControleFinanceiro.Migrations
 {
     [DbContext(typeof(ControleFinanceiroContext))]
-    partial class ControleFinanceiroContextModelSnapshot : ModelSnapshot
+    [Migration("20200428173238_AlteracaoIDFormaStatusProdutoCat")]
+    partial class AlteracaoIDFormaStatusProdutoCat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,25 +40,21 @@ namespace ControleFinanceiro.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoId");
-
-                    b.Property<int?>("CategoriaId");
+                    b.Property<int>("CategoriaId");
 
                     b.Property<DateTime>("DespDirData");
 
                     b.Property<double>("DespDirValor");
 
-                    b.Property<int>("FormId");
+                    b.Property<int>("FormaId");
 
                     b.Property<int?>("FormaPagamentoId");
 
-                    b.Property<int?>("ListaProdutoId");
-
-                    b.Property<int>("ProdId");
-
-                    b.Property<int>("StatId");
+                    b.Property<int>("ListaProdutoId");
 
                     b.Property<int?>("StatusCompraId");
+
+                    b.Property<int>("StatusId");
 
                     b.HasKey("DespDirId");
 
@@ -217,7 +215,8 @@ namespace ControleFinanceiro.Migrations
                 {
                     b.HasOne("ControleFinanceiro.Models.Categoria", "Categoria")
                         .WithMany("DespesaDiretas")
-                        .HasForeignKey("CategoriaId");
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ControleFinanceiro.Models.FormaPagamento", "FormaPagamento")
                         .WithMany("DespesaDiretas")
@@ -225,7 +224,8 @@ namespace ControleFinanceiro.Migrations
 
                     b.HasOne("ControleFinanceiro.Models.ListaProduto", "ListaProduto")
                         .WithMany("DespesaDireta")
-                        .HasForeignKey("ListaProdutoId");
+                        .HasForeignKey("ListaProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ControleFinanceiro.Models.StatusCompra", "StatusCompra")
                         .WithMany("DespesaDiretas")

@@ -26,7 +26,7 @@ namespace ControleFinanceiro.Servico
 
         public async Task<Categoria> EncontraPorId(int id)
         {
-            return _context.Categoria.FirstOrDefault(item => item.CategoriaId == id);
+            return _context.Categoria.FirstOrDefault(item => item.Id == id);
         }
 
         public void DeleteConfirma(int id)
@@ -39,7 +39,7 @@ namespace ControleFinanceiro.Servico
 
         public async Task Atualizar(Categoria obj)
         {
-            if (!_context.Categoria.Any(x => x.CategoriaId == obj.CategoriaId))
+            if (!_context.Categoria.Any(x => x.Id == obj.Id))
             {
                 throw new NotFoundException("Categoria não encontrada!");
             }

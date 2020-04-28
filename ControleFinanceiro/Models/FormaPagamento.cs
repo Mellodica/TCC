@@ -9,7 +9,7 @@ namespace ControleFinanceiro.Models
     public class FormaPagamento
     {
         [Key]
-        public int FormaId { get; set; }
+        public int Id { get; set; }
         public string FormaNome { get; set; }
         public ICollection<ListaDesejo> ListaDesejos { get; set; } = new List<ListaDesejo>();
         public ICollection<ListaMercado> ListaMercados { get; set; } = new List<ListaMercado>();
@@ -23,7 +23,7 @@ namespace ControleFinanceiro.Models
 
         public FormaPagamento(int formaId, string formaNome)
         {
-            FormaId = formaId;
+            Id = formaId;
             FormaNome = formaNome;
         }
 

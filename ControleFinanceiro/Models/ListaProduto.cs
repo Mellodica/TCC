@@ -9,7 +9,7 @@ namespace ControleFinanceiro.Models
     public class ListaProduto
     {
         [Key]
-        public int ProdutoId { get; set; }
+        public int Id { get; set; }
         public string ProdutoNome { get; set; }
         public string ProdutoDescricao { get; set; }
         public ICollection<ListaDesejo> Desejos { get; set; } = new List<ListaDesejo>();
@@ -23,7 +23,7 @@ namespace ControleFinanceiro.Models
 
         public ListaProduto(int produtoId, string produtoNome, string produtoDescricao)
         {
-            ProdutoId = produtoId;
+            Id = produtoId;
             ProdutoNome = produtoNome;
             ProdutoDescricao = produtoDescricao;
         }

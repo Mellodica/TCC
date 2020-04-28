@@ -91,9 +91,9 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoriaId,CategoriaNome")] Categoria categoria)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CategoriaNome")] Categoria categoria)
         {
-            if (id != categoria.CategoriaId)
+            if (id != categoria.Id)
             {
                 return NotFound();
             }
@@ -107,7 +107,7 @@ namespace ControleFinanceiro.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoriaExists(categoria.CategoriaId))
+                    if (!CategoriaExists(categoria.Id))
                     { 
                         return NotFound();
                     }
@@ -152,7 +152,7 @@ namespace ControleFinanceiro.Controllers
 
         private bool CategoriaExists(int id)
         {
-            return _context.Categoria.Any(e => e.CategoriaId == id);
+            return _context.Categoria.Any(e => e.Id == id);
         }
     }
 }

@@ -7,16 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
+using ControleFinanceiro.Servico;
+using ControleFinanceiro.Models.ViewModel;
 
 namespace ControleFinanceiro.Controllers
 {
     public class DespesaDiretasController : Controller
     {
         private readonly ControleFinanceiroContext _context;
+        private readonly CategoriaServico _categoriaServico;
+        private readonly FormaPagamentoServico _formaPagamentoServico;
+        private readonly StatusCompraServico _statusCompraServico;
+        private readonly ServicoProduto _servicoProduto;
 
-        public DespesaDiretasController(ControleFinanceiroContext context)
+        public DespesaDiretasController(ControleFinanceiroContext context, CategoriaServico categoriaServico, FormaPagamentoServico formaPagamentoServico, StatusCompraServico statusCompraServico, ServicoProduto servicoProduto)
         {
             _context = context;
+            _categoriaServico = categoriaServico;
+            _formaPagamentoServico = formaPagamentoServico;
+            _statusCompraServico = statusCompraServico;
+            _servicoProduto = servicoProduto;
         }
 
         // GET: DespesaDiretas
@@ -46,7 +56,12 @@ namespace ControleFinanceiro.Controllers
         // GET: DespesaDiretas/Create
         public IActionResult Create()
         {
-            return View();
+            var prod = _servicoProduto.PegarTudo();
+            var cat = _categoriaServico.PegarTudo();
+            var forma = _formaPagamentoServico.PegarTudo();
+            var status = _statusCompraServico.PegarTudo();
+            var viewModel = new DiretaViewModel { Categorias = cat, FormaPagamentos = forma, StatusCompras = status, ListaProdutos = prod };
+            return View(viewModel);
         }
 
         // POST: DespesaDiretas/Create
@@ -54,11 +69,12 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DespDirId,DespDirValor,DespDirData")] DespesaDireta despesaDireta)
+        public async Task<IActionResult> Create(DespesaDireta despesaDireta)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(despesaDireta);
+                
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

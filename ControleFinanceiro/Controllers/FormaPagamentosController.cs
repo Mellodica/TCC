@@ -34,7 +34,7 @@ namespace ControleFinanceiro.Controllers
             }
 
             var formaPagamento = await _context.FormaPagamento
-                .FirstOrDefaultAsync(m => m.FormaId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (formaPagamento == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FormaId,FormaNome")] FormaPagamento formaPagamento)
+        public async Task<IActionResult> Create([Bind("Id,FormaNome")] FormaPagamento formaPagamento)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FormaId,FormaNome")] FormaPagamento formaPagamento)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FormaNome")] FormaPagamento formaPagamento)
         {
-            if (id != formaPagamento.FormaId)
+            if (id != formaPagamento.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace ControleFinanceiro.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FormaPagamentoExists(formaPagamento.FormaId))
+                    if (!FormaPagamentoExists(formaPagamento.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace ControleFinanceiro.Controllers
             }
 
             var formaPagamento = await _context.FormaPagamento
-                .FirstOrDefaultAsync(m => m.FormaId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (formaPagamento == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace ControleFinanceiro.Controllers
 
         private bool FormaPagamentoExists(int id)
         {
-            return _context.FormaPagamento.Any(e => e.FormaId == id);
+            return _context.FormaPagamento.Any(e => e.Id == id);
         }
 
        

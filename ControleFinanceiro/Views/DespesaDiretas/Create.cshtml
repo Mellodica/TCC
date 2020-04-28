@@ -37,24 +37,24 @@
                 <span asp-validation-for="DespesaDiretas.DespDirData" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DespesaDiretas.CategoriaId" class="control-label"></label>
-                <select asp-for="DespesaDiretas.CategoriaId" class="form-control" asp-items="@(new SelectList(Model.Categorias, "CategoriaId", "CategoriaNome"))"></select>                
-                <span asp-validation-for="DespesaDiretas.CategoriaId" class="text-danger"></span>
+                <label asp-for="DespesaDiretas.CategoId" class="control-label"></label>
+                <select asp-for="DespesaDiretas.CategoId" class="form-control" asp-items="@(new SelectList(Model.Categorias, "Id", "CategoriaNome"))"></select>                
+                <span asp-validation-for="DespesaDiretas.CategoId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DespesaDiretas.FormaId" class="control-label"></label>
-                <select asp-for="DespesaDiretas.FormaId" class="form-control" asp-items="@(new SelectList(Model.FormaPagamentos, "FormaId", "FormaNome"))"></select> 
-                <span asp-validation-for="DespesaDiretas.FormaId" class="text-danger"></span>
+                <label asp-for="DespesaDiretas.FormId" class="control-label"></label>
+                <select asp-for="DespesaDiretas.FormId" class="form-control" asp-items="@(new SelectList(Model.FormaPagamentos, "Id", "FormaNome"))"></select> 
+                <span asp-validation-for="DespesaDiretas.FormId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DespesaDiretas.ListaProdutoId" class="control-label"></label>
-                <select asp-for="DespesaDiretas.ListaProdutoId" class="form-control" asp-items="@(new SelectList(Model.ListaProdutos, "ProdutoId", "ProdutoNome"))"></select>
-                <span asp-validation-for="DespesaDiretas.ListaProdutoId" class="text-danger"></span>
+                <label asp-for="DespesaDiretas.ProdId" class="control-label"></label>
+                <select asp-for="DespesaDiretas.ProdId" class="form-control" asp-items="@(new SelectList(Model.ListaProdutos, "Id", "ProdutoNome"))"></select>
+                <span asp-validation-for="DespesaDiretas.ProdId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DespesaDiretas.StatusId" class="control-label"></label>
-                <select asp-for="DespesaDiretas.StatusId" class="form-control" asp-items="@(new SelectList(Model.StatusCompras, "StatusId", "StatusNome"))"></select>
-                <span asp-validation-for="DespesaDiretas.StatusId" class="text-danger"></span>
+                <label asp-for="DespesaDiretas.StatId" class="control-label"></label>
+                <select asp-for="DespesaDiretas.StatId" class="form-control" asp-items="@(new SelectList(Model.StatusCompras, "Id", "StatusNome"))"></select>
+                <span asp-validation-for="DespesaDiretas.StatId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

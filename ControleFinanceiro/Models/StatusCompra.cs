@@ -9,7 +9,7 @@ namespace ControleFinanceiro.Models
     public class StatusCompra
     {
         [Key]
-        public int StatusId { get; set; }
+        public int Id { get; set; }
         public string StatusNome { get; set; }
         public ICollection<ListaDesejo> ListaDesejos { get; set; } = new List<ListaDesejo>();
         public ICollection<ListaMercado> ListaMercados { get; set; } = new List<ListaMercado>();
@@ -23,7 +23,7 @@ namespace ControleFinanceiro.Models
 
         public StatusCompra(int statusCompra, string statusNome)
         {
-            StatusId = statusCompra;
+            Id = statusCompra;
             StatusNome = statusNome;
         }
     }

@@ -34,7 +34,7 @@ namespace ControleFinanceiro.Controllers
             }
 
             var statusCompra = await _context.StatusCompra
-                .FirstOrDefaultAsync(m => m.StatusId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (statusCompra == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StatusId,StatusNome")] StatusCompra statusCompra)
+        public async Task<IActionResult> Create([Bind("Id,StatusNome")] StatusCompra statusCompra)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StatusId,StatusNome")] StatusCompra statusCompra)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,StatusNome")] StatusCompra statusCompra)
         {
-            if (id != statusCompra.StatusId)
+            if (id != statusCompra.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace ControleFinanceiro.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StatusCompraExists(statusCompra.StatusId))
+                    if (!StatusCompraExists(statusCompra.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace ControleFinanceiro.Controllers
             }
 
             var statusCompra = await _context.StatusCompra
-                .FirstOrDefaultAsync(m => m.StatusId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (statusCompra == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace ControleFinanceiro.Controllers
 
         private bool StatusCompraExists(int id)
         {
-            return _context.StatusCompra.Any(e => e.StatusId == id);
+            return _context.StatusCompra.Any(e => e.Id == id);
         }
 
         public List<StatusCompra> PegarTudo()

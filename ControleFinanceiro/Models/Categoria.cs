@@ -9,7 +9,7 @@ namespace ControleFinanceiro.Models
     public class Categoria
     {
         [Key]
-        public int CategoriaId { get; set; }
+        public int Id { get; set; }
         public string CategoriaNome { get; set; }
 
         public ICollection<ListaDesejo> ListaDesejos { get; set; } = new List<ListaDesejo>();
@@ -26,7 +26,7 @@ namespace ControleFinanceiro.Models
 
         public Categoria(int categoriaId, string categoriaNome)
         {
-            CategoriaId = categoriaId;
+            Id = categoriaId;
             CategoriaNome = categoriaNome;
         }
     }
