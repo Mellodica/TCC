@@ -8,7 +8,7 @@ namespace ControleFinanceiro.Models.ViewModel
     public class FixaViewModel
     {
 
-        public DespesaFixa DespesaFixa { get; set; }
+        public DespesaFixa DespesaFixas { get; set; }
 
         public ICollection<ListaProduto> ListaProdutos { get; set; }
         public ICollection<Categoria> Categorias { get; set; }

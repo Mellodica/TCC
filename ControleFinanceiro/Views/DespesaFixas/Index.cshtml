@@ -19,6 +19,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.DespFixaData)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ListaProduto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormaPagamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusCompra)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -26,10 +38,23 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.ListaProduto)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.DespFixaValor)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DespFixaData)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FormaPagamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusCompra)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DespFixaId">Edit</a> |

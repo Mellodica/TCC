@@ -26,13 +26,13 @@ namespace ControleFinanceiro.Servico
 
         public async Task<Categoria> EncontraPorId(int id)
         {
-            return _context.Categoria.FirstOrDefault(item => item.Id == id);
+            return await _context.Categoria.FirstOrDefaultAsync (item => item.Id == id);
         }
 
         public void DeleteConfirma(int id)
         {
             var categoria = _context.Categoria.Find(id);
-            _context.Categoria.Remove(categoria);
+             _context.Categoria.Remove(categoria);
             _context.SaveChanges();
             
         }

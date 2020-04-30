@@ -8,7 +8,7 @@ namespace ControleFinanceiro.Models.ViewModel
     public class MercadoViewModel
     {
 
-        public ListaMercado ListaMercado { get; set; }
+        public ListaMercado ListaMercados { get; set; }
 
         public ICollection<ListaProduto> ListaProdutos { get; set; }
         public ICollection<Categoria> Categorias { get; set; }

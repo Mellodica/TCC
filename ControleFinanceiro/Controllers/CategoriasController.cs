@@ -141,7 +141,7 @@ namespace ControleFinanceiro.Controllers
         // POST: Categorias/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             /*var categoria = await _context.Categoria.FindAsync(id);
             _context.Categoria.Remove(categoria);
@@ -152,7 +152,8 @@ namespace ControleFinanceiro.Controllers
 
         private bool CategoriaExists(int id)
         {
-            return _context.Categoria.Any(e => e.Id == id);
+            return _context.Categoria.Any(c => c.Id == id);
+            //return _context.Categoria.Any(e => e.Id == id);
         }
     }
 }

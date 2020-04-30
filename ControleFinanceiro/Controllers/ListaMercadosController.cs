@@ -7,16 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
+using ControleFinanceiro.Servico;
+using ControleFinanceiro.Models.ViewModel;
 
 namespace ControleFinanceiro.Controllers
 {
     public class ListaMercadosController : Controller
     {
         private readonly ControleFinanceiroContext _context;
+        private readonly CategoriaServico _categoriaServico;
+        private readonly FormaPagamentoServico _formaPagamentoServico;
+        private readonly StatusCompraServico _statusCompraServico;
+        private readonly ServicoProduto _servicoProduto;
 
-        public ListaMercadosController(ControleFinanceiroContext context)
+
+        public ListaMercadosController(ControleFinanceiroContext context, CategoriaServico categoriaServico, FormaPagamentoServico formaPagamentoServico, StatusCompraServico statusCompraServico, ServicoProduto servicoProduto)
         {
             _context = context;
+            _categoriaServico = categoriaServico;
+            _formaPagamentoServico = formaPagamentoServico;
+            _statusCompraServico = statusCompraServico;
+            _servicoProduto = servicoProduto;
         }
 
         // GET: ListaMercados
@@ -46,9 +57,12 @@ namespace ControleFinanceiro.Controllers
         // GET: ListaMercados/Create
         public IActionResult Create()
         {
-            ListaMercado listaMercado= new ListaMercado();
-            var obj1 = listaMercado;
-            return View(listaMercado);
+            var prod = _servicoProduto.PegarTudo();
+            var cat = _categoriaServico.PegarTudo();
+            var forma = _formaPagamentoServico.PegarTudo();
+            var status = _statusCompraServico.PegarTudo();
+            var viewModel = new MercadoViewModel { Categorias = cat, FormaPagamentos = forma, StatusCompras = status, ListaProdutos = prod };
+            return View(viewModel);
         }
 
         // POST: ListaMercados/Create

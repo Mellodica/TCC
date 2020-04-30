@@ -7,16 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
+using ControleFinanceiro.Servico;
+using ControleFinanceiro.Models.ViewModel;
 
 namespace ControleFinanceiro.Controllers
 {
     public class DespesaFixasController : Controller
     {
         private readonly ControleFinanceiroContext _context;
+        private readonly CategoriaServico _categoriaServico;
+        private readonly FormaPagamentoServico _formaPagamentoServico;
+        private readonly StatusCompraServico _statusCompraServico;
+        private readonly ServicoProduto _servicoProduto;
 
-        public DespesaFixasController(ControleFinanceiroContext context)
+
+        public DespesaFixasController(ControleFinanceiroContext context, CategoriaServico categoriaServico, FormaPagamentoServico formaPagamentoServico, StatusCompraServico statusCompraServico, ServicoProduto servicoProduto)
         {
             _context = context;
+            _categoriaServico = categoriaServico;
+            _formaPagamentoServico = formaPagamentoServico;
+            _statusCompraServico = statusCompraServico;
+            _servicoProduto = servicoProduto;
         }
 
         // GET: DespesaFixas
@@ -46,15 +57,20 @@ namespace ControleFinanceiro.Controllers
         // GET: DespesaFixas/Create
         public IActionResult Create()
         {
-            return View();
+            var prod = _servicoProduto.PegarTudo();
+            var cat = _categoriaServico.PegarTudo();
+            var forma = _formaPagamentoServico.PegarTudo();
+            var status = _statusCompraServico.PegarTudo();
+            var viewModel = new FixaViewModel { Categorias = cat, FormaPagamentos = forma, StatusCompras = status, ListaProdutos = prod };
+            return View(viewModel);
         }
 
         // POST: DespesaFixas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DespFixaId,DespFixaValor,DespFixaData")] DespesaFixa despesaFixa)
+        [ValidateAntiForgeryToken] //[Bind("DespFixaId,DespFixaValor,DespFixaData")] 
+        public async Task<IActionResult> Create(DespesaFixa despesaFixa)
         {
             if (ModelState.IsValid)
             {
