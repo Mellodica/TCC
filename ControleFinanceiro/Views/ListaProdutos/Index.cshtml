@@ -1,47 +1,129 @@
 ﻿@model IEnumerable<ControleFinanceiro.Models.ListaProduto>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Lista de Produtos";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>	
+
+	<style type="text/css">
+		thead th {
+			background: #1C1C1C;
+		}
+
+		tbody tr {
+			background: #363636;
+		}
+
+		.over {
+			background: #000;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="header">
+							<h4 class="title">@ViewData["Title"]</h4>
+						</div>
+						<div class="content">
+							<div class="row">
+								<div class="col-lg-3">
+									<a asp-action="Create" class="btn btn-primary btn btn-info btn-fill pull-right navbar-btn">
+										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									</a>
+								</div>
+								<div class="col-lg-5">
+									<div class="input-group navbar-btn">
+										<input type="text" class="form-control" placeholder="Search for...">
+										<span class="input-group-btn">
+											<button class="btn btn-default" type="button">Go!</button>
+										</span>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<a asp-action="Index" class="btn btn-primary btn btn-info btn-fill pull-left navbar-btn">
+										<span class="glyphicon glyphicon-home"></span>
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="content">
+							<table align="center" class="table table-hover">
+								<thead>
+									<tr>
+										<th>
+											@Html.DisplayNameFor(model => model.Id)
+										</th>
+										<th>
+											@Html.DisplayNameFor(model => model.ProdutoNome)
+										</th>
+										<th>
+											@Html.DisplayNameFor(model => model.ProdutoDescricao)
+										</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var item in Model)
+									{
+										<tr>
+											<td width="100">
+												@Html.DisplayFor(modelItem => item.Id)
+											</td>
+											<td>
+												@Html.DisplayFor(modelItem => item.ProdutoNome)
+											</td>
+											<td>
+												@Html.DisplayFor(modelItem => item.ProdutoDescricao)
+											</td>
+											<td>
+												<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">
+													<span class="glyphicon glyphicon-edit"></span>
+												</a>
+												<a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">
+													<span class="glyphicon glyphicon-eye-open"></span>
+												</a>
+												<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">
+													<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+												</a>
+											</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+							<nav aria-label="Page navigation">
+								<ul class="pagination">
+									<li>
+										<a href="#" aria-label="Previous">
+											<span aria-hidden="true">&laquo;</span>
+										</a>
+									</li>
+									<li><a href="#">1</a></li>
+									<li><a href="#">2</a></li>
+									<li><a href="#">3</a></li>
+									<li><a href="#">4</a></li>
+									<li><a href="#">5</a></li>
+									<li>
+										<a href="#" aria-label="Next">
+											<span aria-hidden="true">&raquo;</span>
+										</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
-<h2>Index</h2>
-
-<div class="addProd info">
-    <div class="text-center">
-        Adiciona um Produto ou Serviço
-    </div>
-    <div class="">
-        <a asp-action="Create" class="btn">Adicionar</a>
-    </div>
-</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProdutoNome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProdutoDescricao)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProdutoNome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProdutoDescricao)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>

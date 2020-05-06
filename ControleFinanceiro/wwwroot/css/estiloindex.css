@@ -14,7 +14,7 @@ body
 
 .layout_padding 
 {
-  padding: 75px 0;
+  padding: 90px 0;
 }
 
 .layout_padding2 
@@ -63,8 +63,9 @@ body
   height: 102%;
   left: 0;
   top: 0;
-  background-color: #c4d70f;
+  background-color: #363636;
   clip-path: polygon(0 0, 100% 0, 100% 73%, 0% 100%);
+ /* #c4d70f */
 }
 
 .sub_page .hero_area::before 
@@ -119,7 +120,6 @@ body
   background-color: transparent;
 
 }
-
 .custom_menu-btn button span 
 {
   display: block;
@@ -452,7 +452,7 @@ a:focus
 /* about section */
 .about_section 
 {
-  margin-top: 45px;
+  margin-top: 85px;
   text-align: center;
 }
 
@@ -555,7 +555,7 @@ a:focus
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  border-bottom: 1px solid #9be604;
+  border-bottom: 1px solid #363636;
 }
 
 .team_card 
@@ -796,19 +796,19 @@ a:focus
 
 .footer_section 
 {
-  background-color: #191919;
-  padding: 25px 20px;
+  background-color: #fff;
+  padding-bottom: 40px;
 }
 
 .footer_section p 
 {
-  color: #fefeff;
+  color: #777777;
   margin: 0;
   text-align: center;
 }
 
 .footer_section a {
-  color: #fefeff;
+  color: #1DC7EA;
 }
 
 /* end footer section*/

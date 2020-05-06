@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ControleFinanceiro.Models.ListaDesejo>
 
 @{
-	ViewData["Title"] = "Index";
+	ViewData["Title"] = "Lista de Desejos";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,23 +13,21 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="header">
-							<h4 class="title">Lista de Desejos</h4>							
+							<h4 class="title">@ViewData["Title"]</h4>
 						</div>
 						<br />
 						<div class="row">
 							<div class="col-md-11">
 								<div>
 									<p>
-										<a asp-action="Create" class="btn btn-primary btn btn-info btn-fill pull-right ">Create</a>
+										<a asp-action="Create" class="btn btn-primary btn btn-info btn-fill pull-right">Create</a>
 									</p>
 								</div>
 							</div>
 						</div>
 
 						<div class="content table-responsive table-full-width">
-
 							<table class="table table-hover">
-
 								<thead>
 									<tr>
 										<th>
@@ -56,32 +54,38 @@
 								<tbody>
 									@foreach (var item in Model)
 									{
-									<tr>
-										<td>
-											@Html.DisplayFor(modelItem => item.DesejoValor)
-										</td>
-										<td>
-											@Html.DisplayFor(modelItem => item.DesejoData)
-										</td>
-										<td>
-											@Html.DisplayFor(ModelItem => item.Categoria)
-										</td>
-										<td>
-											@Html.DisplayFor(ModelItem => item.FormaPagamento)
-										</td>
-										<td>
-											@Html.DisplayFor(ModelItem => item.ListaProduto)
-										</td>
-										<td>
-											@Html.DisplayFor(ModelItem => item.StatusCompra)
-										</td>
-									
-										<td>
-											<a asp-action="Edit" asp-route-id="@item.DesejoId">Edit</a> |
-											<a asp-action="Details" asp-route-id="@item.DesejoId">Details</a> |
-											<a asp-action="Delete" asp-route-id="@item.DesejoId">Delete</a>
-										</td>
-									</tr>
+										<tr>
+											<td>
+												@Html.DisplayFor(modelItem => item.DesejoValor)
+											</td>
+											<td>
+												@Html.DisplayFor(modelItem => item.DesejoData)
+											</td>
+											<td>
+												@Html.DisplayFor(ModelItem => item.Categoria)
+											</td>
+											<td>
+												@Html.DisplayFor(ModelItem => item.FormaPagamento)
+											</td>
+											<td>
+												@Html.DisplayFor(ModelItem => item.ListaProduto)
+											</td>
+											<td>
+												@Html.DisplayFor(ModelItem => item.StatusCompra)
+											</td>
+
+											<td>
+												<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.DesejoId">
+													<span class="glyphicon glyphicon-edit"></span>
+												</a> 
+												<a class="btn btn-info" asp-action="Details" asp-route-id="@item.DesejoId">
+													<span class="glyphicon glyphicon-eye-open"></span>
+												</a> 
+												<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DesejoId">
+													<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+												</a>
+											</td>
+										</tr>
 									}
 								</tbody>
 							</table>

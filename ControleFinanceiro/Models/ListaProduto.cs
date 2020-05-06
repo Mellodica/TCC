@@ -10,8 +10,13 @@ namespace ControleFinanceiro.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Display(Name = "Nome do Produto")]
         public string ProdutoNome { get; set; }
+
+        [Display(Name = "Descrição do Produto")]
         public string ProdutoDescricao { get; set; }
+
         public ICollection<ListaDesejo> Desejos { get; set; } = new List<ListaDesejo>();
         public ICollection<ListaMercado> Mercados { get; set; } = new List<ListaMercado>();
         public ICollection<DespesaDireta> DespesaDiretas { get; set; } = new List<DespesaDireta>();

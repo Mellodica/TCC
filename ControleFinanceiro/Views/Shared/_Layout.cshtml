@@ -9,24 +9,27 @@
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<meta name="viewport" content="width=device-width" />
 
-
 	<environment include="Development">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" />
 		<link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link rel=" stylesheet" href="~/assets/css/font-awesome.min.css" />
 		<link href="~/assets/css/animate.min.css" rel="stylesheet" />
 		<link href="~/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
-		<link href="~/assets/css/light-bootstrap-dashbord1.css" rel="stylesheet" />
+		<link href="~/assets/css/light-bootstrap1.css" rel="stylesheet" />
 	</environment>
 	<environment exclude="Development">
 		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
 			  asp-fallback-href="~/assets/css/font-awesome.min.css" />
 	</environment>
 
+
 	@RenderSection("Styles", required: false)
 </head>
 <body>
+	<partial name="_CookieConsentPartial" />
+
 	<div class="wrapper">
-		<div class="sidebar" data-color="azure" data-image="assets/img/sidebar-4.jpg">
+		<div class="sidebar" data-color="" data-image="assets/img/sidebar-4.jpg">
 			<div class="sidebar-wrapper">
 				<div class="logo">
 					<a class="simple-text" asp-controller="Controles" asp-action="Index">
@@ -154,6 +157,7 @@
 								</a>
 							</li>
 						</ul>
+
 						<ul class="nav navbar-nav navbar-right">
 							<li>
 								<a href="">
@@ -192,21 +196,18 @@
 
 			@RenderBody()
 
-
-			<footer>
+			<footer class="footer">
 				<div class="container-fluid">
-					<nav class="pull-right">
+					<nav class="pull-left">
 					</nav>
 					<p class="copyright pull-right">
 						&copy;
-						<script>document.write(new Date().getFullYear())</script> <a href="http://www.google.com.br">ControleFinanceiro</a>
+						<script>document.write(new Date().getFullYear())</script> <a href="http://www.google.com.br">TCC SENAI</a>
 					</p>
 				</div>
 			</footer>
-
 		</div>
 	</div>
-	<partial name="_CookieConsentPartial" />
 
 	<environment include="Development">
 		<script src="~/lib/jquery/dist/jquery.js"></script>
@@ -218,6 +219,7 @@
 		<script src="~/assets/js/bootstrap-notify.js"></script>
 		<script src="~/assets/js/light-bootstrap-dashboard.js"></script>
 		<script src="~/assets/js/demo.js"></script>
+
 	</environment>
 	<environment exclude="Development">
 		<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
@@ -238,3 +240,4 @@
 	@RenderSection("Scripts", required: false)
 </body>
 </html>
+
