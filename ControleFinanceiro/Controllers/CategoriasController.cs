@@ -25,7 +25,7 @@ namespace ControleFinanceiro.Controllers
         // GET: Categorias
         public async Task<IActionResult> Index()
         {
-            var list = await _categoriaServico.EncontrarTudo();
+            var list = await _categoriaServico.EncontrarTudoAsync();
             //await _context.Categoria.ToListAsync();
             return View(list);
             
@@ -39,7 +39,7 @@ namespace ControleFinanceiro.Controllers
                 return NotFound();
             }
 
-            var categoria = await _categoriaServico.EncontraPorId(id.Value);
+            var categoria = await _categoriaServico.EncontraPorIdAsync(id.Value);
             if (categoria == null)
             {
                 return NotFound();
@@ -77,7 +77,7 @@ namespace ControleFinanceiro.Controllers
                 return NotFound();
             }
 
-            var categoria = await _categoriaServico.EncontraPorId(id.Value);
+            var categoria = await _categoriaServico.EncontraPorIdAsync(id.Value);
             if (categoria == null)
             {
                 return NotFound();
@@ -129,7 +129,7 @@ namespace ControleFinanceiro.Controllers
                 return NotFound();
             }
 
-            var categoria = await _categoriaServico.EncontraPorId(id.Value);
+            var categoria = await _categoriaServico.EncontraPorIdAsync(id.Value);
             if (categoria == null)
             {
                 return NotFound();

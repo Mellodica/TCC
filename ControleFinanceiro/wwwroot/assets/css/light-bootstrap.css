@@ -334,6 +334,7 @@ input:focus {
 			opacity: .86;
 			border-radius: 4px;
 			display: block;
+			text-shadow: 1px 1px 1px #111;
 		}
 
 		.sidebar .nav li.active > a {
@@ -703,7 +704,7 @@ input:focus {
 	}
 
 .btn-info {
-	border-color: #00bc8c;
+	border-color: #1DC7EA;
 	color: #1DC7EA;
 }
 
@@ -734,7 +735,7 @@ input:focus {
 
 		.btn-info.btn-fill:hover, .btn-info.btn-fill:focus, .btn-info.btn-fill:active, .btn-info.btn-fill.active,
 		.open > .btn-info.btn-fill.dropdown-toggle {
-			background-color: #42d0ed;
+			background-color: #00bc8c;
 			color: #FFFFFF;
 		}
 
@@ -1130,7 +1131,7 @@ input:focus {
 }
 
 .input-group-btn .btn-default:not(.btn-fill) {
-	border-color: #DDDDDD;
+	border-color: #E0FFFF;
 }
 
 .input-group-btn:last-child > .btn {

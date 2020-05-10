@@ -1,0 +1,46 @@
+	<style type="text/css">
+
+		b {
+			color: black;
+		}
+
+		tr:hover {
+			background-color: #00bc8c;
+			color: #111;
+		}
+
+		.btn-danger:hover {
+			background-color: #FF4A55;
+			color: #fff;
+			border-color: ##EE2D20;
+		}
+		.btn-warning:hover {
+			background-color: #ED8D00;
+			color: #fff;
+			border-color: #FF9500;
+		}
+
+		.btn-info:hover {
+			color: #fff;
+			background-color: #31b0d5;
+			border-color: #46b8da
+		}
+		.btn-default:hover {
+			color: #fff;
+			background-color: #28a745;
+			border-color: #28a745;
+			border-width: 1px;
+		}	
+		
+		.btn{
+			
+		  background-color: #333;
+		}
+		
+		thead th {
+			background: #808080;
+		}
+
+		tbody tr {
+			background: #363636;
+		}

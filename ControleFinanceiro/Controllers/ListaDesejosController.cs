@@ -73,8 +73,8 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ListaDesejo listaDesejo)
-            {
+        public async Task<IActionResult> Create([Bind("DesejoId,DesejoValor,DesejoData")] ListaDesejo listaDesejo)
+        {
                 if (ModelState.IsValid)
                 {
                     _context.Add(listaDesejo);

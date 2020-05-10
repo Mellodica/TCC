@@ -19,15 +19,21 @@ namespace ControleFinanceiro.Servico
             _context = context;
         }
 
-        public async Task<List<Categoria>> EncontrarTudo()
+        public async Task<List<Categoria>> EncontrarTudoAsync()
         {
-            return await _context.Categoria.ToListAsync();
+            return await _context.Categoria.OrderBy(i => i.CategoriaNome).ToListAsync();
         }
 
-        public async Task<Categoria> EncontraPorId(int id)
+        public List<Categoria> PegarTudo()
+        {
+            return _context.Categoria.OrderBy(i => i.CategoriaNome).ToList();
+        }
+
+        public async Task<Categoria> EncontraPorIdAsync(int id)
         {
             return await _context.Categoria.FirstOrDefaultAsync (item => item.Id == id);
         }
+
 
         public void DeleteConfirma(int id)
         {
@@ -69,11 +75,6 @@ namespace ControleFinanceiro.Servico
         {
             _context.Add(obj);
             await _context.SaveChangesAsync();
-        }
-
-        public List<Categoria> PegarTudo()
-        {
-            return _context.Categoria.OrderBy(i => i.CategoriaNome).ToList();
         }
         
     }

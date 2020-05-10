@@ -1,5 +1,6 @@
 ﻿using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace ControleFinanceiro.Servico
 
         public List<StatusCompra> PegarTudo()
         {
-            return _context.StatusCompra.OrderBy(i => i.StatusNome).ToList();
+            return _context.StatusCompra.ToList();
         }
         
         

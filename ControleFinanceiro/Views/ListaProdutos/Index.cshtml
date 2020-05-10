@@ -4,21 +4,10 @@
 	ViewData["Title"] = "Lista de Produtos";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<head>	
+<head>
 
-	<style type="text/css">
-		thead th {
-			background: #1C1C1C;
-		}
+	<link rel="stylesheet" href="~/assets/css/estilo-btn-table.css" />
 
-		tbody tr {
-			background: #363636;
-		}
-
-		.over {
-			background: #000;
-		}
-	</style>
 </head>
 
 <body>
@@ -32,39 +21,39 @@
 						</div>
 						<div class="content">
 							<div class="row">
-								<div class="col-lg-3">
+								<div class="col-lg-1">
+									<a asp-action="Index" class="btn btn-primary btn btn-info btn-fill pull-left navbar-btn">
+										<span class="glyphicon glyphicon-home"></span>
+									</a>
+								</div>
+								<div class="col-lg-1">
 									<a asp-action="Create" class="btn btn-primary btn btn-info btn-fill pull-right navbar-btn">
 										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 									</a>
 								</div>
 								<div class="col-lg-5">
 									<div class="input-group navbar-btn">
-										<input type="text" class="form-control" placeholder="Search for...">
+										<input type="text" class="form-control" placeholder="Procurar...">
 										<span class="input-group-btn">
 											<button class="btn btn-default" type="button">Go!</button>
 										</span>
 									</div>
 								</div>
-								<div class="col-lg-3">
-									<a asp-action="Index" class="btn btn-primary btn btn-info btn-fill pull-left navbar-btn">
-										<span class="glyphicon glyphicon-home"></span>
-									</a>
-								</div>
 							</div>
 						</div>
 
-						<div class="content">
-							<table align="center" class="table table-hover">
+						<div class="content table-responsive">
+							<table class="table">
 								<thead>
 									<tr>
 										<th>
-											@Html.DisplayNameFor(model => model.Id)
+											<b>@Html.DisplayNameFor(model => model.Id)</b>
 										</th>
 										<th>
-											@Html.DisplayNameFor(model => model.ProdutoNome)
+											<b>@Html.DisplayNameFor(model => model.ProdutoNome)</b>
 										</th>
 										<th>
-											@Html.DisplayNameFor(model => model.ProdutoDescricao)
+											<b>@Html.DisplayNameFor(model => model.ProdutoDescricao)</b>
 										</th>
 										<th></th>
 									</tr>
@@ -97,7 +86,7 @@
 									}
 								</tbody>
 							</table>
-							<nav aria-label="Page navigation">
+							<!--	<nav aria-label="Page navigation">
 								<ul class="pagination">
 									<li>
 										<a href="#" aria-label="Previous">
@@ -115,7 +104,7 @@
 										</a>
 									</li>
 								</ul>
-							</nav>
+							</nav> -->
 						</div>
 					</div>
 				</div>

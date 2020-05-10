@@ -4,6 +4,9 @@
 	ViewData["Title"] = "Lista de Desejos";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+	<link rel="stylesheet" href="~/assets/css/estilo-btn-table.css" />
+</head>
 
 
 <body>
@@ -16,37 +19,39 @@
 							<h4 class="title">@ViewData["Title"]</h4>
 						</div>
 						<br />
-						<div class="row">
-							<div class="col-md-11">
+						<div class="content row">
+							<div class="col-lg-1">
 								<div>
 									<p>
-										<a asp-action="Create" class="btn btn-primary btn btn-info btn-fill pull-right">Create</a>
+										<a asp-action="Create" class="btn btn-primary btn btn-info btn-fill pull-left">
+											<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+										</a>
 									</p>
 								</div>
 							</div>
 						</div>
 
-						<div class="content table-responsive table-full-width">
-							<table class="table table-hover">
+						<div class="content table-responsive">
+							<table class="un table">
 								<thead>
 									<tr>
 										<th>
-											@Html.DisplayNameFor(model => model.DesejoValor)
+											<b>@Html.DisplayNameFor(model => model.DesejoValor)</b>
 										</th>
 										<th>
-											@Html.DisplayNameFor(model => model.DesejoData)
+											<b>@Html.DisplayNameFor(model => model.DesejoData)</b>
 										</th>
 										<th>
-											@Html.DisplayNameFor(model => model.Categoria)
+											<b>@Html.DisplayNameFor(model => model.Categoria)</b>
 										</th>
 										<th>
-											@Html.DisplayNameFor(model => model.FormaPagamento)
+											<b>@Html.DisplayNameFor(model => model.FormaPagamento)</b>
 										</th>
 										<th>
-											@Html.DisplayNameFor(model => model.ListaProduto)
+											<b>@Html.DisplayNameFor(model => model.ListaProduto)</b>
 										</th>
 										<th>
-											@Html.DisplayNameFor(model => model.StatusCompra)
+											<b>@Html.DisplayNameFor(model => model.StatusCompra)</b>
 										</th>
 										<th></th>
 									</tr>
@@ -77,10 +82,10 @@
 											<td>
 												<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.DesejoId">
 													<span class="glyphicon glyphicon-edit"></span>
-												</a> 
+												</a>
 												<a class="btn btn-info" asp-action="Details" asp-route-id="@item.DesejoId">
 													<span class="glyphicon glyphicon-eye-open"></span>
-												</a> 
+												</a>
 												<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DesejoId">
 													<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 												</a>

@@ -24,9 +24,9 @@ namespace ControleFinanceiro.Data
 
         public DbSet<ListaDesejo> ListaDesejo { get; set; }
 
-        public DbSet<ControleFinanceiro.Models.Categoria> Categoria { get; set; }
+        public DbSet<Categoria> Categoria { get; set; }
 
-        public DbSet<ControleFinanceiro.Models.FormaPagamento> FormaPagamento { get; set; }
+        public DbSet<FormaPagamento> FormaPagamento { get; set; }
         public DbSet<StatusCompra> StatusCompra { get; set; }
     }
 }

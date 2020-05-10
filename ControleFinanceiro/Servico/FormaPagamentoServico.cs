@@ -1,5 +1,6 @@
 ﻿using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace ControleFinanceiro.Servico
 
         public List<FormaPagamento> PegarTudo()
         {
-            return _context.FormaPagamento.OrderBy(i => i.FormaNome).ToList();
+            return _context.FormaPagamento.ToList();
         }
     }
 }

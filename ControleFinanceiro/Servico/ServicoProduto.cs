@@ -1,5 +1,7 @@
 ﻿using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
+using ControleFinanceiro.Servico.Erros;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,22 +19,20 @@ namespace ControleFinanceiro.Servico
             _context = context;
         }
 
-        public List<ListaProduto> EncontrarTudo()
-        {
-            return _context.ListaProduto.OrderBy(i => i.ProdutoNome).ToList();
-        }
-
-        public void Insert(ListaProduto produto)
+        public async Task InsertAsync(ListaProduto produto)
         {
             _context.Add(produto);
-            _context.SaveChanges();
+           await  _context.SaveChangesAsync();
         }
 
         public List<ListaProduto> PegarTudo()
         {
-            return _context.ListaProduto.OrderBy(i => i.ProdutoNome).ToList();
+            return _context.ListaProduto.OrderBy(p => p.ProdutoNome).ToList();
             //return _context.ListaProduto.OrderBy(p => p.ProdutoId).ToList();
         }
+
+ 
+      
 
     }
 }

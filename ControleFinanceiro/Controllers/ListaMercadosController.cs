@@ -70,7 +70,7 @@ namespace ControleFinanceiro.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MercadoId,MercadoValor,MercadoData","StatusValor","StatId")] ListaMercado listaMercado)
+        public async Task<IActionResult> Create([Bind("MercadoId,MercadoValor,MercadoData","StatusCompra","StatId")] ListaMercado listaMercado)
         {
             
             
