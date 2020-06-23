@@ -1,17 +1,13 @@
 ﻿using ControleFinanceiro.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ControleFinanceiro.Servico
 {
     public class ServicoControle
     {
 
-        private readonly ControleFinanceiroContext _context;
+        private readonly ControlePessoalContext _context;
 
-        public ServicoControle(ControleFinanceiroContext context)
+        public ServicoControle(ControlePessoalContext context)
         {
             _context = context;
         }

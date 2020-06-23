@@ -1,126 +1,139 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ControleFinanceiro.Data;
+using ControleFinanceiro.Models;
+using ControleFinanceiro.Models.ViewModels;
+using ControleFinanceiro.Servico;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ControleFinanceiro.Data;
-using ControleFinanceiro.Models;
-using ControleFinanceiro.Servico;
-using ControleFinanceiro.Models.ViewModel;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ControleFinanceiro.Controllers
 {
+    [Authorize]
     public class DespesaFixasController : Controller
-    {
-        private readonly ControleFinanceiroContext _context;
-        private readonly CategoriaServico _categoriaServico;
-        private readonly FormaPagamentoServico _formaPagamentoServico;
-        private readonly StatusCompraServico _statusCompraServico;
-        private readonly ServicoProduto _servicoProduto;
+    {      
+        private readonly ControlePessoalContext _context;
+        private readonly ListaDespFixaServico listaDespFixaServico;
+        private readonly CategoriaServico categoriaServicos;
+        private readonly FormaPagamentoServico formaServicos;
+        private readonly StatusCompraServico statusServicos;
 
-
-        public DespesaFixasController(ControleFinanceiroContext context, CategoriaServico categoriaServico, FormaPagamentoServico formaPagamentoServico, StatusCompraServico statusCompraServico, ServicoProduto servicoProduto)
+        public DespesaFixasController(ControlePessoalContext context)
         {
             _context = context;
-            _categoriaServico = categoriaServico;
-            _formaPagamentoServico = formaPagamentoServico;
-            _statusCompraServico = statusCompraServico;
-            _servicoProduto = servicoProduto;
+            listaDespFixaServico = new ListaDespFixaServico(context);
+            categoriaServicos = new CategoriaServico(context);
+            formaServicos = new FormaPagamentoServico(context);
+            statusServicos = new StatusCompraServico(context);
         }
 
-        // GET: DespesaFixas
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.DespesaFixa.ToListAsync());
+            //var list = await desejoServicos.EncontrarTudoDesejoAsync();
+            //return View(list);
+            return View(await listaDespFixaServico.PegarFixaPorNome().ToListAsync());
+
         }
 
-        // GET: DespesaFixas/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var despesaFixa = await _context.DespesaFixa
-                .FirstOrDefaultAsync(m => m.DespFixaId == id);
-            if (despesaFixa == null)
-            {
-                return NotFound();
-            }
-
-            return View(despesaFixa);
-        }
-
-        // GET: DespesaFixas/Create
+        //GET DespesaFixa/Create   
+        [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
-            var prod = _servicoProduto.PegarTudo();
-            var cat = _categoriaServico.PegarTudo();
-            var forma = _formaPagamentoServico.PegarTudo();
-            var status = _statusCompraServico.PegarTudo();
-            var viewModel = new FixaViewModel { Categorias = cat, FormaPagamentos = forma, StatusCompras = status, ListaProdutos = prod };
-            return View(viewModel);
+            var categorias = categoriaServicos.PegarCategoriasPorNome().ToList();
+            categorias.Insert(0, new Categoria() { CategoriaId = 0, CategoriaNome = "Selecione a Categoria" });
+            ViewBag.Categorias = categorias;
+
+            var formas = formaServicos.PegarFormaPorNome().ToList();
+            formas.Insert(0, new FormaPagamento() { FormaId = 0, FormaNome = "Selecione a forma de Pagamento" });
+            ViewBag.Formas = formas;
+
+            var status = statusServicos.PegarStatusPorNome().ToList();
+            status.Insert(0, new StatusCompra() { StatusId = 0, StatusNome = "Selecione a situação da compra" });
+            ViewBag.StatusCompras = status;
+
+            return View();
         }
 
-        // POST: DespesaFixas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: DespesaFixa/Create
         [HttpPost]
-        [ValidateAntiForgeryToken] //[Bind("DespFixaId,DespFixaValor,DespFixaData")] 
-        public async Task<IActionResult> Create(DespesaFixa despesaFixa)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("DespFixaNome, DespFixaDescricao, DespFixaValor,DespFixaData, StatusId, FormaId, CategoriaId")] DespesaFixa fixa)
+
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(despesaFixa);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    await listaDespFixaServico.RegistrarDespesaFixa(fixa);
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            return View(despesaFixa);
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("", "Não foi possível inserir os dados.");
+            }
+            return View(fixa);
+
         }
 
-        // GET: DespesaFixas/Edit/5
+        //GET: DespesaFixa/Edit
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Produto nao encontrado" });
             }
 
-            var despesaFixa = await _context.DespesaFixa.FindAsync(id);
-            if (despesaFixa == null)
+            var direta = await listaDespFixaServico.PegarFixaPorIdAsync(id.Value);
+            if (direta == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Produto nao existe" });
             }
-            return View(despesaFixa);
+
+            ViewResult viewFixa = (ViewResult)await PegarViewFixaPorId(id);
+            DespesaFixa despesaFixa = (DespesaFixa)viewFixa.Model;
+
+            ViewBag.Categorias = new SelectList(categoriaServicos.PegarCategoriasPorNome()
+                , "CategoriaId", "CategoriaNome", despesaFixa.CategoriaId);
+
+            ViewBag.Formas = new SelectList(formaServicos.PegarFormaPorNome()
+                , "FormaId", "FormaNome", despesaFixa.FormaId);
+
+            ViewBag.Status = new SelectList(statusServicos.PegarStatusPorNome()
+                , "StatusId", "StatusNome", despesaFixa.StatusId);
+
+            return viewFixa;
+
         }
 
-        // POST: DespesaFixas/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: DespesaFixa/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DespFixaId,DespFixaValor,DespFixaData")] DespesaFixa despesaFixa)
+        public async Task<IActionResult> Edit(int? id, [Bind("DespFixaId,DespFixaNome, DespFixaDescricao, DespFixaValor,DespFixaData, StatusId, FormaId, CategoriaId")] DespesaFixa fixa)
         {
-            if (id != despesaFixa.DespFixaId)
-            {
-                return NotFound();
-            }
 
+            if (id != fixa.DespFixaId)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Desejo não encontrado" });
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(despesaFixa);
-                    await _context.SaveChangesAsync();
+                    await listaDespFixaServico.AtualizarAsync(fixa);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (ApplicationException e)
                 {
-                    if (!DespesaFixaExists(despesaFixa.DespFixaId))
+                    if (!await DiretaExists(fixa.DespFixaId))
                     {
-                        return NotFound();
+                        return RedirectToAction(nameof(Error), new { message = e.Message });
                     }
                     else
                     {
@@ -129,41 +142,65 @@ namespace ControleFinanceiro.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(despesaFixa);
+            ViewBag.Categorias = new SelectList(categoriaServicos.PegarCategoriasPorNome(), "CategoriaId", "CategoriaNome", fixa.CategoriaId);
+            ViewBag.Formas = new SelectList(formaServicos.PegarFormaPorNome(), "FormaId", "FormaNome", fixa.FormaId);
+            ViewBag.StatusCompras = new SelectList(statusServicos.PegarStatusPorNome(), "StatusId", "StatusNome", fixa.StatusId);
+            return View(fixa);
         }
 
-        // GET: DespesaFixas/Delete/5
+        private async Task<bool> DiretaExists(int? id)
+        {
+            return await listaDespFixaServico.PegarFixaPorIdAsync(id.Value) != null;
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Details(int? id)
+        {
+            return await PegarViewFixaPorId(id);
+        }
+
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var despesaFixa = await _context.DespesaFixa
-                .FirstOrDefaultAsync(m => m.DespFixaId == id);
-            if (despesaFixa == null)
-            {
-                return NotFound();
-            }
-
-            return View(despesaFixa);
+            return await PegarViewFixaPorId(id);
         }
 
-        // POST: DespesaFixas/Delete/5
+        // POST: DespesaFixa/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var despesaFixa = await _context.DespesaFixa.FindAsync(id);
-            _context.DespesaFixa.Remove(despesaFixa);
-            await _context.SaveChangesAsync();
+            var fixa = await listaDespFixaServico.DeletarFixaPorId(id.Value);
+            TempData["Message"] = "Desejo " + fixa.DespFixaNome.ToUpper() + " foi removido com sucesso!";
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DespesaFixaExists(int id)
+        private async Task<IActionResult> PegarViewFixaPorId(int? id)
         {
-            return _context.DespesaFixa.Any(e => e.DespFixaId == id);
+            if (id == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id não providenciado" });
+            }
+
+            var direta = await listaDespFixaServico.PegarFixaPorIdAsync(id.Value);
+            if (direta == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id não Encontrado" });
+            }
+
+            return View(direta);
         }
+
+        [Authorize]
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
+        }
+        
     }
 }

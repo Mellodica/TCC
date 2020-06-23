@@ -1,159 +1,69 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using ControleFinanceiro.Data;
-using ControleFinanceiro.Models;
 using ControleFinanceiro.Servico;
+using Microsoft.AspNetCore.Authorization;
+using ControleFinanceiro.Models.ViewModels;
+using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleFinanceiro.Controllers
 {
+    [Authorize]
     public class CategoriasController : Controller
     {
-        private readonly ControleFinanceiroContext _context;
-        private readonly CategoriaServico _categoriaServico;
+        private readonly ControlePessoalContext _context;
+        private readonly CategoriaServico categoriaServico;
 
-        public CategoriasController(CategoriaServico categoriaServico)
+        public CategoriasController(ControlePessoalContext context)
         {
-            _categoriaServico = categoriaServico;
+            _context = context;
+            categoriaServico = new CategoriaServico(context);
             
         }
 
         // GET: Categorias
         public async Task<IActionResult> Index()
         {
-            var list = await _categoriaServico.EncontrarTudoAsync();
-            //await _context.Categoria.ToListAsync();
-            return View(list);
-            
+            //var list = await categoriaServico.EncontrarTudoCategoriasAsync();
+            //return View(list);
+            return View(await categoriaServico.PegarCategoriasPorNome().ToListAsync());
+
         }
 
         // GET: Categorias/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var categoria = await _categoriaServico.EncontraPorIdAsync(id.Value);
-            if (categoria == null)
-            {
-                return NotFound();
-            }
-
-            return View(categoria);
+            return await PegarViewCategoriaPorId(id);
         }
 
-        // GET: Categorias/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
 
-        // POST: Categorias/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoriaId,CategoriaNome")] Categoria categoria)
-        {
-            if (ModelState.IsValid)
-            {
-                await _categoriaServico.Insert(categoria);                
-                return RedirectToAction(nameof(Index));
-            }
-            return View(categoria);
-        }
-
-        // GET: Categorias/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        private async Task<IActionResult> PegarViewCategoriaPorId(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Categoria não existe" });
             }
 
-            var categoria = await _categoriaServico.EncontraPorIdAsync(id.Value);
+            var categoria = await categoriaServico.PegarCategoriaPorIdAsync(id.Value);
             if (categoria == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Categoria não Encontrada" });
             }
 
             return View(categoria);
         }
 
-        // POST: Categorias/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CategoriaNome")] Categoria categoria)
+        [Authorize]
+        public IActionResult Error(string message)
         {
-            if (id != categoria.Id)
+            var viewModel = new ErrorViewModel
             {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    await _categoriaServico.Atualizar(categoria);
-                    //await _categoriaServico.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoriaExists(categoria.Id))
-                    { 
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(categoria);
-        }
-
-        // GET: Categorias/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var categoria = await _categoriaServico.EncontraPorIdAsync(id.Value);
-            if (categoria == null)
-            {
-                return NotFound();
-            }
-
-            return View(categoria);
-        }
-
-        // POST: Categorias/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            /*var categoria = await _context.Categoria.FindAsync(id);
-            _context.Categoria.Remove(categoria);
-            await _context.SaveChangesAsync();*/
-            _categoriaServico.DeleteConfirma(id);
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool CategoriaExists(int id)
-        {
-            return _context.Categoria.Any(c => c.Id == id);
-            //return _context.Categoria.Any(e => e.Id == id);
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }

@@ -2,40 +2,65 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ControleFinanceiro.Models
 {
     public class DespesaFixa
     {
-
         [Key]
-        public int DespFixaId { get; set; }
-        public double DespFixaValor { get; set; }
-        public DateTime DespFixaData { get; set; }
-        public StatusCompra StatusCompra { get; set; }
-        public int StatId { get; set; }
-        public FormaPagamento FormaPagamento { get; set; }
-        public int FormId { get; set; }
-        public ListaProduto ListaProduto { get; set; }
-        public int ProdId { get; set; }
-        public Categoria Categoria { get; set; }
-        public int CategoId { get; set; }
+        public int? DespFixaId { get; set; }
 
+        [Display(Name = "Nome da Despesa")]
+        [Required(ErrorMessage = "O nome da despesa é obrigatória", AllowEmptyStrings = false)]
+        public string DespFixaNome { get; set; }
+    
+        [Display(Name = "Descrição da Despesa")]
+        [Required(ErrorMessage = "A descrição da despesa é obrigatória", AllowEmptyStrings = false)]
+        public string DespFixaDescricao { get; set; }
+
+        [Display(Name = "Valor Da Despesa")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Required]
+        public double DespFixaValor { get; set; }
+
+        [Display(Name = "Data da Despesa")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [Required]
+        public DateTime DespFixaData { get; set; }
+
+        [Display(Name = "Situação Compra")]
+        public StatusCompra StatusCompra { get; set; }
+        public int StatusId { get; set; }
+
+        [Display(Name = "Método de Pagamento")]
+        public FormaPagamento FormaPagamento { get; set; }
+        public int FormaId { get; set; }
+
+        [Display(Name = "Categoria")]
+        public Categoria Categoria { get; set; }
+        public int CategoriaId { get; set; }
+
+        public IEnumerable<DespesaFixa> DespesasFixas { get; private set; }
+
+        public double TotalDespesaFixa(DateTime inicial, DateTime final)
+        {
+            return DespesasFixas.Where(df => df.DespFixaData >= inicial && df.DespFixaData <= final).Sum(df => df.DespFixaValor);
+        }
 
         public DespesaFixa()
         {
 
         }
 
-        public DespesaFixa(int despFixaId, double despFixaValor, DateTime despFixaData, StatusCompra statusCompra, FormaPagamento formaPagamento, ListaProduto listaProduto, Categoria categoria)
+        public DespesaFixa(int despFixaId, string despFixaNome, string despFixaDescricao, double despFixaValor, DateTime despFixaData, StatusCompra statusCompra, FormaPagamento formaPagamento, Categoria categoria)
         {
             DespFixaId = despFixaId;
+            DespFixaNome = despFixaNome;
+            DespFixaDescricao = despFixaDescricao;
             DespFixaValor = despFixaValor;
             DespFixaData = despFixaData;
             StatusCompra = statusCompra;
             FormaPagamento = formaPagamento;
-            ListaProduto = listaProduto;
             Categoria = categoria;
         }
     }

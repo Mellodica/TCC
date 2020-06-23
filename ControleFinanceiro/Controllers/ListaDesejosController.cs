@@ -1,129 +1,143 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ControleFinanceiro.Data;
+using ControleFinanceiro.Models;
+using ControleFinanceiro.Models.ViewModels;
+using ControleFinanceiro.Servico;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ControleFinanceiro.Data;
-using ControleFinanceiro.Models;
-using ControleFinanceiro.Servico;
-using ControleFinanceiro.Models.ViewModel;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ControleFinanceiro.Controllers
 {
-   
+
+    [Authorize]
     public class ListaDesejosController : Controller
-    { 
-        private readonly ControleFinanceiroContext _context;
-        private readonly CategoriaServico _categoriaServico;
-        private readonly FormaPagamentoServico _formaPagamentoServico;
-        private readonly StatusCompraServico _statusCompraServico;
-        private readonly ServicoProduto _servicoProduto;
-        
-        
+    {
+        private readonly ControlePessoalContext _context;
+        private readonly ListaDesejoServico desejoServicos;
+        private readonly CategoriaServico categoriaServicos;
+        private readonly FormaPagamentoServico formaServicos;
+        private readonly StatusCompraServico statusServicos;
 
-
-        public ListaDesejosController(ControleFinanceiroContext context, CategoriaServico categoriaServico, ServicoProduto servicoProduto, FormaPagamentoServico formaPagamentoServico, StatusCompraServico statusCompraServico)
+        public ListaDesejosController(ControlePessoalContext context)
         {
-            _context = context;
-            _servicoProduto = servicoProduto;
-            _categoriaServico = categoriaServico;
-            _formaPagamentoServico = formaPagamentoServico;
-            _statusCompraServico =  statusCompraServico;
+            _context = context;           
+            desejoServicos = new ListaDesejoServico(context);
+            categoriaServicos = new CategoriaServico(context);
+            formaServicos = new FormaPagamentoServico(context);
+            statusServicos = new StatusCompraServico(context);
         }
 
-        // GET: ListaDesejos
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ListaDesejo.ToListAsync());
+           // var list = await desejoServicos.EncontrarTudoDesejoAsync();
+           // return View(list);
+            return View(await desejoServicos.PegarDesejoPorNome().ToListAsync());
+
         }
 
-        // GET: ListaDesejos/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var listaDesejo = await _context.ListaDesejo
-                .FirstOrDefaultAsync(m => m.DesejoId == id);
-            if (listaDesejo == null)
-            {
-                return NotFound();
-            }
-
-            return View(listaDesejo);
-        }
-
-        // GET: ListaDesejos/Create
+        
+        //GET Desejo/Create   
+        [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
-            var prod = _servicoProduto.PegarTudo();
-            var cat = _categoriaServico.PegarTudo();
-            var forma = _formaPagamentoServico.PegarTudo();
-            var status = _statusCompraServico.PegarTudo();
-            var viewModel = new DesejoViewModel { Categorias = cat, FormaPagamentos = forma, StatusCompras = status, ListaProdutos = prod };
-            return View(viewModel);
+
+            var categorias = categoriaServicos.PegarCategoriasPorNome().ToList();
+            categorias.Insert(0, new Categoria() { CategoriaId = 0, CategoriaNome = "Selecione a Categoria" });
+            ViewBag.Categorias = categorias;
+
+            var formas = formaServicos.PegarFormaPorNome().ToList();
+            formas.Insert(0, new FormaPagamento() { FormaId = 0, FormaNome = "Selecione a forma de Pagamento" });
+            ViewBag.Formas = formas;
+
+            var status = statusServicos.PegarStatusPorNome().ToList();
+            status.Insert(0, new StatusCompra() { StatusId = 0, StatusNome = "Selecione a situação da compra" });
+            ViewBag.StatusCompras = status;
+
+            return View();
+
         }
 
-        // POST: ListaDesejos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: Desejo/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DesejoId,DesejoValor,DesejoData")] ListaDesejo listaDesejo)
+        public async Task<IActionResult> Create([Bind("DesejoNome, DesejoDescricao, DesejoValor, DesejoData,DesejoLoja, StatusId, FormaId, CategoriaId")] ListaDesejo desejo)
+
         {
+            try
+            {
                 if (ModelState.IsValid)
                 {
-                    _context.Add(listaDesejo);
-                    await _context.SaveChangesAsync();
+                    await desejoServicos.RegistrarDesejo(desejo);
                     return RedirectToAction(nameof(Index));
                 }
-                return View(listaDesejo);
             }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("", "Não foi possível inserir os dados.");
+            }
+            return View(desejo);
 
-        // GET: ListaDesejos/Edit/5
+        }
+
+        //GET: Desejo/Edit
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Produto nao encontrado" });
             }
 
-            var listaDesejo = await _context.ListaDesejo.FindAsync(id);
-            if (listaDesejo == null)
+            var desejo = await desejoServicos.PegarDesejoPorIdAsync(id.Value);
+            if (desejo == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Produto nao existe" });
             }
-            return View(listaDesejo);
+
+            ViewResult viewDesejo = (ViewResult)await PegarViewDesejoPorId(id);
+            ListaDesejo listaDesejo = (ListaDesejo)viewDesejo.Model;
+
+            ViewBag.Categorias = new SelectList(categoriaServicos.PegarCategoriasPorNome()
+                , "CategoriaId", "CategoriaNome", listaDesejo.CategoriaId);
+
+            ViewBag.Formas = new SelectList(formaServicos.PegarFormaPorNome()
+                , "FormaId", "FormaNome", listaDesejo.FormaId);
+
+            ViewBag.Status = new SelectList(statusServicos.PegarStatusPorNome()
+              , "StatusId", "StatusNome", listaDesejo.StatusId);
+
+            return viewDesejo;
+
         }
 
-        // POST: ListaDesejos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: Desejo/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DesejoId,DesejoValor,DesejoData")] ListaDesejo listaDesejo)
+        public async Task<IActionResult> Edit(int? id, [Bind("DesejoId,DesejoNome,DesejoDescricao,DesejoValor,DesejoLoja,DesejoData,StatusId,FormaId,CategoriaId")] ListaDesejo desejo)
         {
-            if (id != listaDesejo.DesejoId)
-            {
-                return NotFound();
-            }
 
+            if (id != desejo.DesejoId)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Desejo não encontrado" });
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(listaDesejo);
-                    await _context.SaveChangesAsync();
+                    await desejoServicos.AtualizarAsync(desejo);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (ApplicationException e)
                 {
-                    if (!ListaDesejoExists(listaDesejo.DesejoId))
+                    if (!await DesejoExists(desejo.DesejoId))
                     {
-                        return NotFound();
+                        return RedirectToAction(nameof(Error), new { message = e.Message });
                     }
                     else
                     {
@@ -132,41 +146,65 @@ namespace ControleFinanceiro.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(listaDesejo);
+
+            ViewBag.Categorias = new SelectList(categoriaServicos.PegarCategoriasPorNome(), "CategoriaId", "CategoriaNome", desejo.CategoriaId);
+            ViewBag.Formas = new SelectList(formaServicos.PegarFormaPorNome(), "FormaId", "FormaNome", desejo.FormaId);
+            ViewBag.StatusCompras = new SelectList(statusServicos.PegarStatusPorNome(), "StatusId", "StatusNome", desejo.StatusId);
+            return View(desejo);
         }
 
-        // GET: ListaDesejos/Delete/5
+        private async Task<bool> DesejoExists(int? id)
+        {
+            return await desejoServicos.PegarDesejoPorIdAsync(id.Value) != null;
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Details(int? id)
+        {
+            return await PegarViewDesejoPorId(id);
+        }
+
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var listaDesejo = await _context.ListaDesejo
-                .FirstOrDefaultAsync(m => m.DesejoId == id);
-            if (listaDesejo == null)
-            {
-                return NotFound();
-            }
-
-            return View(listaDesejo);
+            return await PegarViewDesejoPorId(id);
         }
 
-        // POST: ListaDesejos/Delete/5
+        // POST: Desejo/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var listaDesejo = await _context.ListaDesejo.FindAsync(id);
-            _context.ListaDesejo.Remove(listaDesejo);
-            await _context.SaveChangesAsync();
+            var desejo = await desejoServicos.DeletarDesejoPorId(id.Value);
+            TempData["Message"] = "Desejo " + desejo.DesejoNome.ToUpper() + " foi removido com sucesso!";
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ListaDesejoExists(int id)
+        private async Task<IActionResult> PegarViewDesejoPorId(int? id)
         {
-            return _context.ListaDesejo.Any(e => e.DesejoId == id);
+            if (id == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id não providenciado" });
+            }
+
+            var desejo = await desejoServicos.PegarDesejoPorIdAsync(id.Value);
+            if (desejo == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id não Encontrado" });
+            }
+
+            return View(desejo);
+        }
+
+        [Authorize]
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }

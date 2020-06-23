@@ -1,0 +1,288 @@
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<ControleFinanceiro.Models.Infra.UsuarioApp> SignInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<ControleFinanceiro.Models.Infra.UsuarioApp> UserManager
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+
+		.input-group {
+			display: grid;
+		}
+
+		.form-group {
+			display: grid;
+		}
+	</style>
+	<meta charset="utf-8" />
+	<link rel="icon" type="image/png" href="~/assets/img/favicon.ico">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Controle Pessoal</title>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+	<meta name="viewport" content="width=device-width" />
+	<environment include="Development">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" />
+		<link href="~/assets/css/bootstrap1.min.css" rel="stylesheet" />
+		<link href="~/assets/css/font-awesome.min.css" rel=" stylesheet" />
+		<link href="~/assets/css/animate.min.css" rel="stylesheet" />
+		<link href="~/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+		<link href="~/assets/css/light-bootstrap-dashboard1.css" rel="stylesheet" />
+		<link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+	</environment>
+	<environment exclude="Development">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"
+			  asp-fallback-href="~/lib/datatables/css/jquery.dataTables.min.css"
+			  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+			  asp-fallback-href="~/assets/css/font-awesome.min.css" />
+	</environment>
+	@RenderSection("Styles", required: false)
+</head>
+<body>
+	<div class="wrapper">
+		<div class="sidebar" data-color="" data-image="../../../assets/img/sidebar-4.jpg">
+			<div class="sidebar-wrapper">
+				<div class="logo">
+					<a class="simple-text" asp-controller="Controles" asp-action="Index">
+						Controle Pessoal
+					</a>
+				</div>
+				<ul class="nav">
+					<li class="active">
+						<a asp-controller="Controles" asp-action="Index">
+							<i class="pe-7s-graph"></i>
+							<p>Painel de Controle</p>
+						</a>
+					</li>
+					<li>
+						<a asp-controller="ListaMercados" asp-action="Index">
+							<i class="pe-7s-cart"></i>
+							<p>Supermercado</p>
+						</a>
+					</li>
+					<li>
+						<a asp-controller="DespesaFixas" asp-action="Index">
+							<i class="fa fa-usd"></i>
+							<p>Despesas Fixas</p>
+						</a>
+					</li>
+					<li>
+						<a asp-controller="DespesaDiretas" asp-action="Index">
+							<i class="pe-7s-calculator"></i>
+							<p>Despesas Diretas</p>
+						</a>
+					</li>
+					<li>
+						<a asp-controller="ListaDesejos" asp-action="Index">
+							<i class="pe-7s-note2"></i>
+							<p>Lista de Desejos</p>
+						</a>
+					</li>
+					<li>
+						<a asp-controller="ListaProdutos" asp-action="Index">
+							<i class="pe-7s-box1"></i>
+							<p>Produtos</p>
+						</a>
+					</li>
+					<li>
+						<a asp-controller="Controles" asp-action="Index">
+							<!--  icone 1<i class="pe-7s-config"></i>  -->
+							<!--icone 2--><i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+							<span class="sr-only">Loading...</span>
+							<p>Configurações</p>
+						</a>
+					</li>
+					<li class="divider">
+					</li>
+				</ul>
+			</div>
+		</div>
+		<partial name="_CookieConsentPartial" />
+		<div class="main-panel">
+			<nav class="navbar navbar-default navbar-fixed">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" asp-controller="Controle" asp-action="Index"></a>
+					</div>
+					<div class="collapse navbar-collapse">
+						<!--
+						<ul class="nav navbar-nav navbar-left">
+							<li>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+									<i class="fa fa-dashboard"></i>
+									<p class="hidden-lg hidden-md">Controle</p>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Ação</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-globe"></i>
+									<b class="caret hidden-lg hidden-md"></b>
+									<p class="hidden-lg hidden-md">
+										5 Notificações
+										<b class="caret"></b>
+									</p>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Notificação 1</a></li>
+									<li><a href="#">Notificação 2</a></li>
+									<li><a href="#">Notificação 3</a></li>
+									<li><a href="#">Notificação 4</a></li>
+									<li><a href="#">Mais uma notificação</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="">
+									<i class="fa fa-search"></i>
+									<p class="hidden-lg hidden-md">Search</p>
+								</a>
+						</li>
+						</ul>
+						-->
+						
+						<ul class="nav navbar-nav navbar-center">
+							<li>
+								<p>
+									@if (SignInManager.IsSignedIn(User))
+									{
+										<div class="container-fluid" style="padding-left:110px;padding-top:10px;margin: 10px 3px;position: relative;">
+											<a class="active">Olá @UserManager.GetUserName(User), seja bem-vindo(a)</a>
+										</div>
+									}
+									else
+									{
+
+										<div class="container-fluid" style="padding-left:110px;padding-top:10px;margin: 10px 3px;position: relative;">
+											<a class="nav-item nav-link" asp-area="" asp-controller="Infra" asp-action="Acessar">
+												Informar usuário/senha para acessar
+											</a>
+										</div>
+
+									}
+								</p>
+							</li>
+						</ul>
+
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								<a class="nav-item nav-link" asp-controller="Desejo" asp-action="Index">
+									<p>Conta</p>
+								</a>
+							</li>
+
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<p>
+										Categorias
+										<b class="caret"></b>
+									</p>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="~/Categorias/Details/1">Acessórios</a></li>
+									<li><a href="~/Categorias/Details/2">Mercado</a></li>
+									<li><a href="~/Categorias/Details/3">Moradia</a></li>
+									<li><a href="~/Categorias/Details/4">Outras Rendas</a></li>
+									<li><a href="~/Categorias/Details/5">Outros Gastos</a></li>
+									<li><a href="~/Categorias/Details/6">Mascote</a></li>
+									<li><a href="~/Categorias/Details/7">Presente ou Doação</a></li>
+									<li><a href="~/Categorias/Details/8">Rendimentos</a></li>
+									<li><a href="~/Categorias/Details/9">Resgate</a></li>
+									<li><a href="~/Categorias/Details/10">Salário</a></li>
+									<li><a href="~/Categorias/Details/11">Saques</a></li>
+									<li><a href="~/Categorias/Details/12">Saúde</a></li>
+									<li><a href="~/Categorias/Details/13">Serviços</a></li>
+									<li><a href="~/Categorias/Details/14">Telefonia/Internet/Tv</a></li>
+									<li><a href="~/Categorias/Details/15">Transferência</a></li>
+									<li><a href="~/Categorias/Details/16">Transporte</a></li>
+									<li><a href="~/Categorias/Details/17">Lazer e Hobbie</a></li>
+									<li><a href="~/Categorias/Details/18">Juros</a></li>
+									<li><a href="~/Categorias/Details/19">Jogo Eletrônico</a></li>
+									<li><a href="~/Categorias/Details/20">Investimento</a></li>
+									<li><a href="~/Categorias/Details/21">Bônus</a></li>
+									<li><a href="~/Categorias/Details/22">Cheque Especial</a></li>
+									<li><a href="~/Categorias/Details/23">Comidas e Bebidas</a></li>
+									<li><a href="~/Categorias/Details/24">Contas Residenciais</a></li>
+									<li><a href="~/Categorias/Details/25">Crediário</a></li>
+									<li><a href="~/Categorias/Details/26">Crédito Consignado</a></li>
+									<li><a href="~/Categorias/Details/27">Cuidados Pessoais</a></li>
+									<li><a href="~/Categorias/Details/28">Vestuário</a></li>
+									<li><a href="~/Categorias/Details/29">Depesas com Trabalho</a></li>
+									<li><a href="~/Categorias/Details/30">Eletrônico</a></li>
+									<li><a href="~/Categorias/Details/31">Eletrodoméstico</a></li>
+									<li><a href="~/Categorias/Details/32">Empréstimo</a></li>
+									<li><a href="~/Categorias/Details/33">Encargos</a></li>
+									<li><a href="~/Categorias/Details/34">Família e Filhos</a></li>
+									<li><a href="~/Categorias/Details/35">FGTS</a></li>
+									<li><a href="~/Categorias/Details/36">Imposto</a></li>
+									<li><a href="~/Categorias/Details/37">Educação</a></li>
+									<li><a href="~/Categorias/Details/38">Compras</a></li>
+									<!--<li class="divider"></li> -->
+								</ul>
+							</li>
+							<li>
+								@Html.ActionLink("Sair", "Sair", "Infra", new { area = "" })
+							</li>
+							<li class="separator hidden-lg hidden-md"></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			@RenderBody()
+			<footer class="footer">
+				<div class="container-fluid">
+					<nav class="pull-left">
+					</nav>
+					<p class="copyright pull-right">
+						&copy;
+						<script>document.write(new Date().getFullYear())</script> <a href="http://www.google.com.br">TCC SENAI</a>
+					</p>
+				</div>
+			</footer>
+		</div>
+	</div>
+	<environment include="Development">
+		<script type="text/javascript" src="~/js/pace.min.js"></script>
+		<script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+		<script src="~/assets/js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="~/assets/js/light-bootstrap-dashboard2.js" type="text/javascript"></script>
+		<script src="~/assets/js/chartist.min.js" type="text/javascript"></script>
+		<script src="~/assets/js/bootstrap-notify.js" type="text/javascript"></script>
+		<script src="~/assets/js/demo.js" type="text/javascript"></script>
+		<script src="~/lib/datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
+		<script src="~/lib/jquery/jquery.slim.min.js" type="text/javascript"></script>
+		<script src="~/lib/popper.js//umd/popper.js" type="text/javascript"></script>
+		<script src="~/js/site.js" asp-append-version="true"></script>
+	</environment>
+	<environment exclude="Development">
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+				asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+				asp-fallback-test="window.jQuery" crossorigin="anonymous"
+				integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+		</script>
+		<script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+				asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+				asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal" crossorigin="anonymous"
+				integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+		</script>
+		<script src="~/js/site.min.js" asp-append-version="true"></script>
+		<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
+				asp-fallback-src="~/lib/datatables/js/jquery.dataTables.min.js">
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"
+				asp-fallback-src="~/lib/popper.js/umd/popper.js">
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+				asp-fallback-src="~/lib/jquery/jquery.slim.min.js">
+		</script>
+	</environment>
+	@RenderSection("ScriptPage", required: false)
+</body>
+</html>

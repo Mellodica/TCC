@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
 
 <h2>Index</h2>
@@ -10,11 +10,18 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<div class="panel-heading">
+	<h3 class="panel-title">Total despesa = @Model.Sum(obj => obj.DespDirValor).ToString("F2")</h3>
+</div>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ListaProduto)
+                @Html.DisplayNameFor(model => model.DespesaDirNome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DespesaDirDescricao)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DespDirValor)
@@ -23,13 +30,13 @@
                 @Html.DisplayNameFor(model => model.DespDirData)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Categoria)
+                @Html.DisplayNameFor(model => model.StatusCompra)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FormaPagamento)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StatusCompra)
+                @Html.DisplayNameFor(model => model.Categoria)
             </th>
             <th></th>
         </tr>
@@ -38,7 +45,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ListaProduto.ProdutoNome)
+                @Html.DisplayFor(modelItem => item.DespesaDirNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DespesaDirDescricao)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DespDirValor)
@@ -47,13 +57,13 @@
                 @Html.DisplayFor(modelItem => item.DespDirData)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FormaPagamento.Id)
+                @Html.DisplayFor(modelItem => item.StatusCompra.StatusId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Categoria.CategoriaNome)
+                @Html.DisplayFor(modelItem => item.FormaPagamento.FormaId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Categoria.CategoriaNome)
+                @Html.DisplayFor(modelItem => item.Categoria.CategoriaId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DespDirId">Edit</a> |

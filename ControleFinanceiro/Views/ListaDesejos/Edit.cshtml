@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
 
 <h2>Edit</h2>
@@ -11,23 +11,50 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="DesejoId" />
-            <div class="form-group">
-                <label asp-for="DesejoValor" class="control-label"></label>
-                <input asp-for="DesejoValor" class="form-control" />
-                <span asp-validation-for="DesejoValor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DesejoData" class="control-label"></label>
-                <input asp-for="DesejoData" class="form-control" />
-                <span asp-validation-for="DesejoData" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+		<form asp-action="Edit">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<input type="hidden" asp-for="DesejoId" />
+
+			<div class="form-group">
+				<label asp-for="DesejoNome" class="control-label"></label>
+				<input asp-for="DesejoNome" class="form-control" />
+				<span asp-validation-for="DesejoNome" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="DesejoDescricao" class="control-label"></label>
+				<input asp-for="DesejoDescricao" class="form-control" />
+				<span asp-validation-for="DesejoDescricao" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="DesejoValor" class="control-label"></label>
+				<input asp-for="DesejoValor" class="form-control" />
+				<span asp-validation-for="DesejoValor" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="DesejoData" class="control-label hidden"></label>
+				<input asp-for="DesejoData" class="form-control" />
+				<span asp-validation-for="DesejoData" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="CategoriaId" class="control-label hidden"></label>
+				<select asp-for="CategoriaId" class="form-control" asp-items="@ViewBag.Categorias"></select>
+			</div>
+			<div class="form-group">
+				<label asp-for="FormaId" class="control-label hidden"></label>
+				<select asp-for="FormaId" class="form-control" asp-items="@ViewBag.Formas"></select>
+			</div>
+			<div class="form-group">
+				<label asp-for="StatusId" class="control-label hidden"></label>
+				<select asp-for="StatusId" class="form-control" asp-items="@ViewBag.Status"></select>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Save" class="btn btn-default" />
+			</div>
+		</form>
     </div>
 </div>
 
@@ -35,6 +62,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
+@section ScriptPage {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

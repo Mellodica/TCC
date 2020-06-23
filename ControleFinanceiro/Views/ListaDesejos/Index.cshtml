@@ -1,57 +1,87 @@
 ﻿@model IEnumerable<ControleFinanceiro.Models.ListaDesejo>
-
 @{
 	ViewData["Title"] = "Lista de Desejos";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
-<head>
-	<link rel="stylesheet" href="~/assets/css/estilo-btn-table.css" />
-</head>
+<link rel="stylesheet" href="~/assets/css/estilo-botão-table.css" />
+<link href="~/css/estilodesejo.css" rel="stylesheet" />
 
+@section Styles {
+	<environment include="Development">
+		<link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.min.css" />
+	</environment>
+	<environment exclude="Development">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"
+			  asp-fallback-href="~/lib/datatables/css/jquery.dataTables.min.css"
+			  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+	</environment>
+}
+@if (@TempData["Message"] != null)
+{
+	<div class="alert alert-success" role="alert">
+		@TempData["Message"]
+	</div>
+}
+@if (@TempData["Message"] == null)
+{
 
+}
 <body>
 	<div class="content">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card">
+						<hr />
 						<div class="header">
 							<h4 class="title">@ViewData["Title"]</h4>
 						</div>
-						<br />
-						<div class="content row">
-							<div class="col-lg-1">
-								<div>
-									<p>
-										<a asp-action="Create" class="btn btn-primary btn btn-info btn-fill pull-left">
-											<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-										</a>
-									</p>
+						<div class="content">
+							<div class="row">
+								<div class="col-md-1">
+									<a asp-action="Index" class="btn btn-primary btn btn-info btn-fill pull-right navbar-btn">
+										<span class="glyphicon glyphicon-home"></span>
+									</a>
+								</div>
+								<div class="col-md-0">
+									<a asp-action="Create" class="btn btn-primary pull-left btn btn-info btn-fill navbar-btn">
+										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									</a>
+								</div>
+								<div class="row">
+									<div class="col-md-10">
+										<div class="col-md-6">
+											<span></span>
+											<div class="col-md-1 input-field ">
+												<input type="text" class="controle-form" name="" required="">
+												<label>Digite o Nome do Produto</label>
+												<span></span>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<button type="submit" value="Buscar" name="" class="btn btn-info btn-fill pull-leftt">
+												<span class="glyphicon glyphicon-search"></span>
+											</button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-
-						<div class="content table-responsive">
-							<table class="un table">
+						<div class="content">
+							<table class="table">
 								<thead>
 									<tr>
 										<th>
-											<b>@Html.DisplayNameFor(model => model.DesejoValor)</b>
+											@Html.DisplayNameFor(model => model.DesejoNome)
 										</th>
 										<th>
-											<b>@Html.DisplayNameFor(model => model.DesejoData)</b>
+											@Html.DisplayNameFor(model => model.DesejoValor)
 										</th>
 										<th>
-											<b>@Html.DisplayNameFor(model => model.Categoria)</b>
+											@Html.DisplayNameFor(model => model.Categoria.CategoriaNome)
 										</th>
 										<th>
-											<b>@Html.DisplayNameFor(model => model.FormaPagamento)</b>
-										</th>
-										<th>
-											<b>@Html.DisplayNameFor(model => model.ListaProduto)</b>
-										</th>
-										<th>
-											<b>@Html.DisplayNameFor(model => model.StatusCompra)</b>
+											@Html.DisplayNameFor(model => model.DesejoLoja)
 										</th>
 										<th></th>
 									</tr>
@@ -59,38 +89,33 @@
 								<tbody>
 									@foreach (var item in Model)
 									{
-										<tr>
-											<td>
-												@Html.DisplayFor(modelItem => item.DesejoValor)
-											</td>
-											<td>
-												@Html.DisplayFor(modelItem => item.DesejoData)
-											</td>
-											<td>
-												@Html.DisplayFor(ModelItem => item.Categoria)
-											</td>
-											<td>
-												@Html.DisplayFor(ModelItem => item.FormaPagamento)
-											</td>
-											<td>
-												@Html.DisplayFor(ModelItem => item.ListaProduto)
-											</td>
-											<td>
-												@Html.DisplayFor(ModelItem => item.StatusCompra)
-											</td>
-
-											<td>
-												<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.DesejoId">
-													<span class="glyphicon glyphicon-edit"></span>
-												</a>
-												<a class="btn btn-info" asp-action="Details" asp-route-id="@item.DesejoId">
-													<span class="glyphicon glyphicon-eye-open"></span>
-												</a>
-												<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DesejoId">
-													<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-												</a>
-											</td>
-										</tr>
+									<tr>
+										<td>
+											@Html.DisplayFor(modelItem => item.DesejoNome)
+										</td>
+										<td>
+											@Html.DisplayFor(modelItem => item.DesejoValor)
+										</td>
+										<td>
+											@Html.DisplayFor(modelItem => item.Categoria.CategoriaNome)
+										</td>
+										<td>
+											<a asp-host="@item.DesejoLoja" asp-controller="">
+												@Html.DisplayFor(modelItem => item.DesejoLoja)
+											</a>
+										</td>
+										<td>
+											<a asp-action="Edit" asp-route-id="@item.DesejoId" class="btn btn-warning pull-right">
+												<span class="glyphicon glyphicon-edit"></span>
+											</a>
+											<a asp-action="Details" asp-route-id="@item.DesejoId" class="btn btn-info pull-right">
+												<span class="glyphicon glyphicon-eye-open"></span>
+											</a>
+											<a asp-action="Delete" asp-route-id="@item.DesejoId" class="btn btn-danger pull-right">
+												<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+											</a>
+										</td>
+									</tr>
 									}
 								</tbody>
 							</table>
@@ -101,7 +126,21 @@
 		</div>
 	</div>
 </body>
-@section Scripts {
-	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
 
+@section ScriptPage {
+	<environment include="Development">
+		<script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+	</environment>
+	<environment exclude="Development">
+		<script src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
+				asp-fallback-src="~/lib/datatables/js/jquery.dataTables.min.js">
+		</script>
+	</environment>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#tabela_listadesejos').DataTable({
+				"order": [[1, "asc"]]
+			});
+		});
+	</script>
+}

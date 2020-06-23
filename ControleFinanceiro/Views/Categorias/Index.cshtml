@@ -1,36 +1,57 @@
 ﻿@model IEnumerable<ControleFinanceiro.Models.Categoria>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Categorias";
+	Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
 
-<h2>Index</h2>
-<div></div>
-<p>
-    <a asp-action="Create">Adicionar Categoria</a>
-</p>
-<table class="table table-striped table-hover">
-    <thead>
-        <tr class="success">
-            <th>
-                @Html.DisplayNameFor(model => model.CategoriaNome)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoriaNome)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<link rel="stylesheet" href="~/assets/css/estilo-botão-table.css" />
+
+@section Styles {
+	<environment include="Development">
+		<link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.min.css" />
+	</environment>
+	<environment exclude="Development">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"
+			  asp-fallback-href="~/lib/datatables/css/jquery.dataTables.min.css"
+			  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+	</environment>
 }
-    </tbody>
-</table>
+
+
+<body>
+	<div class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-9 centro">
+					<div class="card">
+						<hr />
+						<div class="header">
+							<h4 class="title">@ViewData["Title"]</h4>
+						</div>
+						@{await Html.RenderPartialAsync("~/Views/Categoria/_PartialIndexContent.cshtml", Model); }
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+@section ScriptPage {
+	<environment include="Development">
+		<script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+	</environment>
+	<environment exclude="Development">
+		<script src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
+				asp-fallback-src="~/lib/datatables/js/jquery.dataTables.min.js">
+		</script>
+	</environment>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#tabela_categorias').DataTable({
+				"order": [[1, "asc"]]
+			});
+		});
+	</script>
+}

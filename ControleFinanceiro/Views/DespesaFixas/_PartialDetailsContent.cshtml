@@ -1,0 +1,73 @@
+﻿@model ControleFinanceiro.Models.DespesaFixa
+
+<div class="content">
+	<div class="row">
+		<div class="form-group col-md-12">
+			<label asp-for="DespFixaId" class="control-label hidden"></label>
+			<br />
+			<div class="input-group col-md-12">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="fa fa-key title" aria-hidden="true"></i>
+					</span>
+				</div>
+				<input asp-for="DespFixaId" class="form-control" disabled="disabled" />
+			</div>
+			<label asp-for="DespFixaNome" class="control-label hidden"></label>
+			<br />
+			<div class="input-group col-md-12">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="fa fa-user-circle title" aria-hidden="true"></i>
+					</span>
+				</div>
+				<input asp-for="DespFixaNome" class="form-control" disabled="disabled" />
+			</div>
+			<label asp-for="DespFixaDescricao" class="control-label hidden"></label>
+			<br />
+			<div class="input-group col-md-12">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="fa fa-edit title" aria-hidden="true"></i>
+					</span>
+				</div>
+				<input asp-for="DespFixaDescricao" class="form-control" disabled="disabled" />
+			</div>
+			<label asp-for="DespFixaValor" class="control-label  hidden"></label>
+			<br />
+			<div class="input-group col-md-12">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="fa fa-list-alt title" aria-hidden="true"></i>
+					</span>
+				</div>
+				<input asp-for="DespFixaValor" class="form-control" disabled="disabled" />
+			</div>
+			<label asp-for="FormaPagamento.FormaNome" class="control-label  hidden"></label>
+			<br />
+			<div class="input-group col-md-12">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="fa fa-list-alt title" aria-hidden="true"></i>
+					</span>
+				</div>
+				<input asp-for="FormaPagamento.FormaNome" class="form-control" disabled="disabled" />
+			</div>
+			<label asp-for="DespFixaValor" class="control-label  hidden"></label>
+			<br />
+			<div class="input-group col-md-12">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="fa fa-list-alt title" aria-hidden="true"></i>
+					</span>
+				</div>
+				<input asp-for="DespFixaValor" class="form-control" disabled="disabled" />
+			</div>
+			<div class="form-group text-left h3">
+				<input type="hidden" asp-for="DespFixaId" />
+				<a asp-action="Edit" class="btn btn-block btn-warning btn-fill" asp-route-id="@Model.DespFixaId">Editar</a>
+				<a asp-action="Index" class="btn btn-block btn-info btn-fill pull-right">Voltar</a>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,110 +1,142 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ControleFinanceiro.Data;
+using ControleFinanceiro.Models;
+using ControleFinanceiro.Models.ViewModels;
+using ControleFinanceiro.Servico;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ControleFinanceiro.Data;
-using ControleFinanceiro.Models;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ControleFinanceiro.Controllers
 {
+    [Authorize]
     public class ListaProdutosController : Controller
     {
-        private readonly ControleFinanceiroContext _context;
+        private readonly ControlePessoalContext _context;
+        private readonly ProdutoServico produtoServico;
+        private readonly CategoriaServico categoriaServicos;
+        private readonly FormaPagamentoServico formaServicos;
+        private readonly StatusCompraServico statusServicos;
 
-        public ListaProdutosController(ControleFinanceiroContext context)
+        public ListaProdutosController(ControlePessoalContext context)
         {
             _context = context;
+            produtoServico = new ProdutoServico(context);
+            categoriaServicos = new CategoriaServico(context);
+            formaServicos = new FormaPagamentoServico(context);
+            statusServicos = new StatusCompraServico(context);
         }
 
-        // GET: ListaProdutos
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ListaProduto.ToListAsync());
+            // var list = await desejoServicos.EncontrarTudoDesejoAsync();
+            // return View(list);
+            return View(await produtoServico.PegarProdutoPorNome().ToListAsync());
+
         }
 
-        // GET: ListaProdutos/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var listaProduto = await _context.ListaProduto
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (listaProduto == null)
-            {
-                return NotFound();
-            }
-
-            return View(listaProduto);
-        }
-
-        // GET: ListaProdutos/Create
+        //GET Desejo/Create   
+        [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
+
+            var categorias = categoriaServicos.PegarCategoriasPorNome().ToList();
+            categorias.Insert(0, new Categoria() { CategoriaId = 0, CategoriaNome = "Selecione a Categoria" });
+            ViewBag.Categorias = categorias;
+
+            var formas = formaServicos.PegarFormaPorNome().ToList();
+            formas.Insert(0, new FormaPagamento() { FormaId = 0, FormaNome = "Selecione a forma de Pagamento" });
+            ViewBag.Formas = formas;
+
+            var status = statusServicos.PegarStatusPorNome().ToList();
+            status.Insert(0, new StatusCompra() { StatusId = 0, StatusNome = "Selecione a situação da compra" });
+            ViewBag.StatusCompras = status;
+
             return View();
+
         }
 
-        // POST: ListaProdutos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: Desejo/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProdutoId,ProdutoNome,ProdutoDescricao")] ListaProduto listaProduto)
+        public async Task<IActionResult> Create([Bind("ProdutoNome, ProdutoDescricao, StatusId, FormaId, CategoriaId")] ListaProduto produto)
+
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(listaProduto);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    await produtoServico.RegistrarProdutos(produto);
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            return View(listaProduto);
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("", "Não foi possível inserir os dados.");
+            }
+            return View(produto);
+
         }
 
-        // GET: ListaProdutos/Edit/5
+        //GET: Desejo/Edit
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Produto nao encontrado" });
             }
 
-            var listaProduto = await _context.ListaProduto.FindAsync(id);
-            if (listaProduto == null)
+            var desejo = await produtoServico.PegarProdutoPorIdAsync(id.Value);
+            if (desejo == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Produto nao existe" });
             }
-            return View(listaProduto);
+
+            ViewResult viewProduto = (ViewResult)await PegarViewProdutoPorId(id);
+            ListaProduto listaProduto = (ListaProduto)viewProduto.Model;
+
+            ViewBag.Categorias = new SelectList(categoriaServicos.PegarCategoriasPorNome()
+                , "CategoriaId", "CategoriaNome", listaProduto.CategoriaId);
+
+            ViewBag.Formas = new SelectList(formaServicos.PegarFormaPorNome()
+                , "FormaId", "FormaNome", listaProduto.FormaId);
+
+            ViewBag.Status = new SelectList(statusServicos.PegarStatusPorNome()
+              , "StatusId", "StatusNome", listaProduto.StatusId);
+
+            return viewProduto;
+
         }
 
-        // POST: ListaProdutos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: Desejo/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProdutoId,ProdutoNome,ProdutoDescricao")] ListaProduto listaProduto)
+        public async Task<IActionResult> Edit(int? id, [Bind("ProdutoId,ProdutoNome, ProdutoDescricao, StatusId, FormaId, CategoriaId")] ListaProduto produto)
         {
-            if (id != listaProduto.Id)
-            {
-                return NotFound();
-            }
 
+            if (id != produto.ProdutoId)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Desejo não encontrado" });
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(listaProduto);
-                    await _context.SaveChangesAsync();
+                    await produtoServico.AtualizarAsync(produto);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (ApplicationException e)
                 {
-                    if (!ListaProdutoExists(listaProduto.Id))
+                    if (!await ProdutoExists(produto.ProdutoId))
                     {
-                        return NotFound();
+                        return RedirectToAction(nameof(Error), new { message = e.Message });
                     }
                     else
                     {
@@ -113,41 +145,65 @@ namespace ControleFinanceiro.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(listaProduto);
+
+            ViewBag.Categorias = new SelectList(categoriaServicos.PegarCategoriasPorNome(), "CategoriaId", "CategoriaNome", produto.CategoriaId);
+            ViewBag.Formas = new SelectList(formaServicos.PegarFormaPorNome(), "FormaId", "FormaNome", produto.FormaId);
+            ViewBag.StatusCompras = new SelectList(statusServicos.PegarStatusPorNome(), "StatusId", "StatusNome", produto.StatusId);
+            return View(produto);
         }
 
-        // GET: ListaProdutos/Delete/5
+        private async Task<bool> ProdutoExists(int? id)
+        {
+            return await produtoServico.PegarProdutoPorIdAsync(id.Value) != null;
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Details(int? id)
+        {
+            return await PegarViewProdutoPorId(id);
+        }
+
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var listaProduto = await _context.ListaProduto
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (listaProduto == null)
-            {
-                return NotFound();
-            }
-
-            return View(listaProduto);
+            return await PegarViewProdutoPorId(id);
         }
 
-        // POST: ListaProdutos/Delete/5
+        // POST: Desejo/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var listaProduto = await _context.ListaProduto.FindAsync(id);
-            _context.ListaProduto.Remove(listaProduto);
-            await _context.SaveChangesAsync();
+            var produto = await produtoServico.DeletarProdutoPorId(id.Value);
+            TempData["Message"] = "Produto " + produto.ProdutoNome.ToUpper() + " foi removido com sucesso!";
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ListaProdutoExists(int id)
+        private async Task<IActionResult> PegarViewProdutoPorId(int? id)
         {
-            return _context.ListaProduto.Any(e => e.Id == id);
+            if (id == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id não providenciado" });
+            }
+
+            var produto = await produtoServico.PegarProdutoPorIdAsync(id.Value);
+            if (produto == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id não Encontrado" });
+            }
+
+            return View(produto);
+        }
+
+        [Authorize]
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }

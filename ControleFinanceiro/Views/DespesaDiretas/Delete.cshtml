@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
 
 <h2>Delete</h2>
@@ -12,6 +12,18 @@
     <h4>DespesaDireta</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DespesaDirNome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DespesaDirNome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DespesaDirDescricao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DespesaDirDescricao)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.DespDirValor)
         </dt>
@@ -23,6 +35,24 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.DespDirData)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusCompra)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StatusCompra.StatusId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FormaPagamento)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FormaPagamento.FormaId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.CategoriaId)
         </dd>
     </dl>
     

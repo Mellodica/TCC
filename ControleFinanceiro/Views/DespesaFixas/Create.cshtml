@@ -1,8 +1,8 @@
-﻿@model ControleFinanceiro.Models.ViewModel.FixaViewModel
+﻿@model ControleFinanceiro.Models.DespesaFixa
 
 @{
     ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
 
 <h2>Create</h2>
@@ -14,35 +14,36 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="DespesaFixas.ListaProduto" class="control-label"></label>
-                <select asp-for="DespesaFixas.ListaProduto" class="form-control" asp-items="@(new SelectList(Model.ListaProdutos, "Id","ProdutoNome"))"></select>
-                <span asp-validation-for="DespesaFixas.ListaProduto" class="text-danger"></span>
+                <label asp-for="DespFixaNome" class="control-label"></label>
+                <input asp-for="DespFixaNome" class="form-control" />
+                <span asp-validation-for="DespFixaNome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DespesaFixas.DespFixaValor" class="control-label"></label>
-                <input asp-for="DespesaFixas.DespFixaValor" class="form-control" />
-                <span asp-validation-for="DespesaFixas.DespFixaValor" class="text-danger"></span>
+                <label asp-for="DespFixaDescricao" class="control-label"></label>
+                <input asp-for="DespFixaDescricao" class="form-control" />
+                <span asp-validation-for="DespFixaDescricao" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DespesaFixas.DespFixaData" class="control-label"></label>
-                <input asp-for="DespesaFixas.DespFixaData" class="form-control" />
-                <span asp-validation-for="DespesaFixas.DespFixaData" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="DespesaFixas.Categoria" class="control-label"></label>
-                <select asp-for="DespesaFixas.Categoria" class="form-control" asp-items="@(new SelectList(Model.Categorias, "Id", "CategoriaNome"))"></select>
-                <span asp-validation-for="DespesaFixas.Categoria" class="text-danger"></span>
+                <label asp-for="DespFixaValor" class="control-label"></label>
+                <input asp-for="DespFixaValor" class="form-control" />
+                <span asp-validation-for="DespFixaValor" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DespesaFixas.FormaPagamento" class="control-label"></label>
-                <select asp-for="DespesaFixas.FormaPagamento" class="form-control" asp-items="@(new SelectList(Model.FormaPagamentos, "Id", "FormaNome"))"></select>
-                <span asp-validation-for="DespesaFixas.FormaPagamento" class="text-danger"></span>
+                <label asp-for="DespFixaData" class="control-label"></label>
+                <input asp-for="DespFixaData" class="form-control" />
+                <span asp-validation-for="DespFixaData" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DespesaFixas.StatusCompra" class="control-label"></label>
-                <select asp-for="DespesaFixas.StatusCompra" class="form-control" asp-items="@(new SelectList(Model.StatusCompras, "Id", "StatusNome"))"></select>
-                <span asp-validation-for="DespesaFixas.StatusCompra" class="text-danger"></span>
+                <label asp-for="StatusId" class="control-label"></label>
+                <select asp-for="StatusId" class ="form-control" asp-items="ViewBag.StatusId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FormaId" class="control-label"></label>
+                <select asp-for="FormaId" class ="form-control" asp-items="ViewBag.FormaId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoriaId" class="control-label"></label>
+                <select asp-for="CategoriaId" class ="form-control" asp-items="ViewBag.CategoriaId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

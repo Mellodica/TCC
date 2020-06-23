@@ -9,21 +9,24 @@ namespace ControleFinanceiro.Models
     public class StatusCompra
     {
         [Key]
-        public int Id { get; set; }
+        public int StatusId { get; set; }
+        [Display(Name = "Situação da Compra")]
         public string StatusNome { get; set; }
+
         public ICollection<ListaDesejo> ListaDesejos { get; set; } = new List<ListaDesejo>();
         public ICollection<ListaMercado> ListaMercados { get; set; } = new List<ListaMercado>();
         public ICollection<DespesaDireta> DespesaDiretas { get; set; } = new List<DespesaDireta>();
         public ICollection<DespesaFixa> DespesaFixas { get; set; } = new List<DespesaFixa>();
+        public ICollection<ListaProduto> ListaProdutos { get; set; } = new List<ListaProduto>();
 
         public StatusCompra()
         {
 
         }
 
-        public StatusCompra(int statusCompra, string statusNome)
+        public StatusCompra(int statusId, string statusNome)
         {
-            Id = statusCompra;
+            StatusId = statusId;
             StatusNome = statusNome;
         }
     }

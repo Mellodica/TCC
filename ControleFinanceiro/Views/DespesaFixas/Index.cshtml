@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
 
 <h2>Index</h2>
@@ -14,22 +14,25 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.DespFixaNome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DespFixaDescricao)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.DespFixaValor)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DespFixaData)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ListaProduto)
+                @Html.DisplayNameFor(model => model.StatusCompra)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FormaPagamento)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Categoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StatusCompra)
             </th>
             <th></th>
         </tr>
@@ -38,7 +41,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ListaProduto)
+                @Html.DisplayFor(modelItem => item.DespFixaNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DespFixaDescricao)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DespFixaValor)
@@ -46,15 +52,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DespFixaData)
             </td>
-
             <td>
-                @Html.DisplayFor(modelItem => item.FormaPagamento)
+                @Html.DisplayFor(modelItem => item.StatusCompra.StatusId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Categoria)
+                @Html.DisplayFor(modelItem => item.FormaPagamento.FormaId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StatusCompra)
+                @Html.DisplayFor(modelItem => item.Categoria.CategoriaId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DespFixaId">Edit</a> |

@@ -1,126 +1,142 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
 using ControleFinanceiro.Servico;
-using ControleFinanceiro.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using ControleFinanceiro.Models.ViewModels;
+using System.Diagnostics;
 
 namespace ControleFinanceiro.Controllers
 {
+    [Authorize]
     public class DespesaDiretasController : Controller
     {
-        private readonly ControleFinanceiroContext _context;
-        private readonly CategoriaServico _categoriaServico;
-        private readonly FormaPagamentoServico _formaPagamentoServico;
-        private readonly StatusCompraServico _statusCompraServico;
-        private readonly ServicoProduto _servicoProduto;
+        private readonly ControlePessoalContext _context;
+        private readonly ListaDespDiretaServico listaDespDiretaServico;
+        private readonly CategoriaServico categoriaServicos;
+        private readonly FormaPagamentoServico formaServicos;
+        private readonly StatusCompraServico statusServicos;
 
-        public DespesaDiretasController(ControleFinanceiroContext context, CategoriaServico categoriaServico, FormaPagamentoServico formaPagamentoServico, StatusCompraServico statusCompraServico, ServicoProduto servicoProduto)
+        public DespesaDiretasController(ControlePessoalContext context)
         {
             _context = context;
-            _categoriaServico = categoriaServico;
-            _formaPagamentoServico = formaPagamentoServico;
-            _statusCompraServico = statusCompraServico;
-            _servicoProduto = servicoProduto;
+            listaDespDiretaServico = new ListaDespDiretaServico(context);
+            categoriaServicos = new CategoriaServico(context);
+            formaServicos = new FormaPagamentoServico(context);
+            statusServicos = new StatusCompraServico(context);
         }
 
-        // GET: DespesaDiretas
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.DespesaDireta.ToListAsync());
+            //var list = await desejoServicos.EncontrarTudoDesejoAsync();
+            //return View(list);
+            return View(await listaDespDiretaServico.PegarDiretaPorNome().ToListAsync());
+
         }
 
-        // GET: DespesaDiretas/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var despesaDireta = await _context.DespesaDireta
-                .FirstOrDefaultAsync(m => m.DespDirId == id);
-            if (despesaDireta == null)
-            {
-                return NotFound();
-            }
-
-            return View(despesaDireta);
-        }
-
-        // GET: DespesaDiretas/Create
+        //GET DespesaDiretas/Create   
+        [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
-            var prod = _servicoProduto.PegarTudo();
-            var cat = _categoriaServico.PegarTudo();
-            var forma = _formaPagamentoServico.PegarTudo();
-            var status = _statusCompraServico.PegarTudo();
-            var viewModel = new DiretaViewModel { Categorias = cat, FormaPagamentos = forma, StatusCompras = status, ListaProdutos = prod };
-            return View(viewModel);
+
+            var categorias = categoriaServicos.PegarCategoriasPorNome().ToList();
+            categorias.Insert(0, new Categoria() { CategoriaId = 0, CategoriaNome = "Selecione a Categoria" });
+            ViewBag.Categorias = categorias;
+
+            var formas = formaServicos.PegarFormaPorNome().ToList();
+            formas.Insert(0, new FormaPagamento() { FormaId = 0, FormaNome = "Selecione a forma de Pagamento" });
+            ViewBag.Formas = formas;
+
+            var status = statusServicos.PegarStatusPorNome().ToList();
+            status.Insert(0, new StatusCompra() { StatusId = 0, StatusNome = "Selecione a situação da compra" });
+            ViewBag.StatusCompras = status;
+
+            return View();
+
         }
 
-        // POST: DespesaDiretas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: DespesaDiretas/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DespesaDireta despesaDireta)
+        public async Task<IActionResult> Create([Bind("DespesaDirNome, DespesaDirDescricao, DiretaValor,DespDirData, StatusId, FormaId, CategoriaId")] DespesaDireta direta)
+
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(despesaDireta);
-                
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    await listaDespDiretaServico.RegistrarDespDireta(direta);
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            return View(despesaDireta);
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("", "Não foi possível inserir os dados.");
+            }
+            return View(direta);
+
         }
 
-        // GET: DespesaDiretas/Edit/5
+        //GET: DespesaDiretas/Edit
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Produto nao encontrado" });
             }
 
-            var despesaDireta = await _context.DespesaDireta.FindAsync(id);
-            if (despesaDireta == null)
+            var direta = await listaDespDiretaServico.PegarDiretaPorIdAsync(id.Value);
+            if (direta == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Produto nao existe" });
             }
-            return View(despesaDireta);
+
+            ViewResult viewDireta = (ViewResult)await PegarViewDiretaPorId(id);
+            DespesaDireta despesaDireta = (DespesaDireta)viewDireta.Model;
+
+            ViewBag.Categorias = new SelectList(categoriaServicos.PegarCategoriasPorNome()
+                , "CategoriaId", "CategoriaNome", despesaDireta.CategoriaId);
+
+            ViewBag.Formas = new SelectList(formaServicos.PegarFormaPorNome()
+                , "FormaId", "FormaNome", despesaDireta.FormaId);
+
+            ViewBag.Status = new SelectList(statusServicos.PegarStatusPorNome()
+                , "StatusId", "StatusNome", despesaDireta.StatusId);
+
+            return viewDireta;
+
         }
 
-        // POST: DespesaDiretas/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: DespesaDiretas/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DespDirId,DespDirValor,DespDirData")] DespesaDireta despesaDireta)
+        public async Task<IActionResult> Edit(int? id, [Bind("DespDirId,DespesaDirNome, DespesaDirDescricao, DiretaValor,DespDirData, StatusId, FormaId, CategoriaId")] DespesaDireta direta)
         {
-            if (id != despesaDireta.DespDirId)
-            {
-                return NotFound();
-            }
 
+            if (id != direta.DespDirId)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Desejo não encontrado" });
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(despesaDireta);
-                    await _context.SaveChangesAsync();
+                    await listaDespDiretaServico.AtualizarAsync(direta);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (ApplicationException e)
                 {
-                    if (!DespesaDiretaExists(despesaDireta.DespDirId))
+                    if (!await DiretaExists(direta.DespDirId))
                     {
-                        return NotFound();
+                        return RedirectToAction(nameof(Error), new { message = e.Message });
                     }
                     else
                     {
@@ -129,41 +145,66 @@ namespace ControleFinanceiro.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(despesaDireta);
+
+            ViewBag.Categorias = new SelectList(categoriaServicos.PegarCategoriasPorNome(), "CategoriaId", "CategoriaNome", direta.CategoriaId);
+            ViewBag.Formas = new SelectList(formaServicos.PegarFormaPorNome(), "FormaId", "FormaNome", direta.FormaId);
+            ViewBag.StatusCompras = new SelectList(statusServicos.PegarStatusPorNome(), "StatusId", "StatusNome", direta.StatusId);
+            return View(direta);
         }
 
-        // GET: DespesaDiretas/Delete/5
+        private async Task<bool> DiretaExists(int? id)
+        {
+            return await listaDespDiretaServico.PegarDiretaPorIdAsync(id.Value) != null;
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Details(int? id)
+        {
+            return await PegarViewDiretaPorId(id);
+        }
+
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var despesaDireta = await _context.DespesaDireta
-                .FirstOrDefaultAsync(m => m.DespDirId == id);
-            if (despesaDireta == null)
-            {
-                return NotFound();
-            }
-
-            return View(despesaDireta);
+            return await PegarViewDiretaPorId(id);
         }
 
         // POST: DespesaDiretas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var despesaDireta = await _context.DespesaDireta.FindAsync(id);
-            _context.DespesaDireta.Remove(despesaDireta);
-            await _context.SaveChangesAsync();
+            var direta = await listaDespDiretaServico.DeletarDiretaPorId(id.Value);
+            TempData["Message"] = "Desejo " + direta.DespesaDirNome.ToUpper() + " foi removido com sucesso!";
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DespesaDiretaExists(int id)
+        private async Task<IActionResult> PegarViewDiretaPorId(int? id)
         {
-            return _context.DespesaDireta.Any(e => e.DespDirId == id);
+            if (id == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id não providenciado" });
+            }
+
+            var direta = await listaDespDiretaServico.PegarDiretaPorIdAsync(id.Value);
+            if (direta == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id não Encontrado" });
+            }
+
+            return View(direta);
+        }
+
+        [Authorize]
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
+    
 }

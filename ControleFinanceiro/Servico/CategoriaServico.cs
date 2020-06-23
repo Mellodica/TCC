@@ -1,8 +1,6 @@
 ﻿using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
-using ControleFinanceiro.Servico.Erros;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,70 +10,32 @@ namespace ControleFinanceiro.Servico
     public class CategoriaServico
     {
 
-        private readonly ControleFinanceiroContext _context;
+        private readonly ControlePessoalContext _context;
 
-        public CategoriaServico(ControleFinanceiroContext context)
+        public CategoriaServico(ControlePessoalContext context)
         {
             _context = context;
         }
 
-        public async Task<List<Categoria>> EncontrarTudoAsync()
+        public async Task<List<Categoria>> EncontrarTudoCategoriasAsync()
         {
-            return await _context.Categoria.OrderBy(i => i.CategoriaNome).ToListAsync();
+            return await _context.Categorias.OrderBy(i => i.CategoriaNome).ToListAsync();
         }
 
-        public List<Categoria> PegarTudo()
+        public IQueryable<Categoria> PegarCategoriasPorNome()
         {
-            return _context.Categoria.OrderBy(i => i.CategoriaNome).ToList();
-        }
-
-        public async Task<Categoria> EncontraPorIdAsync(int id)
-        {
-            return await _context.Categoria.FirstOrDefaultAsync (item => item.Id == id);
+            return _context.Categorias.OrderBy(c => c.CategoriaNome);
         }
 
 
-        public void DeleteConfirma(int id)
+        public async Task<Categoria> PegarCategoriaPorIdAsync(int id)
         {
-            var categoria = _context.Categoria.Find(id);
-             _context.Categoria.Remove(categoria);
-            _context.SaveChanges();
-            
+            return await _context.Categorias
+                .Include(p => p.DespesaFixas)
+                .Include(p => p.DespesaDiretas)
+                .Include(l => l.ListaDesejos)
+                .Include(m => m.ListaMercados)
+                .FirstOrDefaultAsync(m => m.CategoriaId == id);
         }
-
-        public async Task Atualizar(Categoria obj)
-        {
-            if (!_context.Categoria.Any(x => x.Id == obj.Id))
-            {
-                throw new NotFoundException("Categoria não encontrada!");
-            }
-            try
-            {
-                _context.Update(obj);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbConcurrencyException e)
-            {
-
-                throw new DbConcurrencyException(e.Message);
-            }
-
-           /* var categoria = _context.Categoria (id);
-            if (categoria == null)
-            {
-                return NotFound();
-            }
-            */
-               
-
-        }
-
-
-        public async Task Insert(Categoria obj)
-        {
-            _context.Add(obj);
-            await _context.SaveChangesAsync();
-        }
-        
     }
 }

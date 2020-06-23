@@ -1,34 +1,29 @@
 ﻿@model ControleFinanceiro.Models.ListaDesejo
 
 @{
-    ViewData["Title"] = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Deletar Produto!!";
+	Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
+<style>
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>ListaDesejo</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DesejoValor)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DesejoValor)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DesejoData)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DesejoData)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="DesejoId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
-</div>
+	.modal-backdrop {
+		z-index: 1;
+	}
+</style>
+<body>
+	<div class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-9 centro">
+					<div class="card delete-texto">
+						<hr />
+						<div class="header">
+							<h4 class="title text-danger">@ViewData["Title"]</h4>
+						</div>
+						@{await Html.RenderPartialAsync("~/Views/ListaDesejos/_PartialDeleteContent.cshtml", Model); }
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
