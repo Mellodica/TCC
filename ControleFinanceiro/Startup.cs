@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using ControleFinanceiro.Data;
 using ControleFinanceiro.Servico;
-using ControleFinanceiro.Models;
 using Microsoft.AspNetCore.Identity;
 using ControleFinanceiro.Models.Infra;
 

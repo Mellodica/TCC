@@ -1,65 +1,82 @@
 ﻿@model ControleFinanceiro.Models.DespesaDireta
 
 @{
-    ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_LayoutGeral.cshtml";
+	ViewData["Title"] = "Alterar Despesa";
+	Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
 
-<h2>Edit</h2>
-
-<h4>DespesaDireta</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="DespDirId" />
-            <div class="form-group">
-                <label asp-for="DespesaDirNome" class="control-label"></label>
-                <input asp-for="DespesaDirNome" class="form-control" />
-                <span asp-validation-for="DespesaDirNome" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DespesaDirDescricao" class="control-label"></label>
-                <input asp-for="DespesaDirDescricao" class="form-control" />
-                <span asp-validation-for="DespesaDirDescricao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DespDirValor" class="control-label"></label>
-                <input asp-for="DespDirValor" class="form-control" />
-                <span asp-validation-for="DespDirValor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DespDirData" class="control-label"></label>
-                <input asp-for="DespDirData" class="form-control" />
-                <span asp-validation-for="DespDirData" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StatusId" class="control-label"></label>
-                <select asp-for="StatusId" class="form-control" asp-items="ViewBag.StatusId"></select>
-                <span asp-validation-for="StatusId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FormaId" class="control-label"></label>
-                <select asp-for="FormaId" class="form-control" asp-items="ViewBag.FormaId"></select>
-                <span asp-validation-for="FormaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoriaId" class="control-label"></label>
-                <select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaId"></select>
-                <span asp-validation-for="CategoriaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-9 centro">
+				<div class="card">
+					<hr />
+					<div class="header">
+						<h4 class="title">@ViewData["Title"]</h4>
+						<br />
+					</div>
+					<div class="content">
+						<div class="row">
+							<div class="form-group col-md-12">
+								<form asp-action="Edit">
+									<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+									<input type="hidden" asp-for="DespDirId" />
+									<div class="form-group">
+										<label asp-for="DespesaDirNome" class="control-label">
+											<i class="fa fa-shopping-bag title" aria-hidden="true"></i>
+										</label>
+										<input asp-for="DespesaDirNome" class="form-control" />
+										<span asp-validation-for="DespesaDirNome" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label asp-for="DespesaDirDescricao" class="control-label">
+											<i class="fa fa-edit title" aria-hidden="true"></i>
+										</label>
+										<input asp-for="DespesaDirDescricao" class="form-control" />
+										<span asp-validation-for="DespesaDirDescricao" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label asp-for="DespDirValor" class="control-label">
+											<i class="fa fa-usd title" aria-hidden="true"></i>
+										</label>
+										<input asp-for="DespDirValor" class="form-control" />
+										<span asp-validation-for="DespDirValor" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label asp-for="DespDirData" class="control-label"></label>
+										<input asp-for="DespDirData" class="form-control" />
+										<span asp-validation-for="DespDirData" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label asp-for="StatusId" class="control-label"></label>
+										<select asp-for="StatusId" class="form-control" asp-items="ViewBag.StatusId"></select>
+										<span asp-validation-for="StatusId" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label asp-for="FormaId" class="control-label">
+											<i class="fa fa-credit-card-alt title" aria-hidden="true"></i>
+										</label>
+										<select asp-for="FormaId" class="form-control" asp-items="ViewBag.FormaId"></select>
+										<span asp-validation-for="FormaId" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label asp-for="CategoriaId" class="control-label"></label>
+										<select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaId"></select>
+										<span asp-validation-for="CategoriaId" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<input type="submit" value="Save" class="btn btn-default" />
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@section ScriptPage {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

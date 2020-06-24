@@ -39,13 +39,15 @@ namespace ControleFinanceiro.Models
         [Display(Name = "Categoria")]
         public Categoria Categoria { get; set; }
         public int CategoriaId { get; set; }
-
+    
+        /*
         public IEnumerable<DespesaDireta> DespesasDiretas { get; private set; }
 
         public double TotalDespesaDireta(DateTime inicial, DateTime final)
         {
             return DespesasDiretas.Where(dd => dd.DespDirData >= inicial && dd.DespDirData <= final).Sum(dd => dd.DespDirValor);
         }
+        */
 
         public DespesaDireta()
         {

@@ -3,22 +3,25 @@
 <div class="content">
 	<div class="row">
 		<div class="form-group col-md-12">
-			<label asp-for="DespDirId" class="control-label hidden"></label>
-			<br />
-			<div class="input-group col-md-12">
-				<div class="input-group-prepend">
-					<span class="input-group-text">
-						<i class="fa fa-key title" aria-hidden="true"></i>
-					</span>
+			<!--
+				<label asp-for="DespFixaId" class="control-label hidden"></label>
+				<br />
+				<div class="input-group col-md-12">
+					<div class="input-group-prepend">
+						<span class="input-group-text">
+							<i class="fa fa-key title" aria-hidden="true"></i>
+						</span>
+					</div>
+					<input asp-for="DespFixaId" class="form-control" disabled="disabled" />
 				</div>
-				<input asp-for="DespDirId" class="form-control" disabled="disabled" />
-			</div>
+			-->
 			<label asp-for="DespesaDirNome" class="control-label hidden"></label>
 			<br />
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">
-						<i class="fa fa-user-circle title" aria-hidden="true"></i>
+						<i class="fa fa-shopping-bag title" aria-hidden="true"></i>
+						<span style="padding-left:10px">Nome da Despesa</span>
 					</span>
 				</div>
 				<input asp-for="DespesaDirNome" class="form-control" disabled="disabled" />
@@ -29,6 +32,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">
 						<i class="fa fa-edit title" aria-hidden="true"></i>
+						<span style="padding-left:10px">Descrição</span>
 					</span>
 				</div>
 				<input asp-for="DespesaDirDescricao" class="form-control" disabled="disabled" />
@@ -38,7 +42,8 @@
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">
-						<i class="fa fa-list-alt title" aria-hidden="true"></i>
+						<i class="fa fa-usd title" aria-hidden="true"></i>
+						<span style="padding-left:10px">Valor</span>
 					</span>
 				</div>
 				<input asp-for="DespDirValor" class="form-control" disabled="disabled" />
@@ -48,7 +53,8 @@
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">
-						<i class="fa fa-list-alt title" aria-hidden="true"></i>
+						<i class="fa fa-credit-card-alt title" aria-hidden="true"></i>
+						<span style="padding-left:10px">Forma de Pagamento</span>
 					</span>
 				</div>
 				<input asp-for="FormaPagamento.FormaNome" class="form-control" disabled="disabled" />
@@ -58,7 +64,8 @@
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">
-						<i class="fa fa-list-alt title" aria-hidden="true"></i>
+						<i class="fa fa-usd title" aria-hidden="true"></i>
+						<span style="padding-left:10px">Valor</span>
 					</span>
 				</div>
 				<input asp-for="DespDirData" class="form-control" disabled="disabled" />

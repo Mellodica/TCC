@@ -171,7 +171,7 @@ namespace ControleFinanceiro.Controllers
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
             var fixa = await listaDespFixaServico.DeletarFixaPorId(id.Value);
-            TempData["Message"] = "Desejo " + fixa.DespFixaNome.ToUpper() + " foi removido com sucesso!";
+            TempData["Message"] = "Despesa " + fixa.DespFixaNome.ToUpper() + " foi removida com sucesso!";
             return RedirectToAction(nameof(Index));
         }
 
@@ -182,13 +182,13 @@ namespace ControleFinanceiro.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id não providenciado" });
             }
 
-            var direta = await listaDespFixaServico.PegarFixaPorIdAsync(id.Value);
-            if (direta == null)
+            var fixa = await listaDespFixaServico.PegarFixaPorIdAsync(id.Value);
+            if (fixa == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não Encontrado" });
             }
 
-            return View(direta);
+            return View(fixa);
         }
 
         [Authorize]

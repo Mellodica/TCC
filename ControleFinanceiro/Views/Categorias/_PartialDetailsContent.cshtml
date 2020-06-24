@@ -1,19 +1,20 @@
 ﻿@model ControleFinanceiro.Models.Categoria
 
-
 <div class="content">
 	<div class="row">
 		<div class="form-group col-md-12">
-			<label asp-for="CategoriaId" class="control-label hidden"></label>
-			<br />
-			<div class="input-group col-md-12">
-				<div class="input-group-prepend">
-					<span class="input-group-text">
-						<i class="fa fa-key title" aria-hidden="true"></i>
-					</span>
+			<!--
+				<label asp-for="CategoriaId" class="control-label hidden"></label>
+				<br />
+				<div class="input-group col-md-12">
+					<div class="input-group-prepend">
+						<span class="input-group-text">
+							<i class="fa fa-key title" aria-hidden="true"></i>
+						</span>
+					</div>
+					<input asp-for="CategoriaId" class="form-control" disabled="disabled" />
 				</div>
-				<input asp-for="CategoriaId" class="form-control" disabled="disabled" />
-			</div>
+			-->
 			<label asp-for="CategoriaNome" class="control-label hidden"></label>
 			<br />
 			<div class="input-group col-md-12">
@@ -26,7 +27,7 @@
 			</div>
 			<div class="form-group text-left h3">
 				<form>
-					<a asp-action="Index" class="btn btn-info btn-fill btn-block">Retornar</a>
+					<a asp-controller="Controles" asp-action="Index" class="btn btn-info btn-fill btn-block">Retornar</a>
 				</form>
 			</div>
 		</div>
@@ -41,5 +42,8 @@
 </div>
 <div class="col-4">
 	@{await Html.RenderPartialAsync("~/Views/Categorias/_ComDiretas.cshtml", Model.DespesaDiretas.ToList()); }
+</div>
+<div class="col-4">
+	@{await Html.RenderPartialAsync("~/Views/Categorias/_ComProdutos.cshtml", Model.ListaProdutos.ToList()); }
 </div>
 

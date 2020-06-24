@@ -175,7 +175,7 @@ namespace ControleFinanceiro.Controllers
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
             var direta = await listaDespDiretaServico.DeletarDiretaPorId(id.Value);
-            TempData["Message"] = "Desejo " + direta.DespesaDirNome.ToUpper() + " foi removido com sucesso!";
+            TempData["Message"] = "Despesa " + direta.DespesaDirNome.ToUpper() + " foi removida com sucesso!";
             return RedirectToAction(nameof(Index));
         }
 

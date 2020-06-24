@@ -1,61 +1,69 @@
 ﻿@model ControleFinanceiro.Models.DespesaFixa
 
 @{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_LayoutGeral.cshtml";
+	ViewData["Title"] = "Cadastrar uma nova Despesa";
+	Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
 
-<h2>Create</h2>
-
-<h4>DespesaFixa</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="DespFixaNome" class="control-label"></label>
-                <input asp-for="DespFixaNome" class="form-control" />
-                <span asp-validation-for="DespFixaNome" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DespFixaDescricao" class="control-label"></label>
-                <input asp-for="DespFixaDescricao" class="form-control" />
-                <span asp-validation-for="DespFixaDescricao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DespFixaValor" class="control-label"></label>
-                <input asp-for="DespFixaValor" class="form-control" />
-                <span asp-validation-for="DespFixaValor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DespFixaData" class="control-label"></label>
-                <input asp-for="DespFixaData" class="form-control" />
-                <span asp-validation-for="DespFixaData" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StatusId" class="control-label"></label>
-                <select asp-for="StatusId" class ="form-control" asp-items="ViewBag.StatusId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="FormaId" class="control-label"></label>
-                <select asp-for="FormaId" class ="form-control" asp-items="ViewBag.FormaId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoriaId" class="control-label"></label>
-                <select asp-for="CategoriaId" class ="form-control" asp-items="ViewBag.CategoriaId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-9 centro">
+				<div class="card">
+					<hr />
+					<div class="header">
+						<h4 class="title">@ViewData["Title"]</h4>
+						<br />
+					</div>
+					<div class="content">
+						<div class="row">
+							<div class="form-group col-md-12">
+								<form asp-action="Create">
+									<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+									<div class="form-group">
+										<label asp-for="DespFixaNome" class="control-label"></label>
+										<input asp-for="DespFixaNome" class="form-control" />
+										<span asp-validation-for="DespFixaNome" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label asp-for="DespFixaDescricao" class="control-label"></label>
+										<input asp-for="DespFixaDescricao" class="form-control" />
+										<span asp-validation-for="DespFixaDescricao" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label asp-for="DespFixaValor" class="control-label"></label>
+										<input asp-for="DespFixaValor" class="form-control" />
+										<span asp-validation-for="DespFixaValor" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label asp-for="DespFixaData" class="control-label"></label>
+										<input asp-for="DespFixaData" class="form-control" />
+										<span asp-validation-for="DespFixaData" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label asp-for="StatusId" class="control-label"></label>
+										<select asp-for="StatusId" class="form-control" asp-items="ViewBag.StatusId"></select>
+									</div>
+									<div class="form-group">
+										<label asp-for="FormaId" class="control-label"></label>
+										<select asp-for="FormaId" class="form-control" asp-items="ViewBag.FormaId"></select>
+									</div>
+									<div class="form-group">
+										<label asp-for="CategoriaId" class="control-label"></label>
+										<select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaId"></select>
+									</div>
+									<div class="form-group">
+										<input type="submit" value="Create" class="btn btn-default" />
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@section ScriptPage {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

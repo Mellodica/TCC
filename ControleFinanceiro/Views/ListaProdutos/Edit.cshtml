@@ -1,10 +1,8 @@
 ﻿@model ControleFinanceiro.Models.ListaProduto
-
 @{
 	ViewData["Title"] = "Alterar Produto";
 	Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
-
 <div class="content">
 	<div class="container-fluid">
 		<div class="row">
@@ -22,29 +20,42 @@
 									<input type="hidden" asp-for="ProdutoId" />
 									<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 									<div class="form-group">
-										<label asp-for="ProdutoNome" class="control-label"></label>
+										<label asp-for="ProdutoNome" class="control-label">
+											<i class="fa fa-shopping-bag title" aria-hidden="true"></i>
+											<span style="padding-left:10px">Nome</span>
+										</label>
 										<input asp-for="ProdutoNome" class="form-control" />
 										<span asp-validation-for="ProdutoNome" class="text-danger"></span>
 									</div>
 									<div class="form-group">
-										<label asp-for="ProdutoDescricao" class="control-label"></label>
+										<label asp-for="ProdutoDescricao" class="control-label">
+											<i class="fa fa-edit title" aria-hidden="true"></i>
+											<span style="padding-left:10px">Descrição</span>
+										</label>
 										<input asp-for="ProdutoDescricao" class="form-control" />
 										<span asp-validation-for="ProdutoDescricao" class="text-danger"></span>
 									</div>
 									<div class="form-group">
-										<label asp-for="Categoria.CategoriaNome" class="control-label hidden"></label>
+										<label asp-for="Categoria.CategoriaNome" class="control-label">
+											<i class="fa fa-list-alt title" aria-hidden="true"></i>
+											<span style="padding-left:10px">Categoria</span>
+										</label>
 										<select asp-for="CategoriaId" class="form-control" asp-items="@ViewBag.Categorias"></select>
 									</div>
 									<div class="form-group">
-										<label asp-for="FormaPagamento.FormaNome" class="control-label hidden"></label>
+										<label asp-for="FormaPagamento.FormaNome" class="control-label">
+											<i class="fa fa-credit-card-alt title" aria-hidden="true"></i>
+											<span style="padding-left:10px">Forma de Pagamento</span>
+										</label>
 										<select asp-for="FormaId" class="form-control" asp-items="@ViewBag.Formas"></select>
 									</div>
-
 									<div class="form-group">
-										<label asp-for="StatusCompra.StatusNome" class="control-label hidden"></label>
+										<label asp-for="StatusCompra.StatusNome" class="control-label">
+											<i class="fa fa-check-square title" aria-hidden="true"></i>
+											<span style="padding-left:10px">Situação da Compra</span>
+										</label>
 										<select asp-for="StatusId" class="form-control" asp-items="@ViewBag.Status"></select>
 									</div>
-
 									<div class="form-group text-center h3">
 										<input type="submit" value="Atualizar" class="btn btn-block btn-fill" />
 										<a asp-action="Index" class="btn btn-info btn-fill btn-block pull-right">Voltar</a>

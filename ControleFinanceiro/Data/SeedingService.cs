@@ -1,11 +1,7 @@
-﻿using ControleFinanceiro.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using ControleFinanceiro.Models;
 
-namespace ControleFinanceiro.Servico
+namespace ControleFinanceiro.Data
 {
     public class SeedingService
     {
@@ -19,8 +15,8 @@ namespace ControleFinanceiro.Servico
         public void Seed()
         {
             if (_context.Categorias.Any() ||
-                _context.Formas.Any() || 
-                _context.StatusCompras.Any() || 
+                _context.Formas.Any() ||
+                _context.StatusCompras.Any() ||
                 _context.Produtos.Any() ||
                 _context.Desejos.Any() ||
                 _context.Mercados.Any() ||
@@ -97,7 +93,7 @@ namespace ControleFinanceiro.Servico
 
             //ListaDesejo l1 = new ListaDesejo(new int(), "400", 200, DateTime.Now, s1, c38, f1);
 
-            
+
             _context.StatusCompras.AddRange(s1, s2, s3);
             _context.Formas.AddRange(f1, f2, f3, f4, f5, f6);
             _context.Categorias.AddRange(

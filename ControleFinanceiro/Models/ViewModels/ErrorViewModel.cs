@@ -1,5 +1,3 @@
-using System;
-
 namespace ControleFinanceiro.Models.ViewModels
 {
     public class ErrorViewModel

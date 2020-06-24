@@ -1,67 +1,106 @@
 ﻿@model ControleFinanceiro.Models.ListaDesejo
 
 @{
-    ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_LayoutGeral.cshtml";
+	ViewData["Title"] = "Alterar Desejo";
+	Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
 
-<h2>Edit</h2>
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-9 centro">
+				<div class="card">
+					<hr />
+					<div class="header">
+						<h4 class="title">@ViewData["Title"]</h4>
+						<br />
+					</div>
+					<div class="content">
+						<div class="row">
+							<div class="form-group col-md-12">
+								<form asp-action="Edit">
+									<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+									<input type="hidden" asp-for="DesejoId" />
 
-<h4>ListaDesejo</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-		<form asp-action="Edit">
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<input type="hidden" asp-for="DesejoId" />
+									<div class="form-group">
+										<label asp-for="DesejoNome" class="control-label">
+											<i class="fa fa-shopping-bag title" aria-hidden="true"></i>
+											<span style="padding-left:10px">Nome</span>
+										</label>
+										<input asp-for="DesejoNome" class="form-control" />
+										<span asp-validation-for="DesejoNome" class="text-danger"></span>
+									</div>
 
-			<div class="form-group">
-				<label asp-for="DesejoNome" class="control-label"></label>
-				<input asp-for="DesejoNome" class="form-control" />
-				<span asp-validation-for="DesejoNome" class="text-danger"></span>
-			</div>
+									<div class="form-group">
+										<label asp-for="DesejoDescricao" class="control-label">
+											<i class="fa fa-edit title" aria-hidden="true"></i>
+											<span style="padding-left:10px">Descrição</span>
+										</label>
+										<input asp-for="DesejoDescricao" class="form-control" />
+										<span asp-validation-for="DesejoDescricao" class="text-danger"></span>
+									</div>
 
-			<div class="form-group">
-				<label asp-for="DesejoDescricao" class="control-label"></label>
-				<input asp-for="DesejoDescricao" class="form-control" />
-				<span asp-validation-for="DesejoDescricao" class="text-danger"></span>
-			</div>
+									<div class="form-group">
+										<label asp-for="DesejoValor" class="control-label">
+											<i class="fa fa-usd title" aria-hidden="true"></i>
+											<span style="padding-left:10px">Valor</span>
+										</label>
+										<input asp-for="DesejoValor" class="form-control" />
+										<span asp-validation-for="DesejoValor" class="text-danger"></span>
+									</div>
 
-			<div class="form-group">
-				<label asp-for="DesejoValor" class="control-label"></label>
-				<input asp-for="DesejoValor" class="form-control" />
-				<span asp-validation-for="DesejoValor" class="text-danger"></span>
-			</div>
+									<div class="form-group">
+										<label asp-for="DesejoData" class="control-label">
+											<i class="fa fa-calendar title" aria-hidden="true"></i>
+											<span style="padding-left:10px">Previsão</span>
+										</label>
+										<input asp-for="DesejoData" class="form-control" />
+										<span asp-validation-for="DesejoData" class="text-danger"></span>
+									</div>
 
-			<div class="form-group">
-				<label asp-for="DesejoData" class="control-label hidden"></label>
-				<input asp-for="DesejoData" class="form-control" />
-				<span asp-validation-for="DesejoData" class="text-danger"></span>
-			</div>
+									<div class="form-group">
+										<label asp-for="DesejoLoja" class="control-label">
+											<i class="fa fa-shopping-cart title" aria-hidden="true"></i>
+											<span style="padding-left:10px">Loja</span>
+										</label>
+										<input asp-for="DesejoLoja" class="form-control" />
+										<span asp-validation-for="DesejoLoja" class="text-danger"></span>
+									</div>
 
-			<div class="form-group">
-				<label asp-for="CategoriaId" class="control-label hidden"></label>
-				<select asp-for="CategoriaId" class="form-control" asp-items="@ViewBag.Categorias"></select>
+									<div class="form-group">
+										<label asp-for="CategoriaId" class="control-label">
+											<i class="fa fa-list-alt title" aria-hidden="true"></i>
+											<span style="padding-left:10px">Categoria</span>
+										</label>
+										<select asp-for="CategoriaId" class="form-control" asp-items="@ViewBag.Categorias"></select>
+									</div>
+									<div class="form-group">
+										<label asp-for="FormaId" class="control-label">
+											<i class="fa fa-credit-card-alt title" aria-hidden="true"></i>
+											<span style="padding-left:10px">Forma de Pagamento</span>
+										</label>
+										<select asp-for="FormaId" class="form-control" asp-items="@ViewBag.Formas"></select>
+									</div>
+									<div class="form-group">
+										<label asp-for="StatusId" class="control-label">
+											<i class="fa fa-check-square title" aria-hidden="true"></i>
+											<span style="padding-left:10px">Situação da Compra</span>
+										</label>
+										<select asp-for="StatusId" class="form-control" asp-items="@ViewBag.Status"></select>
+									</div>
+									<div class="form-group text-center h3">
+										<input type="submit" value="Atualizar" class="btn btn-block btn-fill" />
+										<a asp-action="Index" class="btn btn-info btn-fill btn-block pull-right">Voltar</a>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="form-group">
-				<label asp-for="FormaId" class="control-label hidden"></label>
-				<select asp-for="FormaId" class="form-control" asp-items="@ViewBag.Formas"></select>
-			</div>
-			<div class="form-group">
-				<label asp-for="StatusId" class="control-label hidden"></label>
-				<select asp-for="StatusId" class="form-control" asp-items="@ViewBag.Status"></select>
-			</div>
-			<div class="form-group">
-				<input type="submit" value="Save" class="btn btn-default" />
-			</div>
-		</form>
-    </div>
+		</div>
+	</div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section ScriptPage {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

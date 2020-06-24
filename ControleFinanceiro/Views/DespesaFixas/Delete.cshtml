@@ -1,64 +1,29 @@
 ﻿@model ControleFinanceiro.Models.DespesaFixa
 
 @{
-    ViewData["Title"] = "Delete";
-    Layout = "~/Views/Shared/_LayoutGeral.cshtml";
+	ViewData["Title"] = "Excluir Despesa!!";
+	Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
+<style>
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>DespesaFixa</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DespFixaNome)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DespFixaNome)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DespFixaDescricao)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DespFixaDescricao)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DespFixaValor)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DespFixaValor)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DespFixaData)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DespFixaData)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.StatusCompra)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.StatusCompra.StatusId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FormaPagamento)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FormaPagamento.FormaId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Categoria)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Categoria.CategoriaId)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="DespFixaId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
-</div>
+	.modal-backdrop {
+		z-index: 1;
+	}
+</style>
+<body>
+	<div class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-9 centro">
+					<div class="card delete-texto">
+						<hr />
+						<div class="header">
+							<h4 class="title text-danger">@ViewData["Title"]</h4>
+						</div>
+						@{await Html.RenderPartialAsync("~/Views/DespesaFixas/_PartialDeleteContent.cshtml", Model); }
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

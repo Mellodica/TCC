@@ -1,72 +1,153 @@
 ﻿@model IEnumerable<ControleFinanceiro.Models.DespesaFixa>
-
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_LayoutGeral.cshtml";
+	ViewData["Title"] = "Despesas Fixas";
+	Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
 
-<h2>Index</h2>
+<link rel="stylesheet" href="~/assets/css/estilo-btn-table.css" />
+<link href="~/css/estilodesejo.css" rel="stylesheet" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DespFixaNome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DespFixaDescricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DespFixaValor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DespFixaData)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StatusCompra)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FormaPagamento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categoria)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DespFixaNome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DespFixaDescricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DespFixaValor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DespFixaData)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StatusCompra.StatusId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FormaPagamento.FormaId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria.CategoriaId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DespFixaId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DespFixaId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DespFixaId">Delete</a>
-            </td>
-        </tr>
+@section Styles {
+	<environment include="Development">
+		<link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.min.css" />
+	</environment>
+	<environment exclude="Development">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"
+			  asp-fallback-href="~/lib/datatables/css/jquery.dataTables.min.css"
+			  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+	</environment>
 }
-    </tbody>
-</table>
+@if (@TempData["Message"] != null)
+{
+	<div class="alert alert-success" role="alert">
+		@TempData["Message"]
+	</div>
+}
+@if (@TempData["Message"] == null)
+{
+
+}
+<body>
+	<div class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<hr />
+						<div class="header">
+							<h4 class="title">@ViewData["Title"]</h4>
+						</div>
+						<hr />
+						<div class="panel-heading title">
+							<h3 class="panel-title">Total despesas = @Model.Sum(obj => obj.DespFixaValor).ToString("F2")</h3>
+						</div>
+						<div class="content">
+							<div class="row">
+								<div class="col-md-1">
+									<a asp-action="Index" class="btn btn-primary btn btn-info btn-fill pull-right navbar-btn">
+										<span class="glyphicon glyphicon-home"></span>
+									</a>
+								</div>
+								<div class="col-md-0">
+									<a asp-action="Create" class="btn btn-primary pull-left btn btn-info btn-fill navbar-btn">
+										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									</a>
+								</div>
+								<div class="row">
+									<div class="col-md-10">
+										<div class="col-md-6">
+											<span></span>
+											<div class="col-md-1 input-field ">
+												<input type="text" class="controle-form" name="" required="">
+												<label>Digite o Nome do Produto</label>
+												<span></span>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<button type="submit" value="Buscar" name="" class="btn btn-info btn-fill pull-leftt">
+												<span class="glyphicon glyphicon-search"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="content">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>
+											@Html.DisplayNameFor(model => model.DespFixaNome)
+										</th>
+										<th>
+											@Html.DisplayNameFor(model => model.DespFixaData)
+										</th>
+										<th>
+											@Html.DisplayNameFor(model => model.Categoria.CategoriaNome)
+										</th>
+										<th>
+											@Html.DisplayNameFor(model => model.DespFixaValor)
+										</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var item in Model)
+									{
+										<tr>
+											<td>
+												<i class="fa fa-shopping-bag title" aria-hidden="true"></i>
+												@Html.DisplayFor(modelItem => item.DespFixaNome)
+											</td>
+											<td>
+												<i class="fa fa-calendar title" aria-hidden="true"></i>
+												@Html.DisplayFor(modelItem => item.DespFixaData)
+											</td>
+											<td>
+												<i class="fa fa-list-alt title" aria-hidden="true"></i>
+												@Html.DisplayFor(modelItem => item.Categoria.CategoriaNome)
+											</td>
+											<td>
+												<i class="fa fa-usd title" aria-hidden="true"></i>
+												@Html.DisplayFor(modelItem => item.DespFixaValor)
+											</td>
+											<td>
+												<a asp-action="Edit" asp-route-id="@item.DespFixaId" class="btn btn-warning pull-right">
+													<span class="glyphicon glyphicon-edit"></span>
+												</a>
+												<a asp-action="Details" asp-route-id="@item.DespFixaId" class="btn btn-info pull-right">
+													<span class="glyphicon glyphicon-eye-open"></span>
+												</a>
+												<a asp-action="Delete" asp-route-id="@item.DespFixaId" class="btn btn-danger pull-right">
+													<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+												</a>
+											</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+@section ScriptPage {
+	<environment include="Development">
+		<script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+	</environment>
+	<environment exclude="Development">
+		<script src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
+				asp-fallback-src="~/lib/datatables/js/jquery.dataTables.min.js">
+		</script>
+	</environment>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#tabela_despesafixas').DataTable({
+				"order": [[1, "asc"]]
+			});
+		});
+	</script>
+}

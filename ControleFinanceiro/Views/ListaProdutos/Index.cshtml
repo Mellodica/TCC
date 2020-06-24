@@ -4,8 +4,9 @@
 	Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
 
-<link rel="stylesheet" href="~/assets/css/estilo-botão-table.css" />
+<link rel="stylesheet" href="~/assets/css/estilo-btn-table.css" />
 <link href="~/css/estilodesejo.css" rel="stylesheet" />
+
 @section Styles {
 	<environment include="Development">
 		<link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.min.css" />
@@ -72,12 +73,15 @@
 								<thead>
 									<tr>
 										<th>
+											<i class="fa fa-shopping-bag title" aria-hidden="true"></i>
 											<b>@Html.DisplayNameFor(model => model.ProdutoNome)</b>
 										</th>
 										<th>
+											<i class="fa fa-edit title" aria-hidden="true"></i>
 											<b>@Html.DisplayNameFor(model => model.ProdutoDescricao)</b>
 										</th>
 										<th>
+											<i class="fa fa-list-alt title" aria-hidden="true"></i>
 											<b>@Html.DisplayNameFor(model => model.Categoria.CategoriaNome)</b>
 										</th>
 										<th></th>

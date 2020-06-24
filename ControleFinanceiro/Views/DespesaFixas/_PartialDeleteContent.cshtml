@@ -3,23 +3,26 @@
 	<div class="row">
 		<div class="form-group col-md-12">
 			<br />
-			<label asp-for="DespFixaId" class="control-label hidden"></label>
-			<br />
-			<div class="input-group col-md-12">
-				<div class="input-group-prepend">
-					<span class="input-group-text">
-						<i class="fa fa-key" aria-hidden="true"></i>
-					</span>
+			<!--
+				<label asp-for="DespFixaId" class="control-label hidden"></label>
+				<br />
+				<div class="input-group col-md-12">
+					<div class="input-group-prepend">
+						<span class="input-group-text">
+							<i class="fa fa-key" aria-hidden="true"></i>
+						</span>
+					</div>
+					<input asp-for="DespFixaId" class="form-control" disabled="disabled" />
 				</div>
-				<input asp-for="DespFixaId" class="form-control" disabled="disabled" />
-			</div>
+			-->
 
 			<label asp-for="DespFixaValor" class="control-label hidden"></label>
 			<br />
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">
-						<i class="fa fa-user-circle" aria-hidden="true"></i>
+						<i class="fa fa-usd" aria-hidden="true"></i>
+						<span style="padding-left:10px">Valor</span>
 					</span>
 				</div>
 				<input asp-for="DespFixaValor" class="form-control" disabled="disabled" />
@@ -30,7 +33,8 @@
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">
-						<i class="fa fa-user-circle" aria-hidden="true"></i>
+						<i class="fa fa-calendar" aria-hidden="true"></i>
+						<span style="padding-left:10px">Data da Despesa</span>
 					</span>
 				</div>
 				<input asp-for="DespFixaData" class="form-control" disabled="disabled" />
@@ -41,7 +45,8 @@
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">
-						<i class="fa fa-user-circle" aria-hidden="true"></i>
+						<i class="fa fa-shopping-bag" aria-hidden="true"></i>
+						<span style="padding-left:10px">Nome</span>
 					</span>
 				</div>
 				<input asp-for="DespFixaNome" class="form-control" disabled="disabled" />
@@ -52,6 +57,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">
 						<i class="fa fa-edit" aria-hidden="true"></i>
+						<span style="padding-left:10px">Descrição</span>
 					</span>
 				</div>
 				<input asp-for="DespFixaDescricao" class="form-control" disabled="disabled" />
@@ -61,7 +67,8 @@
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">
-						<i class="fa fa-user-circle" aria-hidden="true"></i>
+						<i class="fa fa-list-alt" aria-hidden="true"></i>
+						<span style="padding-left:10px">Categoria</span>
 					</span>
 				</div>
 				<input asp-for="Categoria.CategoriaNome" class="form-control" disabled="disabled" />
@@ -71,7 +78,8 @@
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">
-						<i class="fa fa-user-circle" aria-hidden="true"></i>
+						<i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+						<span style="padding-left:10px">Forma de Pagamento</span>
 					</span>
 				</div>
 				<input asp-for="FormaPagamento.FormaNome" class="form-control" disabled="disabled" />
@@ -81,7 +89,8 @@
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">
-						<i class="fa fa-user-circle" aria-hidden="true"></i>
+						<i class="fa fa-check-square" aria-hidden="true"></i>
+						<span style="padding-left:10px">Situação da Despesa</span>
 					</span>
 				</div>
 				<input asp-for="StatusCompra.StatusNome" class="form-control" disabled="disabled" />
@@ -97,18 +106,18 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="deleteModal">Remoção de Produtos</h5>
+						<h5 class="modal-title" id="deleteModal">Remoção de Despesas</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
-						<p>Confirma a exclusão do Produto @Model.DespFixaNome.ToUpper() ??</p>
+						<p>Confirma a exclusão da Despesa @Model.DespFixaNome.ToUpper() ??</p>
 					</div>
 					<div class="modal-footer">
 						<form asp-action="Delete">
 							<input type="hidden" asp-for="DespFixaId" />
-							<input type="submit" value="Remover Produto" class="btn btn-danger btn-fill" />
+							<input type="submit" value="Remover Despesa" class="btn btn-danger btn-fill" />
 							<button type="button" class="btn btn-info btn-fill" data-dismiss="modal">Fechar</button>
 						</form>
 					</div>

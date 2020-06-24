@@ -3,6 +3,7 @@
 <div class="content">
 	<div class="row">
 		<div class="form-group col-md-12">
+			<!--
 			<label asp-for="DesejoId" class="control-label hidden"></label>
 			<br />
 			<div class="input-group col-md-12">
@@ -13,12 +14,14 @@
 				</div>
 				<input asp-for="DesejoId" class="form-control" disabled="disabled" />
 			</div>
+			-->
 			<label asp-for="DesejoNome" class="control-label hidden"></label>
 			<br />
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">
-						<i class="fa fa-user-circle title" aria-hidden="true"></i>
+						<i class="fa fa-shopping-bag title" aria-hidden="true"></i>
+						<span style="padding-left:10px">Nome</span>
 					</span>
 				</div>
 				<input asp-for="DesejoNome" class="form-control" disabled="disabled" />
@@ -29,6 +32,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">
 						<i class="fa fa-edit title" aria-hidden="true"></i>
+						<span style="padding-left:10px">Descrição</span>
 					</span>
 				</div>
 				<input asp-for="DesejoDescricao" class="form-control" disabled="disabled" />
@@ -38,7 +42,8 @@
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">
-						<i class="fa fa-list-alt title" aria-hidden="true"></i>
+						<i class="fa fa-usd title" aria-hidden="true"></i>
+						<span style="padding-left:10px">Valor</span>
 					</span>
 				</div>
 				<input asp-for="DesejoValor" class="form-control" disabled="disabled" />
@@ -48,7 +53,8 @@
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">
-						<i class="fa fa-list-alt title" aria-hidden="true"></i>
+						<i class="fa fa-credit-card-alt title" aria-hidden="true"></i>
+						<span style="padding-left:10px">Forma de Pagamento</span>
 					</span>
 				</div>
 				<input asp-for="FormaPagamento.FormaNome" class="form-control" disabled="disabled" />
@@ -58,7 +64,8 @@
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
 					<span class="input-group-text">
-						<i class="fa fa-list-alt title" aria-hidden="true"></i>
+						<i class="fa fa-calendar title" aria-hidden="true"></i>
+						<span style="padding-left:10px">Previsão</span>
 					</span>
 				</div>
 				<input asp-for="DesejoData" class="form-control" disabled="disabled" />

@@ -1,13 +1,13 @@
-﻿@model IEnumerable<ControleFinanceiro.Models.DespesaFixa>
+﻿@model IEnumerable<ControleFinanceiro.Models.ListaProduto>
 <div class="header title h5">
-	DESPESAS DA CATEGORIA
+	DESEJOS DA CATEGORIA
 </div>
 
 <div class="content">
 	<table class="table table-responsive">
 		<thead>
 			<tr>
-				<th></th>				
+				<th></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -16,10 +16,10 @@
 			{
 				<tr>
 					<td>
-						@Html.DisplayFor(modelItem => item.DespFixaNome)
+						@Html.DisplayFor(modelItem => item.ProdutoNome)
 					</td>
 					<td>
-						<a asp-controller="Produto" asp-action="Details" asp-route-id="@item.DespFixaId" class="btn btn-info pull-right">
+						<a asp-controller="Produto" asp-action="Details" asp-route-id="@item.ProdutoId" class="btn btn-info pull-right">
 							<span class="glyphicon glyphicon-eye-open"></span>
 						</a>
 					</td>
@@ -28,5 +28,8 @@
 		</tbody>
 	</table>
 </div>
-<div class="panel-footer panel-info">
+<div class="card">
+	<div class="panel-footer panel-info">
+	</div>
 </div>
+
