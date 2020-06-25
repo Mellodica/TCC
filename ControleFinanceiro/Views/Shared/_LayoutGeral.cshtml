@@ -79,13 +79,14 @@
 							<p>Lista de Desejos</p>
 						</a>
 					</li>
-					<li>
+					<!--<li>
 						<a asp-controller="ListaProdutos" asp-action="Index">
 							<i class="pe-7s-box1"></i>
 							<p>Produtos</p>
 						</a>
-					</li>
+					</li>-->
 					<li>
+
 						<a asp-controller="Controles" asp-action="Index">
 							<!--  icone 1<i class="pe-7s-config"></i>  -->
 							<!--icone 2--><i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
@@ -98,7 +99,7 @@
 				</ul>
 			</div>
 		</div>
-		
+
 		<div class="main-panel">
 			<nav class="navbar navbar-default navbar-fixed">
 				<div class="container-fluid">
@@ -149,14 +150,15 @@
 						</li>
 						</ul>
 						-->
-						
+
 						<ul class="nav navbar-nav navbar-center">
 							<li>
 								<p>
 									@if (SignInManager.IsSignedIn(User))
 									{
 										<div class="container-fluid" style="padding-left:110px;padding-top:10px;margin: 10px 3px;position: relative;">
-											<a class="active">Olá @UserManager.GetUserName(User), seja bem-vindo(a)</a>
+											<a class="active">Usuário:  @UserManager.GetUserName(User) Logado!</a>
+											@*@User.Identity.Name*@
 										</div>
 									}
 									else
@@ -175,7 +177,7 @@
 
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a class="nav-item nav-link" asp-controller="Desejo" asp-action="Index">
+								<a class="nav-item nav-link" asp-controller="Infra" asp-action="PerfilUsuario">
 									<p>Conta</p>
 								</a>
 							</li>

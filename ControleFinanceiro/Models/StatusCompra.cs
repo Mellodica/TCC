@@ -17,7 +17,6 @@ namespace ControleFinanceiro.Models
         public ICollection<ListaMercado> ListaMercados { get; set; } = new List<ListaMercado>();
         public ICollection<DespesaDireta> DespesaDiretas { get; set; } = new List<DespesaDireta>();
         public ICollection<DespesaFixa> DespesaFixas { get; set; } = new List<DespesaFixa>();
-        public ICollection<ListaProduto> ListaProdutos { get; set; } = new List<ListaProduto>();
 
         public StatusCompra()
         {

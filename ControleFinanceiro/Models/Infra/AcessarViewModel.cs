@@ -5,8 +5,8 @@ namespace ControleFinanceiro.Models.Infra
     public class AcessarViewModel
     {
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Login - Nome de Usuario")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

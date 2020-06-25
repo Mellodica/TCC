@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ControleFinanceiro.Models.Infra;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ControleFinanceiro.Models
 {
@@ -12,14 +14,16 @@ namespace ControleFinanceiro.Models
         [Display(Name = "Salário")]
         [Required(ErrorMessage = "Informe o valor do Sálario", AllowEmptyStrings = false)]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = true)]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal SalarioValor { get; set; }
 
         [Display(Name = "Dia do Sálario")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]   
+        [NotMapped]
         public DateTime SalarioData { get; set; }
 
-        //public ICollection<UsuarioConta> Usuarios { get; set; } = new List<UsuarioConta>();
+        public ICollection<UsuarioApp> Usuarios { get; set; } = new List<UsuarioApp>();
 
         public Salario()
         {

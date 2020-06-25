@@ -17,7 +17,6 @@ namespace ControleFinanceiro.Data
             if (_context.Categorias.Any() ||
                 _context.Formas.Any() ||
                 _context.StatusCompras.Any() ||
-                _context.Produtos.Any() ||
                 _context.Desejos.Any() ||
                 _context.Mercados.Any() ||
                 _context.DespDiretas.Any() ||

@@ -15,8 +15,6 @@ namespace ControleFinanceiro.Data
 
         public DbSet<Salario> Salarios { get; set; }
 
-        public DbSet<ListaProduto> Produtos { get; set; }
-
         public DbSet<ListaDesejo> Desejos { get; set; }
         public DbSet<ListaMercado> Mercados { get; set; }
         public DbSet<DespesaDireta> DespDiretas { get; set; }
@@ -25,6 +23,7 @@ namespace ControleFinanceiro.Data
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<FormaPagamento> Formas { get; set; }
         public DbSet<StatusCompra> StatusCompras { get; set; }
+        public DbSet<UsuarioApp> Usuarios { get; set; }
 
         /*
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

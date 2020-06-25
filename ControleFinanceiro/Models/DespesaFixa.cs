@@ -24,29 +24,29 @@ namespace ControleFinanceiro.Models
         public double DespFixaValor { get; set; }
 
         [Display(Name = "Data da Despesa")]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        [Required]
         public DateTime DespFixaData { get; set; }
 
-        [Display(Name = "Situação Compra")]
+        [Display(Name = "Situação da Compra")]
         public StatusCompra StatusCompra { get; set; }
         public int StatusId { get; set; }
-
-        [Display(Name = "Método de Pagamento")]
-        public FormaPagamento FormaPagamento { get; set; }
-        public int FormaId { get; set; }
 
         [Display(Name = "Categoria")]
         public Categoria Categoria { get; set; }
         public int CategoriaId { get; set; }
 
-       /* public IEnumerable<DespesaFixa> DespesasFixas { get; private set; }
+        [Display(Name = "Método de Pagamento")]
+        public FormaPagamento FormaPagamento { get; set; }
+        public int FormaId { get; set; }
 
-        public double TotalDespesaFixa(DateTime inicial, DateTime final)
-        {
-            return DespesasFixas.Where(df => df.DespFixaData >= inicial && df.DespFixaData <= final).Sum(df => df.DespFixaValor);
-        }
-        */
+        /* public IEnumerable<DespesaFixa> DespesasFixas { get; private set; }
+
+         public double TotalDespesaFixa(DateTime inicial, DateTime final)
+         {
+             return DespesasFixas.Where(df => df.DespFixaData >= inicial && df.DespFixaData <= final).Sum(df => df.DespFixaValor);
+         }
+         */
 
         public DespesaFixa()
         {

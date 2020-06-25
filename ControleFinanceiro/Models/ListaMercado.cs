@@ -43,7 +43,7 @@ namespace ControleFinanceiro.Models
 
         }
 
-        public ListaMercado(int mercadoId, string mercadoNome, string mercadoDescricao, double mercadoValor, DateTime mercadoData, StatusCompra statusCompra, int statId, FormaPagamento formaPagamento, int formId, Categoria categoria, int categoId, ListaProduto listaProduto, int prodId)
+        public ListaMercado(int mercadoId, string mercadoNome, string mercadoDescricao, double mercadoValor, DateTime mercadoData, StatusCompra statusCompra, int statId, FormaPagamento formaPagamento, int formId, Categoria categoria, int categoId)
         {
             MercadoId = mercadoId;
             MercadoNome = mercadoNome;

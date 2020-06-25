@@ -24,22 +24,22 @@ namespace ControleFinanceiro.Models
         public double DespDirValor { get; set; }
 
         [Display(Name = "Data da Despesa")]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        [Required]
         public DateTime DespDirData { get; set; }
 
-        [Display(Name = "Situação Compra")]
+        [Display(Name = "Situação da Compra")]
         public StatusCompra StatusCompra { get; set; }
         public int StatusId { get; set; }
+
+        [Display(Name = "Categoria")]
+        public Categoria Categoria { get; set; }
+        public int CategoriaId { get; set; }
 
         [Display(Name = "Método de Pagamento")]
         public FormaPagamento FormaPagamento { get; set; }
         public int FormaId { get; set; }
 
-        [Display(Name = "Categoria")]
-        public Categoria Categoria { get; set; }
-        public int CategoriaId { get; set; }
-    
         /*
         public IEnumerable<DespesaDireta> DespesasDiretas { get; private set; }
 

@@ -5,6 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200624223214_UsuarioApp.cs" />
+    <Compile Remove="Migrations\20200624223214_UsuarioApp.Designer.cs" />
+    <Compile Remove="Migrations\20200624224210_Usuario.cs" />
+    <Compile Remove="Migrations\20200624224210_Usuario.Designer.cs" />
+    <Compile Remove="Migrations\20200624225006_Usuario.cs" />
+    <Compile Remove="Migrations\20200624225006_Usuario.Designer.cs" />
+    <Compile Remove="Migrations\20200624233046_Usuario.cs" />
+    <Compile Remove="Migrations\20200624233046_Usuario.Designer.cs" />
+    <Compile Remove="Migrations\20200625002734_Usuario.cs" />
+    <Compile Remove="Migrations\20200625002734_Usuario.Designer.cs" />
+    <Compile Remove="Migrations\20200625012531_Usuario.cs" />
+    <Compile Remove="Migrations\20200625012531_Usuario.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.14">
