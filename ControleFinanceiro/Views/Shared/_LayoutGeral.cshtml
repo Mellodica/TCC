@@ -1,5 +1,6 @@
 ﻿@inject Microsoft.AspNetCore.Identity.SignInManager<ControleFinanceiro.Models.Infra.UsuarioApp> SignInManager
 @inject Microsoft.AspNetCore.Identity.UserManager<ControleFinanceiro.Models.Infra.UsuarioApp> UserManager
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,11 +88,11 @@
 					</li>-->
 					<li>
 
-						<a asp-controller="Controles" asp-action="Index">
-							<!--  icone 1<i class="pe-7s-config"></i>  -->
-							<!--icone 2--><i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+						<a asp-controller="Infra" asp-action="PerfilUsuario">
+							<!--<i class="fa fa-cog fa-spin fa-3x fa-fw"></i>-->
+							<i class="fa fa-user"></i>
 							<span class="sr-only">Loading...</span>
-							<p>Configurações</p>
+							<p>Configurações de Perfil</p>
 						</a>
 					</li>
 					<li class="divider">
@@ -178,7 +179,7 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li>
 								<a class="nav-item nav-link" asp-controller="Infra" asp-action="PerfilUsuario">
-									<p>Conta</p>
+									<p>Perfil</p>
 								</a>
 							</li>
 

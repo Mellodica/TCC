@@ -152,6 +152,8 @@ namespace ControleFinanceiro.Migrations
                     b.Property<string>("PrimeiroNome")
                         .IsRequired();
 
+                    b.Property<string>("Profissao");
+
                     b.Property<int?>("SalarioId");
 
                     b.Property<string>("SecurityStamp");

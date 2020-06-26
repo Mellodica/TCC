@@ -31,7 +31,6 @@ namespace ControleFinanceiro
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<ControlePessoalContext>(options =>
@@ -78,7 +77,6 @@ namespace ControleFinanceiro
             app.UseCookiePolicy();
 
             app.UseAuthentication();       
-            //app.UseSession();
             app.UseAuthentication();
 
             app.UseMvc(routes =>

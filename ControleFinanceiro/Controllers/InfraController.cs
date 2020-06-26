@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -96,6 +98,7 @@ namespace CrudAspNetMVC.Controllers
             {
                 var usuario = new UsuarioApp
                 {
+                    UsuarioId = model.UsuarioId,
                     UserName = model.UserName,
                     Email = model.Email,
                     PrimeiroNome = model.PrimeiroNome,
@@ -103,8 +106,7 @@ namespace CrudAspNetMVC.Controllers
                     Sobrenome = model.Sobrenome
 
                 };
-
-                var result = await _userManager.CreateAsync(usuario, model.Password);
+                var result = await _userManager.CreateAsync(usuario, model.Password);               
 
                 if (result.Succeeded)
                 {
@@ -127,26 +129,22 @@ namespace CrudAspNetMVC.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> PerfilUsuario(int id)
+        public async Task<IActionResult> PerfilUsuario(int? id)
         {
             return await PegarViewUsuarioPorId(id);
-        }
+            //var user = await infraServicos.PegarUsuarioPorId(id);
+            //return View(user);
 
+        }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PerfilUsuario(int id, [Bind("UsuarioId,PrimeiroNome,Sobrenome,DataNascimento,SalarioId")] UsuarioApp usuario, IFormFile foto, string chkRemoverFoto)
+        public async Task<IActionResult> PerfilUsuario(int id, [Bind("UsuarioId,Profissao,PrimeiroNome,Sobrenome,DataNascimento,SalarioId")] UsuarioViewModel usuario, IFormFile foto, string chkRemoverFoto)
         {
             if (id != usuario.UsuarioId)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
-            }
-            if (!ModelState.IsValid)
-            {
-                var stream = new MemoryStream();
-                var viewModel = new UsuarioApp { UsuarioId = id };
-                return View(viewModel);
             }
 
             if (ModelState.IsValid)
@@ -193,22 +191,23 @@ namespace CrudAspNetMVC.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id não existe" });
+                return RedirectToAction(nameof(Error), new { message = "Id não providenciado" });
             }
 
             var usuario = await infraServicos.PegarUsuarioPorId(id.Value);
             if (usuario == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
+                return RedirectToAction(nameof(Error), new { message = "Id não Encontrado" });
             }
 
-            var viewModel = new UsuarioApp { UsuarioId = id.Value };
-            return View(viewModel);
+            return View(usuario);
         }
 
         [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
+            //var user = await infraServicos.PegarUsuarioPorId(id);
+            //return View(user);
             return await PegarViewUsuarioPorId(id.Value);
         }
 
@@ -261,7 +260,7 @@ namespace CrudAspNetMVC.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        public async Task<FileContentResult> PegarFoto(int id)
+        public async Task<FileContentResult> GetFoto(int id)
         {
             UsuarioApp usuario = await infraServicos.PegarUsuarioPorId(id);
             if (usuario != null)

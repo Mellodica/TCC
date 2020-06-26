@@ -18,15 +18,18 @@ namespace ControleFinanceiro.Servico
 
         public IQueryable<UsuarioApp> PegarUsuarioPorNome()
         {
-            return _context.Usuarios.OrderBy(b => b.UserName);
+            return _context.Usuarios.OrderBy(b => b.PrimeiroNome);
         }
 
-        public async Task<UsuarioApp> PegarUsuarioPorId(int id)
+        public async Task<UsuarioApp> PegarUsuarioPorId(int? id)
         {
-            return await _context.Usuarios.FirstOrDefaultAsync(user => user.UsuarioId == id);
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.UsuarioId == id);
+            return usuario;
+            //return await _context.Usuarios.FindAsync(id);    
+            //return await _context.Usuarios.FirstOrDefaultAsync(u => u.UsuarioId == id);
         }
 
-        public async Task UpdateAsync(UsuarioApp user)
+        public async Task UpdateAsync(UsuarioViewModel user)
         {
             bool hasAny = await _context.Usuarios.AnyAsync(x => x.UsuarioId == user.UsuarioId);
             if (!hasAny)

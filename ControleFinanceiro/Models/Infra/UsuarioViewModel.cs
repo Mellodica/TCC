@@ -7,6 +7,8 @@ namespace ControleFinanceiro.Models.Infra
 {
     public class UsuarioViewModel
     {
+        [Key]
+        public int UsuarioId { get; set; }
 
         [Required(ErrorMessage = "O nome de usuario de acesso é Obrigatório!", AllowEmptyStrings = false)]
         [Display(Name = "Login - Nome de Usuário")]

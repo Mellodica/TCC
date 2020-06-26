@@ -1,4 +1,4 @@
-﻿@model ControleFinanceiro.Models.ListaDesejo
+﻿@model ControleFinanceiro.Models.Infra.UsuarioApp
 
 @{
 	ViewData["Title"] = "Detalhes do Perfil";
@@ -14,7 +14,7 @@
 					<div class="header">
 						<h4 class="title">@ViewData["Title"]</h4>
 					</div>
-					@{await Html.RenderPartialAsync("~/Views/ListaDesejos/_PartialDetailsContent.cshtml", Model); }
+					@{await Html.RenderPartialAsync("~/Views/Infra/_PartialDetailsContent.cshtml", Model); }
 				</div>
 			</div>
 		</div>

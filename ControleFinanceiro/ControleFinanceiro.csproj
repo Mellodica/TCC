@@ -17,6 +17,10 @@
     <Compile Remove="Migrations\20200625002734_Usuario.Designer.cs" />
     <Compile Remove="Migrations\20200625012531_Usuario.cs" />
     <Compile Remove="Migrations\20200625012531_Usuario.Designer.cs" />
+    <Compile Remove="Migrations\20200625015259_Usuario.cs" />
+    <Compile Remove="Migrations\20200625015259_Usuario.Designer.cs" />
+    <Compile Remove="Migrations\20200625204858_Usuario.cs" />
+    <Compile Remove="Migrations\20200625204858_Usuario.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +47,12 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\DespesaFixas\_PartialDetailsContent.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Infra\Details.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Infra\_PartialDetailsContent.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Login\Index.cshtml">

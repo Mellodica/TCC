@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleFinanceiro.Migrations
 {
     [DbContext(typeof(ControlePessoalContext))]
-    [Migration("20200625015259_Usuario")]
+    [Migration("20200626005405_Usuario")]
     partial class Usuario
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -153,6 +153,8 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<string>("PrimeiroNome")
                         .IsRequired();
+
+                    b.Property<string>("Profissao");
 
                     b.Property<int?>("SalarioId");
 

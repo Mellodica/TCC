@@ -44,6 +44,11 @@ namespace ControleFinanceiro.Migrations
                 nullable: false,
                 defaultValue: "");
 
+            migrationBuilder.AddColumn<string>(
+                name: "Profissao",
+                table: "AspNetUsers",
+                nullable: true);
+
             migrationBuilder.AddColumn<int>(
                 name: "SalarioId",
                 table: "AspNetUsers",
@@ -108,6 +113,10 @@ namespace ControleFinanceiro.Migrations
 
             migrationBuilder.DropColumn(
                 name: "PrimeiroNome",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "Profissao",
                 table: "AspNetUsers");
 
             migrationBuilder.DropColumn(

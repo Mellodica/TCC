@@ -26,6 +26,9 @@ namespace ControleFinanceiro.Models.Infra
         public string FotoMimeType { get; set; }
         public byte[] Foto { get; set; }
 
+        [Display(Name = "Profissão")]
+        public string Profissao { get; set; }
+
         public Salario Salario { get; set; }
         public int? SalarioId { get; set; }
 
