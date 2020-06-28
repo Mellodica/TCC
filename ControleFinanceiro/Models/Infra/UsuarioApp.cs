@@ -8,8 +8,6 @@ namespace ControleFinanceiro.Models.Infra
 {
     public class UsuarioApp : IdentityUser
     {
-        [Key]
-        public int UsuarioId { get; set; }
 
         [Display(Name = "Primeiro Nome")]
         [Required(ErrorMessage = "O primeiro nome é Obrigatório!", AllowEmptyStrings = false)]

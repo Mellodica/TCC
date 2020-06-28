@@ -43,7 +43,7 @@ namespace CrudAspNetMVC.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            
+
         }
 
         //GET: Logar
@@ -98,7 +98,6 @@ namespace CrudAspNetMVC.Controllers
             {
                 var usuario = new UsuarioApp
                 {
-                    UsuarioId = model.UsuarioId,
                     UserName = model.UserName,
                     Email = model.Email,
                     PrimeiroNome = model.PrimeiroNome,
@@ -106,17 +105,19 @@ namespace CrudAspNetMVC.Controllers
                     Sobrenome = model.Sobrenome
 
                 };
-                var result = await _userManager.CreateAsync(usuario, model.Password);               
+
+                var result = await _userManager.CreateAsync(usuario, model.UserName);
 
                 if (result.Succeeded)
                 {
-                   
+
                     _logger.LogInformation("Usuário criou uma nova conta!");
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(usuario);
 
-                    var logado = await _signInManager.PasswordSignInAsync(usuario.UserName, model.Password, false, false);
-                    _logger.LogInformation("Usuário logado " + logado.Succeeded);
+                    /*var logado = await _signInManager.PasswordSignInAsync(usuario.UserName, model.Password, false, false);
+                    _logger.LogInformation("Usuário logado " + logado.Succeeded); */
 
+                   
                     await _signInManager.SignInAsync(usuario, isPersistent: false);
                     _logger.LogInformation("Usuário acessou com a conta criada.");
 
@@ -129,22 +130,22 @@ namespace CrudAspNetMVC.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> PerfilUsuario(int? id)
+        [HttpGet]
+        public async Task<IActionResult> PerfilUsuario(string id)
         {
-            return await PegarViewUsuarioPorId(id);
-            //var user = await infraServicos.PegarUsuarioPorId(id);
-            //return View(user);
-
+            //return await PegarViewUsuarioPorId(id);
+            var user = await infraServicos.PegarUsuarioPorId(id);
+            return View(user);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PerfilUsuario(int id, [Bind("UsuarioId,Profissao,PrimeiroNome,Sobrenome,DataNascimento,SalarioId")] UsuarioViewModel usuario, IFormFile foto, string chkRemoverFoto)
+        public async Task<IActionResult> PerfilUsuario(string id, [Bind("Id,Profissao,PrimeiroNome,Sobrenome,DataNascimento,SalarioId")] UsuarioApp usuario, IFormFile foto, string chkRemoverFoto)
         {
-            if (id != usuario.UsuarioId)
+            if (id != usuario.Id)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
             if (ModelState.IsValid)
@@ -168,7 +169,7 @@ namespace CrudAspNetMVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException e)
                 {
-                    if (!await UsuarioExists(usuario.UsuarioId))
+                    if (!await UsuarioExists(usuario.Id))
                     {
                         return RedirectToAction(nameof(Error), new { message = e.Message });
                     }
@@ -182,19 +183,20 @@ namespace CrudAspNetMVC.Controllers
             return View(usuario);
         }
 
-        private async Task<bool> UsuarioExists(int id)
+        private async Task<bool> UsuarioExists(string id)
         {
             return await infraServicos.PegarUsuarioPorId(id) != null;
         }
 
-        private async Task<IActionResult> PegarViewUsuarioPorId(int? id)
+        private async Task<IActionResult> PegarViewUsuarioPorId(string id)
         {
+            var usuario = await infraServicos.PegarUsuarioPorId(id);
+
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não providenciado" });
             }
 
-            var usuario = await infraServicos.PegarUsuarioPorId(id.Value);
             if (usuario == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não Encontrado" });
@@ -204,17 +206,31 @@ namespace CrudAspNetMVC.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
         {
-            //var user = await infraServicos.PegarUsuarioPorId(id);
-            //return View(user);
-            return await PegarViewUsuarioPorId(id.Value);
+            var user = await infraServicos.PegarUsuarioPorId(id);
+            return View(user);
+            // return await PegarViewUsuarioPorId(id);
+            /*
+             if (User.Identity.IsAuthenticated)
+             {
+                 var userName = User.Identity.Name;
+                 var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.UserName == userName);
+
+                 if (usuario != null)
+                     return View(usuario);
+             }
+
+             return RedirectToAction("Details");
+             */
         }
 
         [Authorize]
-        public async Task<IActionResult> Delete(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
         {
-            return await PegarViewUsuarioPorId(id.Value);
+            return await PegarViewUsuarioPorId(id);
         }
 
         private void AddErrors(IdentityResult result)
@@ -225,7 +241,7 @@ namespace CrudAspNetMVC.Controllers
             }
         }
 
-        
+
         private IActionResult RedirectToLocal(string returnUrl)
         {
             _logger.LogInformation("returURL" + returnUrl);
@@ -244,7 +260,7 @@ namespace CrudAspNetMVC.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var usuario = await infraServicos.DeletarUsuarioPorId(id);
             TempData["Message"] = "Conta de usuario " + usuario.UserName.ToUpper() + " foi Excluido";
@@ -260,7 +276,7 @@ namespace CrudAspNetMVC.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        public async Task<FileContentResult> GetFoto(int id)
+        public async Task<FileContentResult> GetFoto(string id)
         {
             UsuarioApp usuario = await infraServicos.PegarUsuarioPorId(id);
             if (usuario != null)
@@ -270,10 +286,10 @@ namespace CrudAspNetMVC.Controllers
             return null;
         }
 
-        public async Task<FileResult> DownloadFoto(int id)
+        public async Task<FileResult> DownloadFoto(string id)
         {
             UsuarioApp usuario = await infraServicos.PegarUsuarioPorId(id);
-            string nomeArquivo = "Foto" + usuario.UsuarioId.ToString().Trim() + ".jpg";
+            string nomeArquivo = "Foto" + usuario.Id.ToString().Trim() + ".jpg";
             FileStream fileStream = new FileStream(Path.Combine(_env.WebRootPath, nomeArquivo), FileMode.Create, FileAccess.Write);
             fileStream.Write(usuario.Foto, 0, usuario.Foto.Length);
             fileStream.Close();

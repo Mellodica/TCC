@@ -18,20 +18,21 @@ namespace ControleFinanceiro.Servico
 
         public IQueryable<UsuarioApp> PegarUsuarioPorNome()
         {
-            return _context.Usuarios.OrderBy(b => b.PrimeiroNome);
+            return _context.Users.OrderBy(b => b.PrimeiroNome);
         }
 
-        public async Task<UsuarioApp> PegarUsuarioPorId(int? id)
+        public async Task<UsuarioApp> PegarUsuarioPorId(string id)
         {
-            var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.UsuarioId == id);
+
+            var usuario = await _context.Usuarios.SingleOrDefaultAsync(u => u.Id == id);
             return usuario;
             //return await _context.Usuarios.FindAsync(id);    
             //return await _context.Usuarios.FirstOrDefaultAsync(u => u.UsuarioId == id);
         }
 
-        public async Task UpdateAsync(UsuarioViewModel user)
+        public async Task UpdateAsync(UsuarioApp user)
         {
-            bool hasAny = await _context.Usuarios.AnyAsync(x => x.UsuarioId == user.UsuarioId);
+            bool hasAny = await _context.Usuarios.AnyAsync(x => x.Id == user.Id);
             if (!hasAny)
             {
                 throw new NotFoundException("Id not found");
@@ -47,7 +48,7 @@ namespace ControleFinanceiro.Servico
             }
         }
 
-        public async Task<UsuarioApp> DeletarUsuarioPorId(int id)
+        public async Task<UsuarioApp> DeletarUsuarioPorId(string id)
         {
             UsuarioApp usuario = await PegarUsuarioPorId(id);
             _context.Users.Remove(usuario);

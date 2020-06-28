@@ -166,11 +166,7 @@ namespace ControleFinanceiro.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
-                    b.Property<int>("UsuarioId");
-
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("UsuarioId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleFinanceiro.Migrations
 {
     [DbContext(typeof(ControlePessoalContext))]
-    [Migration("20200626005405_Usuario")]
+    [Migration("20200627235606_Usuario")]
     partial class Usuario
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -168,11 +168,7 @@ namespace ControleFinanceiro.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
-                    b.Property<int>("UsuarioId");
-
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("UsuarioId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");

@@ -60,17 +60,6 @@ namespace ControleFinanceiro.Migrations
                 nullable: false,
                 defaultValue: "");
 
-            migrationBuilder.AddColumn<int>(
-                name: "UsuarioId",
-                table: "AspNetUsers",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddUniqueConstraint(
-                name: "AK_AspNetUsers_UsuarioId",
-                table: "AspNetUsers",
-                column: "UsuarioId");
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_SalarioId",
                 table: "AspNetUsers",
@@ -89,10 +78,6 @@ namespace ControleFinanceiro.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_AspNetUsers_Salarios_SalarioId",
-                table: "AspNetUsers");
-
-            migrationBuilder.DropUniqueConstraint(
-                name: "AK_AspNetUsers_UsuarioId",
                 table: "AspNetUsers");
 
             migrationBuilder.DropIndex(
@@ -125,10 +110,6 @@ namespace ControleFinanceiro.Migrations
 
             migrationBuilder.DropColumn(
                 name: "Sobrenome",
-                table: "AspNetUsers");
-
-            migrationBuilder.DropColumn(
-                name: "UsuarioId",
                 table: "AspNetUsers");
 
             migrationBuilder.AlterColumn<decimal>(
