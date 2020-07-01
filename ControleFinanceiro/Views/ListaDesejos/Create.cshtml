@@ -5,6 +5,7 @@
 	Layout = "~/Views/Shared/_LayoutGeral.cshtml";
 }
 
+
 <div class="content">
 	<div class="container-fluid">
 		<div class="row">
@@ -31,18 +32,18 @@
 										<span asp-validation-for="DesejoDescricao" class="text-danger"></span>
 									</div>
 									<div class="form-group">
-										<label asp-for="DesejoValor" class="control-label hidden" ></label>
+										<label asp-for="DesejoValor" class="control-label hidden"></label>
 										<input asp-for="DesejoValor" placeholder="Valor do produto" class="form-control" />
 										<span asp-validation-for="DesejoValor" class="text-danger"></span>
 									</div>
 									<div class="form-group">
-										<label asp-for="DesejoData" class="control-label hidden" ></label>
+										<label asp-for="DesejoData" class="control-label hidden"></label>
 										<input asp-for="DesejoData" placeholder="Previsão de compra" class="form-control" />
 										<span asp-validation-for="DesejoData" class="text-danger"></span>
 									</div>
 									<div class="form-group">
-										<label asp-for="DesejoLoja" class="control-label hidden" ></label>
-										<input asp-for="DesejoLoja" placeholder="Link da loja"class="form-control" />
+										<label asp-for="DesejoLoja" class="control-label hidden"></label>
+										<input asp-for="DesejoLoja" placeholder="Link da loja" class="form-control" />
 										<span asp-validation-for="DesejoLoja" class="text-danger"></span>
 									</div>
 									<div class="form-group">
@@ -69,7 +70,9 @@
 			</div>
 		</div>
 	</div>
+	
 </div>
+
 @section ScriptPage {
 	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

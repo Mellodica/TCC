@@ -35,6 +35,7 @@ namespace ControleFinanceiro.Servico
                 .OrderBy(p => p.DespesaDirNome);
         }
 
+
         public async Task<DespesaDireta> PegarDiretaPorIdAsync(int? id)
         {
             var direta = await _context.DespDiretas.FirstOrDefaultAsync(m => m.DespDirId == id);

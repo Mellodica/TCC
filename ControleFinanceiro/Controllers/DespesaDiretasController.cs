@@ -66,7 +66,7 @@ namespace ControleFinanceiro.Controllers
         //POST: DespesaDiretas/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DespesaDirNome, DespesaDirDescricao, DiretaValor,DespDirData, StatusId, FormaId, CategoriaId")] DespesaDireta direta)
+        public async Task<IActionResult> Create([Bind("DespesaDirNome, DespesaDirDescricao, DespDirValor,DespDirData, StatusId, FormaId, CategoriaId")] DespesaDireta direta)
 
         {
             try
@@ -85,7 +85,7 @@ namespace ControleFinanceiro.Controllers
 
         }
 
-        //GET: DespesaDiretas/Edit
+        //GET: Direta/Edit
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -101,25 +101,25 @@ namespace ControleFinanceiro.Controllers
             }
 
             ViewResult viewDireta = (ViewResult)await PegarViewDiretaPorId(id);
-            DespesaDireta despesaDireta = (DespesaDireta)viewDireta.Model;
+            DespesaDireta despDireta = (DespesaDireta)viewDireta.Model;
 
             ViewBag.Categorias = new SelectList(categoriaServicos.PegarCategoriasPorNome()
-                , "CategoriaId", "CategoriaNome", despesaDireta.CategoriaId);
+                , "CategoriaId", "CategoriaNome", despDireta.CategoriaId);
 
             ViewBag.Formas = new SelectList(formaServicos.PegarFormaPorNome()
-                , "FormaId", "FormaNome", despesaDireta.FormaId);
+                , "FormaId", "FormaNome", despDireta.FormaId);
 
             ViewBag.Status = new SelectList(statusServicos.PegarStatusPorNome()
-                , "StatusId", "StatusNome", despesaDireta.StatusId);
+              , "StatusId", "StatusNome", despDireta.StatusId);
 
             return viewDireta;
 
         }
 
-        //POST: DespesaDiretas/Edit
+        //POST: Desejo/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, [Bind("DespDirId,DespesaDirNome, DespesaDirDescricao, DiretaValor,DespDirData, StatusId, FormaId, CategoriaId")] DespesaDireta direta)
+        public async Task<IActionResult> Edit(int? id, [Bind("DespDirId,DespesaDirNome,DespesaDirDescricao,DespDirValor,DespDirData,StatusId,FormaId,CategoriaId")] DespesaDireta direta)
         {
 
             if (id != direta.DespDirId)
@@ -151,7 +151,6 @@ namespace ControleFinanceiro.Controllers
             ViewBag.StatusCompras = new SelectList(statusServicos.PegarStatusPorNome(), "StatusId", "StatusNome", direta.StatusId);
             return View(direta);
         }
-
         private async Task<bool> DiretaExists(int? id)
         {
             return await listaDespDiretaServico.PegarDiretaPorIdAsync(id.Value) != null;

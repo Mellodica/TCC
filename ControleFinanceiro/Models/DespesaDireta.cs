@@ -28,7 +28,7 @@ namespace ControleFinanceiro.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DespDirData { get; set; }
 
-        [Display(Name = "Situação da Compra")]
+        [Display(Name = "Situação da Despesa")]
         public StatusCompra StatusCompra { get; set; }
         public int StatusId { get; set; }
 
@@ -54,7 +54,7 @@ namespace ControleFinanceiro.Models
 
         }
 
-        public DespesaDireta(int? despDirId, string despDirNome, string despDirDescricao, double despDirValor, DateTime despDirData, StatusCompra statusCompra, FormaPagamento formaPagamento, Categoria categoria)
+        public DespesaDireta(int despDirId, string despDirNome, string despDirDescricao, double despDirValor, DateTime despDirData, StatusCompra statusCompra, FormaPagamento formaPagamento, Categoria categoria)
         {
             DespDirId = despDirId;
             DespesaDirNome = despDirNome;

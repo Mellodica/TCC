@@ -1,0 +1,30 @@
+﻿@model ControleFinanceiro.Models.ListaMercado
+
+@{
+	ViewData["Title"] = "Excluir Lista";
+	Layout = "~/Views/Shared/_LayoutGeral.cshtml";
+}
+
+<style>
+
+	.modal-backdrop {
+		z-index: 1;
+	}
+</style>
+<body>
+	<div class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-9 centro">
+					<div class="card delete-texto">
+						<hr />
+						<div class="header">
+							<h4 class="title text-danger">@ViewData["Title"]</h4>
+						</div>
+						@{await Html.RenderPartialAsync("~/Views/ListaMercados/_PartialDeleteContent.cshtml", Model); }
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

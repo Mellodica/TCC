@@ -30,22 +30,18 @@ namespace ControleFinanceiro.Servico
             //return await _context.Usuarios.FirstOrDefaultAsync(u => u.UsuarioId == id);
         }
 
-        public async Task UpdateAsync(UsuarioApp user)
+        public async Task<UsuarioApp> UpdateAsync(UsuarioApp user)
         {
-            bool hasAny = await _context.Usuarios.AnyAsync(x => x.Id == user.Id);
-            if (!hasAny)
+            if (user.Id == null)
             {
-                throw new NotFoundException("Id not found");
+                _context.Usuarios.Add(user);
             }
-            try
+            else
             {
                 _context.Update(user);
-                await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException e)
-            {
-                throw new DbConcurrencyException(e.Message);
-            }
+            await _context.SaveChangesAsync();
+            return user;
         }
 
         public async Task<UsuarioApp> DeletarUsuarioPorId(string id)

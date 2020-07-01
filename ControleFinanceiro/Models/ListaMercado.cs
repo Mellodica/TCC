@@ -1,25 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ControleFinanceiro.Models
 {
     public class ListaMercado
     {
         [Key]
-        public int? MercadoId { get; set; }
+        public int MercadoId { get; set; }
 
         [Display(Name = "Nome do Produto")]
         [Required(ErrorMessage = "O nome do produto é obrigatório", AllowEmptyStrings = false)]
         public string MercadoNome { get; set; }
 
-        [Display(Name = "Descrição Do Produto")]
-        [Required(ErrorMessage = "A descrição do produto é obrigatório", AllowEmptyStrings = false)]
-        public string MercadoDescricao { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:F2}")]
-        [Display(Name = "Valor Do Produto")]
-        public double MercadoValor { get; set; }
+        [Display(Name = "Valor Total")]
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = true)]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal MercadoValor { get; set; }
 
         [Display(Name = "Dia da Compra")]
         [DataType(DataType.Date)]
@@ -36,27 +33,23 @@ namespace ControleFinanceiro.Models
 
         [Display(Name = "Método de Pagamento")]
         public FormaPagamento FormaPagamento { get; set; }
-        public int FormaId { get; set; }      
+        public int FormaId { get; set; }
+
 
         public ListaMercado()
         {
 
         }
 
-        public ListaMercado(int mercadoId, string mercadoNome, string mercadoDescricao, double mercadoValor, DateTime mercadoData, StatusCompra statusCompra, int statId, FormaPagamento formaPagamento, int formId, Categoria categoria, int categoId)
+        public ListaMercado(int mercadoId, string mercadoNome, decimal mercadoValor, DateTime mercadoData, StatusCompra statusCompra, Categoria categoria, FormaPagamento formaPagamento)
         {
             MercadoId = mercadoId;
             MercadoNome = mercadoNome;
-            MercadoDescricao = mercadoDescricao;
             MercadoValor = mercadoValor;
             MercadoData = mercadoData;
-            StatusCompra = statusCompra;          
-            FormaPagamento = formaPagamento;          
+            StatusCompra = statusCompra;
             Categoria = categoria;
-            
-
-
-
+            FormaPagamento = formaPagamento;
         }
     }
 }

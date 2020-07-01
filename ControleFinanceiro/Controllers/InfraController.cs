@@ -12,8 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -106,7 +104,7 @@ namespace CrudAspNetMVC.Controllers
 
                 };
 
-                var result = await _userManager.CreateAsync(usuario, model.UserName);
+                var result = await _userManager.CreateAsync(usuario, model.Password);
 
                 if (result.Succeeded)
                 {
@@ -130,23 +128,31 @@ namespace CrudAspNetMVC.Controllers
         }
 
         [Authorize]
-        [HttpGet]
         public async Task<IActionResult> PerfilUsuario(string id)
         {
-            //return await PegarViewUsuarioPorId(id);
-            var user = await infraServicos.PegarUsuarioPorId(id);
-            return View(user);
+            var perfil = await _context.Usuarios.FindAsync(id);
+            if (perfil == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Lista nao existe" });
+            }
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+                var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.UserName == userName);
+
+                if (usuario != null)
+                    return View(usuario);
+            }
+
+            return View(perfil);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PerfilUsuario(string id, [Bind("Id,Profissao,PrimeiroNome,Sobrenome,DataNascimento,SalarioId")] UsuarioApp usuario, IFormFile foto, string chkRemoverFoto)
+        public async Task<IActionResult> PerfilUsuario( UsuarioApp usuario, IFormFile foto, string chkRemoverFoto)
         {
-            if (id != usuario.Id)
-            {
-                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
-            }
 
             if (ModelState.IsValid)
             {
@@ -164,8 +170,8 @@ namespace CrudAspNetMVC.Controllers
                         usuario.FotoMimeType = foto.ContentType;
                     }
 
-                    await infraServicos.UpdateAsync(usuario);
-
+                    _context.Usuarios.Update(usuario);
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException e)
                 {
@@ -178,9 +184,10 @@ namespace CrudAspNetMVC.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(ControlesController.Index), "Controles");
+                return RedirectToAction(nameof(PerfilUsuario));
             }
             return View(usuario);
+            
         }
 
         private async Task<bool> UsuarioExists(string id)
@@ -206,13 +213,12 @@ namespace CrudAspNetMVC.Controllers
         }
 
         [Authorize]
-        [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
-            var user = await infraServicos.PegarUsuarioPorId(id);
-            return View(user);
+            //var user = await infraServicos.PegarUsuarioPorId(id);
+            //return View(user);
             // return await PegarViewUsuarioPorId(id);
-            /*
+            
              if (User.Identity.IsAuthenticated)
              {
                  var userName = User.Identity.Name;
@@ -222,8 +228,8 @@ namespace CrudAspNetMVC.Controllers
                      return View(usuario);
              }
 
-             return RedirectToAction("Details");
-             */
+             return RedirectToAction(nameof(Details));
+             
         }
 
         [Authorize]
@@ -276,7 +282,7 @@ namespace CrudAspNetMVC.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        public async Task<FileContentResult> GetFoto(string id)
+        public async Task<FileContentResult> PegarFoto(string id)
         {
             UsuarioApp usuario = await infraServicos.PegarUsuarioPorId(id);
             if (usuario != null)
@@ -289,7 +295,7 @@ namespace CrudAspNetMVC.Controllers
         public async Task<FileResult> DownloadFoto(string id)
         {
             UsuarioApp usuario = await infraServicos.PegarUsuarioPorId(id);
-            string nomeArquivo = "Foto" + usuario.Id.ToString().Trim() + ".jpg";
+            string nomeArquivo = "Foto" + usuario.Id.Trim() + ".jpg";
             FileStream fileStream = new FileStream(Path.Combine(_env.WebRootPath, nomeArquivo), FileMode.Create, FileAccess.Write);
             fileStream.Write(usuario.Foto, 0, usuario.Foto.Length);
             fileStream.Close();

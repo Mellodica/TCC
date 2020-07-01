@@ -218,7 +218,7 @@ namespace ControleFinanceiro.Migrations
 
             modelBuilder.Entity("ControleFinanceiro.Models.ListaMercado", b =>
                 {
-                    b.Property<int?>("MercadoId")
+                    b.Property<int>("MercadoId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -228,13 +228,11 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<DateTime>("MercadoData");
 
-                    b.Property<string>("MercadoDescricao")
-                        .IsRequired();
-
                     b.Property<string>("MercadoNome")
                         .IsRequired();
 
-                    b.Property<double>("MercadoValor");
+                    b.Property<decimal>("MercadoValor")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("StatusId");
 
@@ -247,6 +245,29 @@ namespace ControleFinanceiro.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("Mercados");
+                });
+
+            modelBuilder.Entity("ControleFinanceiro.Models.ProdutoMercado", b =>
+                {
+                    b.Property<int>("ProdutoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ListaMercadoMercadoId");
+
+                    b.Property<string>("ProdutoNome")
+                        .IsRequired();
+
+                    b.Property<int>("Quantidade");
+
+                    b.Property<decimal>("ValorUnitario")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ProdutoId");
+
+                    b.HasIndex("ListaMercadoMercadoId");
+
+                    b.ToTable("Produtos");
                 });
 
             modelBuilder.Entity("ControleFinanceiro.Models.Salario", b =>
@@ -463,6 +484,13 @@ namespace ControleFinanceiro.Migrations
                         .WithMany("ListaMercados")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ControleFinanceiro.Models.ProdutoMercado", b =>
+                {
+                    b.HasOne("ControleFinanceiro.Models.ListaMercado", "ListaMercado")
+                        .WithMany()
+                        .HasForeignKey("ListaMercadoMercadoId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

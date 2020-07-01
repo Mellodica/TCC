@@ -40,7 +40,6 @@ namespace ControleFinanceiro
             services.AddScoped<SeedingService>();
 
             services.AddScoped<ListaDesejoServico>();
-            services.AddScoped<ListaMercadoServico>();
             services.AddScoped<ListaDespDiretaServico>();
             services.AddScoped<ListaDespFixaServico>();
 

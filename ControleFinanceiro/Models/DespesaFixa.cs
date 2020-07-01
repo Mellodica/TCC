@@ -28,7 +28,7 @@ namespace ControleFinanceiro.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DespFixaData { get; set; }
 
-        [Display(Name = "Situação da Compra")]
+        [Display(Name = "Situação da Despesa")]
         public StatusCompra StatusCompra { get; set; }
         public int StatusId { get; set; }
 

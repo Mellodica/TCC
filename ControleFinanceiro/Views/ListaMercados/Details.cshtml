@@ -1,0 +1,22 @@
+﻿@model ControleFinanceiro.Models.ListaMercado
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutGeral.cshtml";
+}
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-9 centro">
+				<div class="card">
+					<hr />
+					<div class="header">
+						<h4 class="title">@ViewData["Title"]</h4>
+					</div>
+					@{await Html.RenderPartialAsync("~/Views/ListaMercados/_PartialDetailsContent.cshtml", Model); }
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

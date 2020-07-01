@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleFinanceiro.Migrations
 {
     [DbContext(typeof(ControlePessoalContext))]
-    [Migration("20200622015429_CorrecoesDb")]
-    partial class CorrecoesDb
+    [Migration("20200701030151_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,7 +46,8 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<double>("DespDirValor");
 
-                    b.Property<string>("DespesaDirDescricao");
+                    b.Property<string>("DespesaDirDescricao")
+                        .IsRequired();
 
                     b.Property<string>("DespesaDirNome")
                         .IsRequired();
@@ -76,7 +77,8 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<DateTime>("DespFixaData");
 
-                    b.Property<string>("DespFixaDescricao");
+                    b.Property<string>("DespFixaDescricao")
+                        .IsRequired();
 
                     b.Property<string>("DespFixaNome")
                         .IsRequired();
@@ -121,10 +123,17 @@ namespace ControleFinanceiro.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<DateTime?>("DataNascimento")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<byte[]>("Foto");
+
+                    b.Property<string>("FotoMimeType");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -142,7 +151,17 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<string>("PrimeiroNome")
+                        .IsRequired();
+
+                    b.Property<string>("Profissao");
+
+                    b.Property<int?>("SalarioId");
+
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("Sobrenome")
+                        .IsRequired();
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -159,6 +178,8 @@ namespace ControleFinanceiro.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("SalarioId");
+
                     b.ToTable("AspNetUsers");
                 });
 
@@ -172,7 +193,10 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<DateTime>("DesejoData");
 
-                    b.Property<string>("DesejoDescricao");
+                    b.Property<string>("DesejoDescricao")
+                        .IsRequired();
+
+                    b.Property<string>("DesejoLoja");
 
                     b.Property<string>("DesejoNome")
                         .IsRequired();
@@ -196,7 +220,7 @@ namespace ControleFinanceiro.Migrations
 
             modelBuilder.Entity("ControleFinanceiro.Models.ListaMercado", b =>
                 {
-                    b.Property<int?>("MercadoId")
+                    b.Property<int>("MercadoId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -206,13 +230,11 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<DateTime>("MercadoData");
 
-                    b.Property<string>("MercadoDescricao")
-                        .IsRequired();
-
                     b.Property<string>("MercadoNome")
                         .IsRequired();
 
-                    b.Property<double>("MercadoValor");
+                    b.Property<decimal>("MercadoValor")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("StatusId");
 
@@ -227,29 +249,25 @@ namespace ControleFinanceiro.Migrations
                     b.ToTable("Mercados");
                 });
 
-            modelBuilder.Entity("ControleFinanceiro.Models.ListaProduto", b =>
+            modelBuilder.Entity("ControleFinanceiro.Models.ProdutoMercado", b =>
                 {
-                    b.Property<int?>("ProdutoId")
+                    b.Property<int>("ProdutoId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoriaId");
+                    b.Property<int?>("ListaMercadoMercadoId");
 
-                    b.Property<int>("FormaId");
+                    b.Property<string>("ProdutoNome")
+                        .IsRequired();
 
-                    b.Property<string>("ProdutoDescricao");
+                    b.Property<int>("Quantidade");
 
-                    b.Property<string>("ProdutoNome");
-
-                    b.Property<int>("StatusId");
+                    b.Property<decimal>("ValorUnitario")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ProdutoId");
 
-                    b.HasIndex("CategoriaId");
-
-                    b.HasIndex("FormaId");
-
-                    b.HasIndex("StatusId");
+                    b.HasIndex("ListaMercadoMercadoId");
 
                     b.ToTable("Produtos");
                 });
@@ -260,9 +278,8 @@ namespace ControleFinanceiro.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("SalarioData");
-
-                    b.Property<decimal>("SalarioValor");
+                    b.Property<decimal>("SalarioValor")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("SalarioId");
 
@@ -428,6 +445,13 @@ namespace ControleFinanceiro.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("ControleFinanceiro.Models.Infra.UsuarioApp", b =>
+                {
+                    b.HasOne("ControleFinanceiro.Models.Salario", "Salario")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("SalarioId");
+                });
+
             modelBuilder.Entity("ControleFinanceiro.Models.ListaDesejo", b =>
                 {
                     b.HasOne("ControleFinanceiro.Models.Categoria", "Categoria")
@@ -464,22 +488,11 @@ namespace ControleFinanceiro.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("ControleFinanceiro.Models.ListaProduto", b =>
+            modelBuilder.Entity("ControleFinanceiro.Models.ProdutoMercado", b =>
                 {
-                    b.HasOne("ControleFinanceiro.Models.Categoria", "Categoria")
-                        .WithMany("ListaProdutos")
-                        .HasForeignKey("CategoriaId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ControleFinanceiro.Models.FormaPagamento", "FormaPagamento")
-                        .WithMany("ListaProdutos")
-                        .HasForeignKey("FormaId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ControleFinanceiro.Models.StatusCompra", "StatusCompra")
-                        .WithMany("ListaProdutos")
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("ControleFinanceiro.Models.ListaMercado", "ListaMercado")
+                        .WithMany()
+                        .HasForeignKey("ListaMercadoMercadoId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

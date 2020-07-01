@@ -11,12 +11,15 @@ namespace ControleFinanceiro.Data
         public ControlePessoalContext(DbContextOptions<ControlePessoalContext> options)
             : base(options)
         {
+            //Database.MigrateAsync();
         }
 
         public DbSet<Salario> Salarios { get; set; }
+    
+        public DbSet<ProdutoMercado> Produtos { get; set; }
+        public DbSet<ListaMercado> Mercados { get; set; }
 
         public DbSet<ListaDesejo> Desejos { get; set; }
-        public DbSet<ListaMercado> Mercados { get; set; }
         public DbSet<DespesaDireta> DespDiretas { get; set; }
         public DbSet<DespesaFixa> DespFixas { get; set; }
 
@@ -25,12 +28,6 @@ namespace ControleFinanceiro.Data
         public DbSet<StatusCompra> StatusCompras { get; set; }
         public DbSet<UsuarioApp> Usuarios { get; set; }
 
-        /*
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ControleDb;Trusted_Connection=True;MultipleActiveResultSets=true");
-        }
-        */
     }
     
 }

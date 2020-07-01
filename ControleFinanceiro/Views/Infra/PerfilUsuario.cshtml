@@ -19,7 +19,9 @@
 							<div class="form-group col-md-12">
 								<form enctype="multipart/form-data" asp-action="PerfilUsuario">
 									<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+									
 									<input type="hidden" asp-for="Id" />
+									
 									<div class="form-group">
 										<label asp-for="PrimeiroNome" class="control-label">
 											<i class="fa fa-user-circle title" aria-hidden="true"></i>
@@ -71,7 +73,7 @@
 								</form>
 							</div>
 							<div class="col-3">
-								<img class="img-thumbnail" src="@Url.Action(" PegarFoto", "UsuarioApp" , new { id=Model.Id })" style="display:block; margin-left:auto;margin-right:auto;"><img />
+								<img class="img-thumbnail" src="@Url.Action(" PegarFoto", "UsuarioApp" , new { id = Model.Id })" style="display:block; margin-left:auto;margin-right:auto;"><img />
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" name="chkRemoverFoto" value="Sim">Remover Foto

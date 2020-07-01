@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ControleFinanceiro.Migrations
 {
-    public partial class CorrecoesDb : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,31 +20,6 @@ namespace ControleFinanceiro.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,8 +54,7 @@ namespace ControleFinanceiro.Migrations
                 {
                     SalarioId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    SalarioValor = table.Column<decimal>(nullable: false),
-                    SalarioData = table.Column<DateTime>(nullable: false)
+                    SalarioValor = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -118,6 +92,192 @@ namespace ControleFinanceiro.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    PrimeiroNome = table.Column<string>(nullable: false),
+                    Sobrenome = table.Column<string>(nullable: false),
+                    DataNascimento = table.Column<DateTime>(nullable: false),
+                    FotoMimeType = table.Column<string>(nullable: true),
+                    Foto = table.Column<byte[]>(nullable: true),
+                    Profissao = table.Column<string>(nullable: true),
+                    SalarioId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Salarios_SalarioId",
+                        column: x => x.SalarioId,
+                        principalTable: "Salarios",
+                        principalColumn: "SalarioId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Desejos",
+                columns: table => new
+                {
+                    DesejoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DesejoValor = table.Column<double>(nullable: false),
+                    DesejoNome = table.Column<string>(nullable: false),
+                    DesejoDescricao = table.Column<string>(nullable: false),
+                    DesejoData = table.Column<DateTime>(nullable: false),
+                    DesejoLoja = table.Column<string>(nullable: true),
+                    StatusId = table.Column<int>(nullable: false),
+                    CategoriaId = table.Column<int>(nullable: false),
+                    FormaId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Desejos", x => x.DesejoId);
+                    table.ForeignKey(
+                        name: "FK_Desejos_Categorias_CategoriaId",
+                        column: x => x.CategoriaId,
+                        principalTable: "Categorias",
+                        principalColumn: "CategoriaId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Desejos_Formas_FormaId",
+                        column: x => x.FormaId,
+                        principalTable: "Formas",
+                        principalColumn: "FormaId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Desejos_StatusCompras_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "StatusCompras",
+                        principalColumn: "StatusId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DespDiretas",
+                columns: table => new
+                {
+                    DespDirId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DespesaDirNome = table.Column<string>(nullable: false),
+                    DespesaDirDescricao = table.Column<string>(nullable: false),
+                    DespDirValor = table.Column<double>(nullable: false),
+                    DespDirData = table.Column<DateTime>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
+                    CategoriaId = table.Column<int>(nullable: false),
+                    FormaId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DespDiretas", x => x.DespDirId);
+                    table.ForeignKey(
+                        name: "FK_DespDiretas_Categorias_CategoriaId",
+                        column: x => x.CategoriaId,
+                        principalTable: "Categorias",
+                        principalColumn: "CategoriaId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DespDiretas_Formas_FormaId",
+                        column: x => x.FormaId,
+                        principalTable: "Formas",
+                        principalColumn: "FormaId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DespDiretas_StatusCompras_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "StatusCompras",
+                        principalColumn: "StatusId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DespFixas",
+                columns: table => new
+                {
+                    DespFixaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DespFixaNome = table.Column<string>(nullable: false),
+                    DespFixaDescricao = table.Column<string>(nullable: false),
+                    DespFixaValor = table.Column<double>(nullable: false),
+                    DespFixaData = table.Column<DateTime>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
+                    CategoriaId = table.Column<int>(nullable: false),
+                    FormaId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DespFixas", x => x.DespFixaId);
+                    table.ForeignKey(
+                        name: "FK_DespFixas_Categorias_CategoriaId",
+                        column: x => x.CategoriaId,
+                        principalTable: "Categorias",
+                        principalColumn: "CategoriaId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DespFixas_Formas_FormaId",
+                        column: x => x.FormaId,
+                        principalTable: "Formas",
+                        principalColumn: "FormaId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DespFixas_StatusCompras_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "StatusCompras",
+                        principalColumn: "StatusId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Mercados",
+                columns: table => new
+                {
+                    MercadoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    MercadoNome = table.Column<string>(nullable: false),
+                    MercadoValor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    MercadoData = table.Column<DateTime>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
+                    CategoriaId = table.Column<int>(nullable: false),
+                    FormaId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mercados", x => x.MercadoId);
+                    table.ForeignKey(
+                        name: "FK_Mercados_Categorias_CategoriaId",
+                        column: x => x.CategoriaId,
+                        principalTable: "Categorias",
+                        principalColumn: "CategoriaId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Mercados_Formas_FormaId",
+                        column: x => x.FormaId,
+                        principalTable: "Formas",
+                        principalColumn: "FormaId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Mercados_StatusCompras_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "StatusCompras",
+                        principalColumn: "StatusId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -207,186 +367,25 @@ namespace ControleFinanceiro.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Desejos",
-                columns: table => new
-                {
-                    DesejoId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DesejoValor = table.Column<double>(nullable: false),
-                    DesejoNome = table.Column<string>(nullable: false),
-                    DesejoDescricao = table.Column<string>(nullable: true),
-                    DesejoData = table.Column<DateTime>(nullable: false),
-                    StatusId = table.Column<int>(nullable: false),
-                    CategoriaId = table.Column<int>(nullable: false),
-                    FormaId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Desejos", x => x.DesejoId);
-                    table.ForeignKey(
-                        name: "FK_Desejos_Categorias_CategoriaId",
-                        column: x => x.CategoriaId,
-                        principalTable: "Categorias",
-                        principalColumn: "CategoriaId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Desejos_Formas_FormaId",
-                        column: x => x.FormaId,
-                        principalTable: "Formas",
-                        principalColumn: "FormaId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Desejos_StatusCompras_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "StatusCompras",
-                        principalColumn: "StatusId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DespDiretas",
-                columns: table => new
-                {
-                    DespDirId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DespesaDirNome = table.Column<string>(nullable: false),
-                    DespesaDirDescricao = table.Column<string>(nullable: true),
-                    DespDirValor = table.Column<double>(nullable: false),
-                    DespDirData = table.Column<DateTime>(nullable: false),
-                    StatusId = table.Column<int>(nullable: false),
-                    FormaId = table.Column<int>(nullable: false),
-                    CategoriaId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DespDiretas", x => x.DespDirId);
-                    table.ForeignKey(
-                        name: "FK_DespDiretas_Categorias_CategoriaId",
-                        column: x => x.CategoriaId,
-                        principalTable: "Categorias",
-                        principalColumn: "CategoriaId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DespDiretas_Formas_FormaId",
-                        column: x => x.FormaId,
-                        principalTable: "Formas",
-                        principalColumn: "FormaId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DespDiretas_StatusCompras_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "StatusCompras",
-                        principalColumn: "StatusId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DespFixas",
-                columns: table => new
-                {
-                    DespFixaId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DespFixaNome = table.Column<string>(nullable: false),
-                    DespFixaDescricao = table.Column<string>(nullable: true),
-                    DespFixaValor = table.Column<double>(nullable: false),
-                    DespFixaData = table.Column<DateTime>(nullable: false),
-                    StatusId = table.Column<int>(nullable: false),
-                    FormaId = table.Column<int>(nullable: false),
-                    CategoriaId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DespFixas", x => x.DespFixaId);
-                    table.ForeignKey(
-                        name: "FK_DespFixas_Categorias_CategoriaId",
-                        column: x => x.CategoriaId,
-                        principalTable: "Categorias",
-                        principalColumn: "CategoriaId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DespFixas_Formas_FormaId",
-                        column: x => x.FormaId,
-                        principalTable: "Formas",
-                        principalColumn: "FormaId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DespFixas_StatusCompras_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "StatusCompras",
-                        principalColumn: "StatusId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Mercados",
-                columns: table => new
-                {
-                    MercadoId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    MercadoNome = table.Column<string>(nullable: false),
-                    MercadoDescricao = table.Column<string>(nullable: false),
-                    MercadoValor = table.Column<double>(nullable: false),
-                    MercadoData = table.Column<DateTime>(nullable: false),
-                    StatusId = table.Column<int>(nullable: false),
-                    CategoriaId = table.Column<int>(nullable: false),
-                    FormaId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mercados", x => x.MercadoId);
-                    table.ForeignKey(
-                        name: "FK_Mercados_Categorias_CategoriaId",
-                        column: x => x.CategoriaId,
-                        principalTable: "Categorias",
-                        principalColumn: "CategoriaId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Mercados_Formas_FormaId",
-                        column: x => x.FormaId,
-                        principalTable: "Formas",
-                        principalColumn: "FormaId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Mercados_StatusCompras_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "StatusCompras",
-                        principalColumn: "StatusId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Produtos",
                 columns: table => new
                 {
                     ProdutoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ProdutoNome = table.Column<string>(nullable: true),
-                    ProdutoDescricao = table.Column<string>(nullable: true),
-                    StatusId = table.Column<int>(nullable: false),
-                    CategoriaId = table.Column<int>(nullable: false),
-                    FormaId = table.Column<int>(nullable: false)
+                    Quantidade = table.Column<int>(nullable: false),
+                    ListaMercadoMercadoId = table.Column<int>(nullable: true),
+                    ProdutoNome = table.Column<string>(nullable: false),
+                    ValorUnitario = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Produtos", x => x.ProdutoId);
                     table.ForeignKey(
-                        name: "FK_Produtos_Categorias_CategoriaId",
-                        column: x => x.CategoriaId,
-                        principalTable: "Categorias",
-                        principalColumn: "CategoriaId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Produtos_Formas_FormaId",
-                        column: x => x.FormaId,
-                        principalTable: "Formas",
-                        principalColumn: "FormaId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Produtos_StatusCompras_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "StatusCompras",
-                        principalColumn: "StatusId",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Produtos_Mercados_ListaMercadoMercadoId",
+                        column: x => x.ListaMercadoMercadoId,
+                        principalTable: "Mercados",
+                        principalColumn: "MercadoId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -427,6 +426,11 @@ namespace ControleFinanceiro.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_SalarioId",
+                table: "AspNetUsers",
+                column: "SalarioId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Desejos_CategoriaId",
@@ -489,19 +493,9 @@ namespace ControleFinanceiro.Migrations
                 column: "StatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produtos_CategoriaId",
+                name: "IX_Produtos_ListaMercadoMercadoId",
                 table: "Produtos",
-                column: "CategoriaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Produtos_FormaId",
-                table: "Produtos",
-                column: "FormaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Produtos_StatusId",
-                table: "Produtos",
-                column: "StatusId");
+                column: "ListaMercadoMercadoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -531,19 +525,19 @@ namespace ControleFinanceiro.Migrations
                 name: "DespFixas");
 
             migrationBuilder.DropTable(
-                name: "Mercados");
-
-            migrationBuilder.DropTable(
                 name: "Produtos");
-
-            migrationBuilder.DropTable(
-                name: "Salarios");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Mercados");
+
+            migrationBuilder.DropTable(
+                name: "Salarios");
 
             migrationBuilder.DropTable(
                 name: "Categorias");
