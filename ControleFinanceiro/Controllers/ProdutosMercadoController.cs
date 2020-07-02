@@ -9,7 +9,7 @@ namespace ControleFinanceiro.Controllers
     [Authorize]
     public class ProdutosMercadoController : Controller
     {
-        private ControlePessoalContext _context;
+        private readonly ControlePessoalContext _context;
 
         public ProdutosMercadoController(ControlePessoalContext context)
         {
@@ -19,30 +19,34 @@ namespace ControleFinanceiro.Controllers
         [Authorize]
         public ActionResult ListarProdutos(int id)
         {
-            var lista = _context.Produtos.Where(p => p.ListaMercado.MercadoId == id);
+
+            var lista = _context.Produtos.Where(p => p.ListaMercado.MercadoId == id).ToList();
             ViewBag.Mercado = id;
             return PartialView(lista);
         }
 
         [Authorize]
-        public ActionResult SalvarProdutos(int quantidade, 
+        public ActionResult SalvarProdutos(int quantidade,
             string produto,
-            int valorunitario, 
+            int valorunitario,
             int idMercado)
         {
 
             var prod = new ProdutoMercado()
             {
                 Quantidade = quantidade
-                , ProdutoNome = produto
-                , ValorUnitario = valorunitario
-                , ListaMercado = _context.Mercados.Find(idMercado)
+                ,
+                ProdutoNome = produto
+                ,
+                ValorUnitario = valorunitario
+                ,
+                ListaMercado = _context.Mercados.Find(idMercado)
             };
 
-             _context.Produtos.Add(prod);
-             _context.SaveChanges();
+            _context.Produtos.Add(prod);
+            _context.SaveChanges();
 
-            return Json(new { Resultado = prod.ProdutoId });
+            return Json(new { Resultado = prod.ProdutoId }, new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpPost]
@@ -51,14 +55,13 @@ namespace ControleFinanceiro.Controllers
             var result = false;
             var item = _context.Produtos.Find(id);
 
-            if(item != null)
+            if (item != null)
             {
                 _context.Produtos.Remove(item);
-                _context.SaveChangesAsync();
+                _context.SaveChanges();
                 result = true;
             }
-
-            return Json(new { Resultado = result });
+            return Json(new { Resultado = result }, new Newtonsoft.Json.JsonSerializerSettings());
         }
     }
 }

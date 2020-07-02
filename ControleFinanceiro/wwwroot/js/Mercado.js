@@ -43,7 +43,7 @@ function SalvarLista() {
 	$.ajax({
 		url: url
 		, type: "POST"
-		, dataType: "Json"
+		, dataType: "json"
 		, headers: headersadr
 		, data: { MercadoId: 0, MercadoData: mercadoData, MercadoNome: mercadoNome, MercadoValor: mercadoValor, StatusId: statusId, CategoriaId: categoriaId, FormaId: formaId, __RequestVerificationToken: token }
 		, success: function (data) {
@@ -102,13 +102,15 @@ function ExcluirItem(id) {
 
 	$.ajax({
 		url: url
-		, data: { id: id }
+		, data: { id : id }
 		, dataType: "json"
 		, type: "POST"
 		, success: function (data) {
 			if (data.Resultado) {
 				var linha = "#tr" + id;
-				$(linha).fadeOut(500);
+				$(linha).fadeOut(id);
+				//$(linha).fadeOut(500);
+				
 			}
 		}
 	});
