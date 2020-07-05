@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -35,6 +36,7 @@ namespace ControleFinanceiro.Models
         public FormaPagamento FormaPagamento { get; set; }
         public int FormaId { get; set; }
 
+        public virtual List<ProdutoMercado> Produtos { get; set; }
 
         public ListaMercado()
         {

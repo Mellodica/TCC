@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace ControleFinanceiro.Controllers
     {
 
         private ControlePessoalContext _context;
+        private readonly ListaMercadoServicos mercadoServicos;
         private CategoriaServico categoriaServicos;
         private FormaPagamentoServico formaServicos;
         private StatusCompraServico statusServicos;
@@ -25,20 +27,22 @@ namespace ControleFinanceiro.Controllers
         public ListaMercadosController(ControlePessoalContext context)
         {
             _context = context;
+            mercadoServicos = new ListaMercadoServicos(context);
             categoriaServicos = new CategoriaServico(context);
             formaServicos = new FormaPagamentoServico(context);
             statusServicos = new StatusCompraServico(context);
         }
 
         [Authorize]
-        public ActionResult Index()
+        public IActionResult Index()
         {
-            return View(_context.Mercados.ToList());
+          
+            return View(mercadoServicos.PegarMercadoPorNome().ToList());
         }
 
-        //GET Desejo/Create   
+        //GET Mercado/Create   
         [Authorize]
-        public ActionResult Create()
+        public IActionResult Create()
         {
             var categorias = categoriaServicos.PegarCategoriasPorNome().ToList();
             categorias.Insert(0, new Categoria() { CategoriaId = 0, CategoriaNome = "Selecione a Categoria" });
@@ -55,24 +59,33 @@ namespace ControleFinanceiro.Controllers
             return View();
         }
 
-        //POST: Desejo/Create
+        //POST: Mercado/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ListaMercado mercado)
+        public IActionResult Create(ListaMercado mercado)
 
         {
             if (ModelState.IsValid)
             {
-                _context.Mercados.Add(mercado);
-                _context.SaveChanges();
+                try
+                {
+                    _context.Mercados.Add(mercado);
+                    _context.SaveChanges();                  
+                }
+                catch (DbUpdateException)
+                {
+                    ModelState.AddModelError("", "Não foi possível inserir os dados.");
+                }
+                return Json(new { Resultado = mercado.MercadoId }, new JsonSerializerSettings());
             }
-            return Json(new { Resultado = mercado.MercadoId });
+            return View(mercado);
+
 
         }
 
-        //GET: Desejo/Edit
+        //GET: Mercado/Edit
         [Authorize]
-        public ActionResult Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -101,10 +114,10 @@ namespace ControleFinanceiro.Controllers
 
         }
 
-        //POST: Desejo/Edit
+        //POST: Mercado/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int? id, ListaMercado mercado)
+        public IActionResult Edit(int? id, ListaMercado mercado)
         {
             if (id != mercado.MercadoId)
             {
@@ -128,7 +141,7 @@ namespace ControleFinanceiro.Controllers
                         throw;
                     }
                 }
-                return Json(new { Resultado = mercado.MercadoId });
+                return Json(new { Resultado = mercado.MercadoId }, new JsonSerializerSettings());
             }
             ViewBag.Categorias = new SelectList(categoriaServicos.PegarCategoriasPorNome(), "CategoriaId", "CategoriaNome", mercado.CategoriaId);
             ViewBag.Formas = new SelectList(formaServicos.PegarFormaPorNome(), "FormaId", "FormaNome", mercado.FormaId);
@@ -139,19 +152,19 @@ namespace ControleFinanceiro.Controllers
 
         private bool MercadoExists(int? id)
         {
-            return _context.Mercados.Find(id) != null;
+            return mercadoServicos.PegarMercadoPorId(id.Value) != null;
         }
 
         [Authorize]
-        public ActionResult Details(int? id)
+        public IActionResult Details(int? id)
         {
-            return PegarViewMercadoPorId(id);
+            return PegarViewMercadoPorId(id.Value);
         }
 
         [Authorize]
-        public ActionResult Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            return PegarViewMercadoPorId(id);
+            return PegarViewMercadoPorId(id.Value);
         }
 
         // POST: Mercado/Delete/5
@@ -186,14 +199,14 @@ namespace ControleFinanceiro.Controllers
             base.Dispose(disposing);
         }
 
-        private ActionResult PegarViewMercadoPorId(int? id)
+        private IActionResult PegarViewMercadoPorId(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não providenciado" });
             }
 
-            var mercado = _context.Mercados.Find(id.Value);
+            var mercado = mercadoServicos.PegarMercadoPorId(id.Value);
             if (mercado == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não Encontrado" });

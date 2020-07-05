@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleFinanceiro.Migrations
 {
     [DbContext(typeof(ControlePessoalContext))]
-    [Migration("20200701030151_Initial")]
-    partial class Initial
+    [Migration("20200705222830_ListaMercado")]
+    partial class ListaMercado
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -251,14 +251,13 @@ namespace ControleFinanceiro.Migrations
 
             modelBuilder.Entity("ControleFinanceiro.Models.ProdutoMercado", b =>
                 {
-                    b.Property<int>("ProdutoId")
+                    b.Property<int?>("ProdutoId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("ListaMercadoMercadoId");
 
-                    b.Property<string>("ProdutoNome")
-                        .IsRequired();
+                    b.Property<string>("ProdutoNome");
 
                     b.Property<int>("Quantidade");
 
@@ -491,7 +490,7 @@ namespace ControleFinanceiro.Migrations
             modelBuilder.Entity("ControleFinanceiro.Models.ProdutoMercado", b =>
                 {
                     b.HasOne("ControleFinanceiro.Models.ListaMercado", "ListaMercado")
-                        .WithMany()
+                        .WithMany("Produtos")
                         .HasForeignKey("ListaMercadoMercadoId");
                 });
 

@@ -24,6 +24,7 @@ namespace ControleFinanceiro.Models.Infra
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         [Required(ErrorMessage = "A data de nascimento é Obrigatória!", AllowEmptyStrings = false)]
         public DateTime? DataNascimento { get; set; }
+
         public string FotoMimeType { get; set; }
         public byte[] Foto { get; set; }
 

@@ -14,6 +14,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CrudAspNetMVC.Controllers
@@ -138,22 +139,21 @@ namespace CrudAspNetMVC.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                var userName = User.Identity.Name;
-                var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.UserName == userName);
+                var userName = User.Identity.IsAuthenticated;
+                var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
 
                 if (usuario != null)
                     return View(usuario);
             }
 
-            return View(perfil);
+            return RedirectToAction(nameof(PerfilUsuario));
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PerfilUsuario( UsuarioApp usuario, IFormFile foto, string chkRemoverFoto)
+        public async Task<IActionResult> PerfilUsuario(UsuarioApp usuario, IFormFile foto, string chkRemoverFoto)
         {
-
             if (ModelState.IsValid)
             {
                 try
@@ -169,7 +169,6 @@ namespace CrudAspNetMVC.Controllers
                         usuario.Foto = stream.ToArray();
                         usuario.FotoMimeType = foto.ContentType;
                     }
-
                     _context.Usuarios.Update(usuario);
                     _context.SaveChanges();
                 }

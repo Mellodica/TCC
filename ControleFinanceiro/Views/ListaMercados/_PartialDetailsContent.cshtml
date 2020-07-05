@@ -15,51 +15,59 @@
 					<input asp-for="DespFixaId" class="form-control" disabled="disabled" />
 				</div>
 			-->
-			<label asp-for="MercadoNome" class="control-label hidden"></label>
-			<br />
+			<input type="hidden" asp-for="MercadoId" />
+
+			<label asp-for="MercadoNome" class="control-label">
+				<span class="input-group-text">
+					<i class="fa fa-shopping-bag title" aria-hidden="true"></i>
+					<span style="padding-left:10px">Nome da Despesa</span>
+				</span>
+			</label>
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
-					<span class="input-group-text">
-						<i class="fa fa-shopping-bag title" aria-hidden="true"></i>
-						<span style="padding-left:10px">Nome da Despesa</span>
-					</span>
+
 				</div>
 				<input asp-for="MercadoNome" class="form-control" disabled="disabled" />
 			</div>
-			
-			<label asp-for="MercadoValor" class="control-label  hidden"></label>
 			<br />
+			<label asp-for="MercadoValor" class="control-label">
+				<span class="input-group-text">
+					<i class="fa fa-usd title" aria-hidden="true"></i>
+					<span style="padding-left:10px">Valor</span>
+				</span>
+			</label>
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
-					<span class="input-group-text">
-						<i class="fa fa-usd title" aria-hidden="true"></i>
-						<span style="padding-left:10px">Valor</span>
-					</span>
+					<input asp-for="MercadoValor" class="form-control" disabled="disabled" />
 				</div>
-				<input asp-for="MercadoValor" class="form-control" disabled="disabled" />
 			</div>
-			<label asp-for="FormaPagamento.FormaNome" class="control-label  hidden"></label>
 			<br />
+
+			<label asp-for="FormaPagamento.FormaNome" class="control-label">
+				<span class="input-group-text">
+					<i class="fa fa-credit-card-alt title" aria-hidden="true"></i>
+					<span style="padding-left:10px">Forma de Pagamento</span>
+				</span>
+			</label>
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
-					<span class="input-group-text">
-						<i class="fa fa-credit-card-alt title" aria-hidden="true"></i>
-						<span style="padding-left:10px">Forma de Pagamento</span>
-					</span>
+					<input asp-for="FormaPagamento.FormaNome" class="form-control" disabled="disabled" />
 				</div>
-				<input asp-for="FormaPagamento.FormaNome" class="form-control" disabled="disabled" />
 			</div>
-			<label asp-for="MercadoData" class="control-label  hidden"></label>
 			<br />
+
+			<label asp-for="MercadoData" class="control-label ">
+				<span class="input-group-text">
+					<i class="fa fa-calendar title" aria-hidden="true"></i>
+					<span style="padding-left:10px">Valor</span>
+				</span>
+			</label>
 			<div class="input-group col-md-12">
 				<div class="input-group-prepend">
-					<span class="input-group-text">
-						<i class="fa fa-calendar title" aria-hidden="true"></i>
-						<span style="padding-left:10px">Valor</span>
-					</span>
+					<input asp-for="MercadoData" class="form-control" disabled="disabled" />
 				</div>
-				<input asp-for="MercadoData" class="form-control" disabled="disabled" />
 			</div>
+			<br />
 			<div class="form-group text-left h3">
 				<input type="hidden" asp-for="MercadoId" />
 				<a asp-action="Edit" class="btn btn-block btn-warning btn-fill" asp-route-id="@Model.MercadoId">Alterar</a>
@@ -68,3 +76,4 @@
 		</div>
 	</div>
 </div>
+

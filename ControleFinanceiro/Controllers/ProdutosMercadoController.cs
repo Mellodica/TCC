@@ -3,6 +3,7 @@ using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ControleFinanceiro.Controllers
 {
@@ -17,7 +18,7 @@ namespace ControleFinanceiro.Controllers
         }
 
         [Authorize]
-        public ActionResult ListarProdutos(int id)
+        public IActionResult ListarProdutos(int id)
         {
 
             var lista = _context.Produtos.Where(p => p.ListaMercado.MercadoId == id).ToList();
@@ -26,7 +27,7 @@ namespace ControleFinanceiro.Controllers
         }
 
         [Authorize]
-        public ActionResult SalvarProdutos(int quantidade,
+        public IActionResult SalvarProdutos(int quantidade,
             string produto,
             int valorunitario,
             int idMercado)
@@ -46,11 +47,11 @@ namespace ControleFinanceiro.Controllers
             _context.Produtos.Add(prod);
             _context.SaveChanges();
 
-            return Json(new { Resultado = prod.ProdutoId }, new Newtonsoft.Json.JsonSerializerSettings());
+            return Json(new { Resultado = prod.ProdutoId }, new JsonSerializerSettings());
         }
 
         [HttpPost]
-        public ActionResult Excluir(int id)
+        public IActionResult Excluir(int id)
         {
             var result = false;
             var item = _context.Produtos.Find(id);
@@ -61,7 +62,7 @@ namespace ControleFinanceiro.Controllers
                 _context.SaveChanges();
                 result = true;
             }
-            return Json(new { Resultado = result }, new Newtonsoft.Json.JsonSerializerSettings());
+            return Json(new { Resultado = result }, new JsonSerializerSettings());
         }
     }
 }

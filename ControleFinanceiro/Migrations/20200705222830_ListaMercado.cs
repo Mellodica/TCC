@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ControleFinanceiro.Migrations
 {
-    public partial class Initial : Migration
+    public partial class ListaMercado : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -374,7 +374,7 @@ namespace ControleFinanceiro.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Quantidade = table.Column<int>(nullable: false),
                     ListaMercadoMercadoId = table.Column<int>(nullable: true),
-                    ProdutoNome = table.Column<string>(nullable: false),
+                    ProdutoNome = table.Column<string>(nullable: true),
                     ValorUnitario = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>

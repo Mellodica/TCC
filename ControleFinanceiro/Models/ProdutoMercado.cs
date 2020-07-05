@@ -7,14 +7,13 @@ namespace ControleFinanceiro.Models
     public class ProdutoMercado
     {
         [Key]
-        public int ProdutoId { get; set; }
+        public int? ProdutoId { get; set; }
 
         public int Quantidade { get; set; }
 
         public ListaMercado ListaMercado { get; set; }
 
         [Display(Name = "Nome do Produto")]
-        [Required(ErrorMessage = "O nome do produto é obrigatório", AllowEmptyStrings = false)]
         public string ProdutoNome { get; set; }
 
         [Display(Name = "Valor do Produto")]

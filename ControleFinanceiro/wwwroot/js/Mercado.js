@@ -71,7 +71,6 @@ function ListarProdutos(idMercado) {
 			divProdutos.html(data);
 		}
 	});
-
 }
 
 function SalvarProdutos() {
@@ -85,9 +84,9 @@ function SalvarProdutos() {
 
 	$.ajax({
 		url: url
-		, data: { quantidade: quantidade, produto: produto, valorunitario: valorunitario, idMercado: idMercado }
+		, data: { ProdutoId: 0, quantidade: quantidade, produto: produto, valorunitario: valorunitario, idMercado: idMercado }
 		, type: "GET"
-		, dataType: "html"
+		, datatype: "html"
 		, success: function (data) {
 			if (data.Resultado > 0) {
 				ListarProdutos(idMercado);
