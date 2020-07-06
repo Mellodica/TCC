@@ -15,6 +15,7 @@ namespace ControleFinanceiro.Data
         }
 
         public DbSet<Salario> Salarios { get; set; }
+        public DbSet<ServicoControles> Controles { get; set; }
     
         public DbSet<ProdutoMercado> Produtos { get; set; }
         public DbSet<ListaMercado> Mercados { get; set; }
@@ -27,7 +28,6 @@ namespace ControleFinanceiro.Data
         public DbSet<FormaPagamento> Formas { get; set; }
         public DbSet<StatusCompra> StatusCompras { get; set; }
         public DbSet<UsuarioApp> Usuarios { get; set; }
-
     }
     
 }

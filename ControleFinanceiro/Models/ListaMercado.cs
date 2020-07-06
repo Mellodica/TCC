@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace ControleFinanceiro.Models
 {
@@ -10,7 +11,7 @@ namespace ControleFinanceiro.Models
         [Key]
         public int MercadoId { get; set; }
 
-        [Display(Name = "Nome do Produto")]
+        [Display(Name = "Nome do Mercado")]
         [Required(ErrorMessage = "O nome do produto é obrigatório", AllowEmptyStrings = false)]
         public string MercadoNome { get; set; }
 
@@ -37,6 +38,11 @@ namespace ControleFinanceiro.Models
         public int FormaId { get; set; }
 
         public virtual List<ProdutoMercado> Produtos { get; set; }
+
+        public decimal TotalMercado(int qntd, int valor)
+        {
+            return Produtos.Sum(p => p.ValorUnitario * p.Quantidade);
+        }
 
         public ListaMercado()
         {

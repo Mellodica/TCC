@@ -11,6 +11,10 @@ namespace ControleFinanceiro.Models
         [Key]
         public int? SalarioId { get; set; }
 
+        [Display(Name = "Nome do Provento")]
+        [Required(ErrorMessage = "O nome do salario é obrigatório", AllowEmptyStrings = false)]
+        public string SalarioNome { get; set; }
+
         [Display(Name = "Salário")]
         [Required(ErrorMessage = "Informe o valor do Sálario", AllowEmptyStrings = false)]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = true)]
@@ -23,7 +27,6 @@ namespace ControleFinanceiro.Models
         [NotMapped]
         public DateTime SalarioData { get; set; }
 
-        public ICollection<UsuarioApp> Usuarios { get; set; } = new List<UsuarioApp>();
 
         public Salario()
         {

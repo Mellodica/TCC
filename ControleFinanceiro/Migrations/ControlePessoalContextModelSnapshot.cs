@@ -27,7 +27,11 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<string>("CategoriaNome");
 
+                    b.Property<int?>("ServicoControlesId");
+
                     b.HasKey("CategoriaId");
+
+                    b.HasIndex("ServicoControlesId");
 
                     b.ToTable("Categorias");
                 });
@@ -52,6 +56,8 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<int>("FormaId");
 
+                    b.Property<int?>("ServicoControlesId");
+
                     b.Property<int>("StatusId");
 
                     b.HasKey("DespDirId");
@@ -59,6 +65,8 @@ namespace ControleFinanceiro.Migrations
                     b.HasIndex("CategoriaId");
 
                     b.HasIndex("FormaId");
+
+                    b.HasIndex("ServicoControlesId");
 
                     b.HasIndex("StatusId");
 
@@ -85,6 +93,8 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<int>("FormaId");
 
+                    b.Property<int?>("ServicoControlesId");
+
                     b.Property<int>("StatusId");
 
                     b.HasKey("DespFixaId");
@@ -92,6 +102,8 @@ namespace ControleFinanceiro.Migrations
                     b.HasIndex("CategoriaId");
 
                     b.HasIndex("FormaId");
+
+                    b.HasIndex("ServicoControlesId");
 
                     b.HasIndex("StatusId");
 
@@ -106,7 +118,11 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<string>("FormaNome");
 
+                    b.Property<int?>("ServicoControlesId");
+
                     b.HasKey("FormaId");
+
+                    b.HasIndex("ServicoControlesId");
 
                     b.ToTable("Formas");
                 });
@@ -129,10 +145,6 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<byte[]>("Foto");
-
-                    b.Property<string>("FotoMimeType");
-
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -152,11 +164,9 @@ namespace ControleFinanceiro.Migrations
                     b.Property<string>("PrimeiroNome")
                         .IsRequired();
 
-                    b.Property<string>("Profissao");
-
-                    b.Property<int?>("SalarioId");
-
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<int?>("ServicoControlesId");
 
                     b.Property<string>("Sobrenome")
                         .IsRequired();
@@ -176,7 +186,7 @@ namespace ControleFinanceiro.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("SalarioId");
+                    b.HasIndex("ServicoControlesId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -203,6 +213,8 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<int>("FormaId");
 
+                    b.Property<int?>("ServicoControlesId");
+
                     b.Property<int>("StatusId");
 
                     b.HasKey("DesejoId");
@@ -210,6 +222,8 @@ namespace ControleFinanceiro.Migrations
                     b.HasIndex("CategoriaId");
 
                     b.HasIndex("FormaId");
+
+                    b.HasIndex("ServicoControlesId");
 
                     b.HasIndex("StatusId");
 
@@ -234,6 +248,8 @@ namespace ControleFinanceiro.Migrations
                     b.Property<decimal>("MercadoValor")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int?>("ServicoControlesId");
+
                     b.Property<int>("StatusId");
 
                     b.HasKey("MercadoId");
@@ -241,6 +257,8 @@ namespace ControleFinanceiro.Migrations
                     b.HasIndex("CategoriaId");
 
                     b.HasIndex("FormaId");
+
+                    b.HasIndex("ServicoControlesId");
 
                     b.HasIndex("StatusId");
 
@@ -259,12 +277,16 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<int>("Quantidade");
 
+                    b.Property<int?>("ServicoControlesId");
+
                     b.Property<decimal>("ValorUnitario")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ProdutoId");
 
                     b.HasIndex("ListaMercadoMercadoId");
+
+                    b.HasIndex("ServicoControlesId");
 
                     b.ToTable("Produtos");
                 });
@@ -275,12 +297,32 @@ namespace ControleFinanceiro.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("SalarioNome")
+                        .IsRequired();
+
                     b.Property<decimal>("SalarioValor")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int?>("ServicoControlesId");
+
                     b.HasKey("SalarioId");
 
+                    b.HasIndex("ServicoControlesId");
+
                     b.ToTable("Salarios");
+                });
+
+            modelBuilder.Entity("ControleFinanceiro.Models.ServicoControles", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Capacity");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Controles");
                 });
 
             modelBuilder.Entity("ControleFinanceiro.Models.StatusCompra", b =>
@@ -289,9 +331,13 @@ namespace ControleFinanceiro.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ServicoControlesId");
+
                     b.Property<string>("StatusNome");
 
                     b.HasKey("StatusId");
+
+                    b.HasIndex("ServicoControlesId");
 
                     b.ToTable("StatusCompras");
                 });
@@ -406,6 +452,13 @@ namespace ControleFinanceiro.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ControleFinanceiro.Models.Categoria", b =>
+                {
+                    b.HasOne("ControleFinanceiro.Models.ServicoControles")
+                        .WithMany("Categorias")
+                        .HasForeignKey("ServicoControlesId");
+                });
+
             modelBuilder.Entity("ControleFinanceiro.Models.DespesaDireta", b =>
                 {
                     b.HasOne("ControleFinanceiro.Models.Categoria", "Categoria")
@@ -417,6 +470,10 @@ namespace ControleFinanceiro.Migrations
                         .WithMany("DespesaDiretas")
                         .HasForeignKey("FormaId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ControleFinanceiro.Models.ServicoControles")
+                        .WithMany("DespDiretas")
+                        .HasForeignKey("ServicoControlesId");
 
                     b.HasOne("ControleFinanceiro.Models.StatusCompra", "StatusCompra")
                         .WithMany("DespesaDiretas")
@@ -436,17 +493,28 @@ namespace ControleFinanceiro.Migrations
                         .HasForeignKey("FormaId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("ControleFinanceiro.Models.ServicoControles")
+                        .WithMany("DespFixas")
+                        .HasForeignKey("ServicoControlesId");
+
                     b.HasOne("ControleFinanceiro.Models.StatusCompra", "StatusCompra")
                         .WithMany("DespesaFixas")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("ControleFinanceiro.Models.FormaPagamento", b =>
+                {
+                    b.HasOne("ControleFinanceiro.Models.ServicoControles")
+                        .WithMany("Formas")
+                        .HasForeignKey("ServicoControlesId");
+                });
+
             modelBuilder.Entity("ControleFinanceiro.Models.Infra.UsuarioApp", b =>
                 {
-                    b.HasOne("ControleFinanceiro.Models.Salario", "Salario")
+                    b.HasOne("ControleFinanceiro.Models.ServicoControles")
                         .WithMany("Usuarios")
-                        .HasForeignKey("SalarioId");
+                        .HasForeignKey("ServicoControlesId");
                 });
 
             modelBuilder.Entity("ControleFinanceiro.Models.ListaDesejo", b =>
@@ -460,6 +528,10 @@ namespace ControleFinanceiro.Migrations
                         .WithMany("ListaDesejos")
                         .HasForeignKey("FormaId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ControleFinanceiro.Models.ServicoControles")
+                        .WithMany("Desejos")
+                        .HasForeignKey("ServicoControlesId");
 
                     b.HasOne("ControleFinanceiro.Models.StatusCompra", "StatusCompra")
                         .WithMany("ListaDesejos")
@@ -479,6 +551,10 @@ namespace ControleFinanceiro.Migrations
                         .HasForeignKey("FormaId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("ControleFinanceiro.Models.ServicoControles")
+                        .WithMany("Mercados")
+                        .HasForeignKey("ServicoControlesId");
+
                     b.HasOne("ControleFinanceiro.Models.StatusCompra", "StatusCompra")
                         .WithMany("ListaMercados")
                         .HasForeignKey("StatusId")
@@ -490,6 +566,24 @@ namespace ControleFinanceiro.Migrations
                     b.HasOne("ControleFinanceiro.Models.ListaMercado", "ListaMercado")
                         .WithMany("Produtos")
                         .HasForeignKey("ListaMercadoMercadoId");
+
+                    b.HasOne("ControleFinanceiro.Models.ServicoControles")
+                        .WithMany("Produtos")
+                        .HasForeignKey("ServicoControlesId");
+                });
+
+            modelBuilder.Entity("ControleFinanceiro.Models.Salario", b =>
+                {
+                    b.HasOne("ControleFinanceiro.Models.ServicoControles")
+                        .WithMany("Salarios")
+                        .HasForeignKey("ServicoControlesId");
+                });
+
+            modelBuilder.Entity("ControleFinanceiro.Models.StatusCompra", b =>
+                {
+                    b.HasOne("ControleFinanceiro.Models.ServicoControles")
+                        .WithMany("StatusCompras")
+                        .HasForeignKey("ServicoControlesId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

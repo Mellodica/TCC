@@ -45,35 +45,11 @@
 				</div>
 				<input asp-for="DataNascimento" class="form-control" disabled="disabled" />
 			</div>
-			<label asp-for="Salario.SalarioValor" class="control-label hidden"></label>
-			<br />
-			<div class="input-group">
-				<div class="input-group-prepend">
-					<span class="input-group-text">
-						<i class="fa fa-usd title" aria-hidden="true"></i>
-					</span>
-				</div>
-				<input asp-for="Salario.SalarioData" class="form-control hidden" disabled="disabled" />
-			</div>
-			<label asp-for="Profissao" class="control-label hidden"></label>
-			<br />
-			<div class="input-group">
-				<div class="input-group-prepend">
-					<span class="input-group-text">
-						<i class="fa fa-suitcase title" aria-hidden="true"></i>
-					</span>
-				</div>
-				<input asp-for="Profissao" class="form-control hidden" disabled="disabled" />
-			</div>
 			<div class="form-group text-left h3">
 				<input type="hidden" asp-for="Id" />
 				<a asp-action="PerfilUsuario" class="btn btn-block btn-warning btn-fill" asp-route-id="@Model.Id">Alterar perfil</a>
 				<a asp-controller="Controles" asp-action="Index" class="btn btn-block btn-info btn-fill pull-right">Voltar</a>
 			</div>
 		</div>
-	</div>
-	<div class="col-3">
-		<img class="img-thumbnail" src="@Url.Action("PegarFoto", "UsuarioApp", new {  id = Model.Id })" style="display:block; margin-left:auto;margin-right:auto;" />
-		@Html.ActionLink("Download", "DownloadFoto", "UsuarioApp", new {  id = Model.Id }, null)
 	</div>
 </div>

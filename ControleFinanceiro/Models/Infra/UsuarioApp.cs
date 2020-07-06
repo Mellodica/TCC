@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ControleFinanceiro.Models.Infra
 {
@@ -21,17 +19,5 @@ namespace ControleFinanceiro.Models.Infra
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         [Required]
         public DateTime? DataNascimento { get; set; }
-        public string FotoMimeType { get; set; }
-        public byte[] Foto { get; set; }
-
-        [Display(Name = "Profissão")]
-        public string Profissao { get; set; }
-
-        public Salario Salario { get; set; }
-        public int? SalarioId { get; set; }
-
-        [NotMapped]
-        public IFormFile FormFile { get; set; }
-
     }
 }

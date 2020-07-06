@@ -158,17 +158,6 @@ namespace CrudAspNetMVC.Controllers
             {
                 try
                 {
-                    var stream = new MemoryStream();
-                    if (chkRemoverFoto != null)
-                    {
-                        usuario.Foto = null;
-                    }
-                    else
-                    {
-                        await foto.CopyToAsync(stream);
-                        usuario.Foto = stream.ToArray();
-                        usuario.FotoMimeType = foto.ContentType;
-                    }
                     _context.Usuarios.Update(usuario);
                     _context.SaveChanges();
                 }
@@ -279,30 +268,6 @@ namespace CrudAspNetMVC.Controllers
             await _signInManager.SignOutAsync();
             _logger.LogInformation("Usuário realizou logout.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
-        }
-
-        public async Task<FileContentResult> PegarFoto(string id)
-        {
-            UsuarioApp usuario = await infraServicos.PegarUsuarioPorId(id);
-            if (usuario != null)
-            {
-                return File(usuario.Foto, usuario.FotoMimeType);
-            }
-            return null;
-        }
-
-        public async Task<FileResult> DownloadFoto(string id)
-        {
-            UsuarioApp usuario = await infraServicos.PegarUsuarioPorId(id);
-            string nomeArquivo = "Foto" + usuario.Id.Trim() + ".jpg";
-            FileStream fileStream = new FileStream(Path.Combine(_env.WebRootPath, nomeArquivo), FileMode.Create, FileAccess.Write);
-            fileStream.Write(usuario.Foto, 0, usuario.Foto.Length);
-            fileStream.Close();
-
-            IFileProvider provider = new PhysicalFileProvider(_env.WebRootPath);
-            IFileInfo fileInfo = provider.GetFileInfo(nomeArquivo);
-            var readStream = fileInfo.CreateReadStream();
-            return File(readStream, usuario.FotoMimeType, nomeArquivo);
         }
 
         public IActionResult Error(string message)

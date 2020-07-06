@@ -39,14 +39,6 @@
 										<span asp-validation-for="Sobrenome" class="text-danger"></span>
 									</div>
 									<div class="form-group">
-										<label asp-for="Profissao" class="control-label">
-											<i class="fa fa-suitcase title" aria-hidden="true"></i>
-											<span style="padding-left:10px">Profissão</span>
-										</label>
-										<input asp-for="Profissao" class="form-control" />
-										<span asp-validation-for="Profissao" class="text-danger"></span>
-									</div>
-									<div class="form-group">
 										<label asp-for="DataNascimento" class="control-label">
 											<i class="fa fa-birthday-cake title" aria-hidden="true"></i>
 											<span style="padding-left:10px">Data de Nascimento</span>
@@ -54,14 +46,7 @@
 										<input asp-for="DataNascimento" class="form-control" />
 										<span asp-validation-for="DataNascimento" class="text-danger"></span>
 									</div>
-									<div class="form-group">
-										<label asp-for="Salario.SalarioValor" class="control-label">
-											<i class="fa fa-usd title" aria-hidden="true"></i>
-											<span style="padding-left:10px">Valor do Salário</span>
-										</label>
-										<input asp-for="Salario.SalarioValor" class="form-control" />
-										<span asp-validation-for="Salario.SalarioValor" class="text-danger"></span>
-									</div>
+
 									<div class="form-group">
 										<label class="control-label">Foto</label>
 										<input type="file" name="foto" class="form-control" />
@@ -71,14 +56,6 @@
 										<a asp-controller="Controles" asp-action="Index" class="btn btn-info btn-fill btn-block pull-right">Voltar</a>
 									</div>
 								</form>
-							</div>
-							<div class="col-3">
-								<img class="img-thumbnail" src="@Url.Action(" PegarFoto", "UsuarioApp" , new { id = Model.Id })" style="display:block; margin-left:auto;margin-right:auto;"><img />
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="chkRemoverFoto" value="Sim">Remover Foto
-									</label>
-								</div>
 							</div>
 						</div>
 					</div>
