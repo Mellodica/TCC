@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using ControleFinanceiro.Models;
 
 namespace ControleFinanceiro.Data
@@ -80,8 +79,8 @@ namespace ControleFinanceiro.Data
             Categoria c38 = new Categoria(new int(), "Compras");
 
             //SEED SERVICE DE DESPESA DIRETA
-            DespesaDireta d1 = new DespesaDireta(new int(), "Conta de Luz", "Conta mensal", 200, DateTime.Now, s1, f3, c6);
-            DespesaDireta d2 = new DespesaDireta(new int(), "Conta de Agua", "Conta mensal", 250, DateTime.Now, s2, f1, c4);
+            //DespesaDireta d1 = new DespesaDireta(new int(), "Conta de Luz", "Conta mensal", 200, DateTime.Now, s1, f3, c6);
+          // DespesaDireta d2 = new DespesaDireta(new int(), "Conta de Agua", "Conta mensal", 250, DateTime.Now, s2, f1, c4);
             //ListaDesejo l1 = new ListaDesejo(new int(), "400", 200, DateTime.Now, s1, c38, f1);
 
             _context.StatusCompras.AddRange(s1, s2, s3);
@@ -91,11 +90,11 @@ namespace ControleFinanceiro.Data
                 c11, c12, c13, c14, c15, c16, c17, c18, c19, c20,
                 c21, c22, c23, c24, c25, c26, c27, c28, c29, c30,
                 c31, c32, c33, c34, c35, c36, c37, c38);
-            _context.DespDiretas.AddRange(d1,d2);
+            //_context.DespDiretas.AddRange(d1,d2);
 
             //_context.ListaDesejo.AddRange(l1);
 
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
     }
