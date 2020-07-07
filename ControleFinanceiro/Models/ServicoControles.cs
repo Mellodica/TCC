@@ -7,7 +7,7 @@ namespace ControleFinanceiro.Models
     public class ServicoControles : List<ServicoControles>
     {
         [Key]
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public ICollection<Salario> Salarios { get; set; }
 
         public ICollection<ProdutoMercado> Produtos { get; set; }

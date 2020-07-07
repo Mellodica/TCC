@@ -26,6 +26,7 @@ namespace ControleFinanceiro.Data
                 return; //Já tem dados.
             }
                    
+
             StatusCompra s1 = new StatusCompra(new int(), "Pendente");
             StatusCompra s2 = new StatusCompra(new int(), "Comprado");
             StatusCompra s3 = new StatusCompra(new int(), "Cancelado");
@@ -78,7 +79,6 @@ namespace ControleFinanceiro.Data
             Categoria c37 = new Categoria(new int(), "Vestuário");
             Categoria c38 = new Categoria(new int(), "Compras");
 
-
             //SEED SERVICE DE DESPESA DIRETA
             DespesaDireta d1 = new DespesaDireta(new int(), "Conta de Luz", "Conta mensal", 200, DateTime.Now, s1, f3, c6);
             DespesaDireta d2 = new DespesaDireta(new int(), "Conta de Agua", "Conta mensal", 250, DateTime.Now, s2, f1, c4);
@@ -95,7 +95,7 @@ namespace ControleFinanceiro.Data
 
             //_context.ListaDesejo.AddRange(l1);
 
-            _context.SaveChanges();
+            _context.SaveChangesAsync();
         }
 
     }

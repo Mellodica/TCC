@@ -139,6 +139,7 @@ namespace ControleFinanceiro.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     SalarioNome = table.Column<string>(nullable: false),
                     SalarioValor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SalarioData = table.Column<DateTime>(nullable: false),
                     ServicoControlesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

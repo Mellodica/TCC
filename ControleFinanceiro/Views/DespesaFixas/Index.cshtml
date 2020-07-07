@@ -39,7 +39,7 @@
 						</div>
 						<hr />
 						<div class="panel-heading title">
-							<h3 class="panel-title">Total despesas = @Model.Sum(obj => obj.DespFixaValor).ToString("F2")</h3>
+							<h3 class="panel-title pull-right">TOTAL DE DESPESA= @Model.Sum(obj => obj.DespFixaValor).ToString("F2")</h3>
 						</div>
 						<div class="content">
 							<div class="row">
@@ -75,7 +75,7 @@
 							</div>
 						</div>
 						<div class="content">
-							@{ await Html.RenderPartialAsync("~/Views/ListaDesejos/_PartialIndexDespesaFixas.cshtml", Model); }
+							@{ await Html.RenderPartialAsync("~/Views/DespesaFixas/_PartialIndexDespesaFixas.cshtml", Model); }
 						</div>
 					</div>
 				</div>

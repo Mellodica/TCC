@@ -297,6 +297,8 @@ namespace ControleFinanceiro.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("SalarioData");
+
                     b.Property<string>("SalarioNome")
                         .IsRequired();
 
@@ -314,7 +316,7 @@ namespace ControleFinanceiro.Migrations
 
             modelBuilder.Entity("ControleFinanceiro.Models.ServicoControles", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
