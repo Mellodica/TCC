@@ -32,12 +32,25 @@ namespace ControleFinanceiro.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Buscar)
         {
-            //var list = await desejoServicos.EncontrarTudoDesejoAsync();
-            //return View(list);
-            return View(await listaDespFixaServico.PegarFixaPorNome().ToListAsync());
+            var fixa = from d in _context.DespFixas
+                     .Include(i => i.Categoria)
+                     .Include(i => i.FormaPagamento)
+                     .Include(i => i.StatusCompra)
+                     .OrderBy(p => p.DespFixaNome)
+                         select d;
+            if (!string.IsNullOrEmpty(Buscar))
+            {
+                fixa = fixa.Where(s => s.DespFixaNome.Contains(Buscar));
+            }
+            return View(await fixa.ToListAsync());
+        }
 
+        [HttpPost]
+        public string Index(string Buscar, bool notUsed)
+        {
+            return "From [HttpPost]Index: filtrar on " + Buscar;
         }
 
         //GET DespesaFixa/Create   
@@ -64,7 +77,6 @@ namespace ControleFinanceiro.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DespFixaNome, DespFixaDescricao, DespFixaValor,DespFixaData, StatusId, FormaId, CategoriaId")] DespesaFixa fixa)
-
         {
             try
             {
@@ -79,7 +91,6 @@ namespace ControleFinanceiro.Controllers
                 ModelState.AddModelError("", "Não foi possível inserir os dados.");
             }
             return View(fixa);
-
         }
 
         //GET: DespesaFixa/Edit
@@ -110,7 +121,6 @@ namespace ControleFinanceiro.Controllers
                 , "StatusId", "StatusNome", despesaFixa.StatusId);
 
             return viewFixa;
-
         }
 
         //POST: DespesaFixa/Edit
@@ -118,7 +128,6 @@ namespace ControleFinanceiro.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id, [Bind("DespFixaId,DespFixaNome, DespFixaDescricao, DespFixaValor,DespFixaData, StatusId, FormaId, CategoriaId")] DespesaFixa fixa)
         {
-
             if (id != fixa.DespFixaId)
             {
                 return RedirectToAction(nameof(Error), new { message = "Desejo não encontrado" });
@@ -200,7 +209,6 @@ namespace ControleFinanceiro.Controllers
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             };
             return View(viewModel);
-        }
-        
+        }       
     }
 }

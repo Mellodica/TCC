@@ -27,12 +27,10 @@ namespace ControleFinanceiro.Models
         [NotMapped]
         public DateTime SalarioData { get; set; }
 
-
         public Salario()
         {
 
         }
-
         public Salario(int? salarioId, decimal salarioValor, DateTime salarioData)
         {
             SalarioId = salarioId;

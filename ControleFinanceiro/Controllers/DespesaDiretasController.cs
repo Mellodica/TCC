@@ -32,21 +32,32 @@ namespace ControleFinanceiro.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Buscar)
         {
-            //var list = await desejoServicos.EncontrarTudoDesejoAsync();
-            //return View(list);
-            return View(await listaDespDiretaServico.PegarDiretaPorNome().ToListAsync());
-
+            var direta = from d in _context.DespDiretas
+                            .Include(i => i.Categoria)
+                            .Include(i => i.FormaPagamento)
+                            .Include(i => i.StatusCompra)
+                            .OrderBy(p => p.DespesaDirNome)
+                          select d;
+            if (!string.IsNullOrEmpty(Buscar))
+            {
+                direta = direta.Where(s => s.DespesaDirNome.Contains(Buscar));
+            }
+            return View(await direta.ToListAsync());
         }
 
+        [HttpPost]
+        public string Index(string Buscar, bool notUsed)
+        {
+            return "From [HttpPost]Index: filtrar on " + Buscar;
+        }
 
         //GET DespesaDiretas/Create   
         [HttpGet]
         [Authorize]
         public IActionResult Create()
         {
-
             var categorias = categoriaServicos.PegarCategoriasPorNome().ToList();
             categorias.Insert(0, new Categoria() { CategoriaId = 0, CategoriaNome = "Selecione a Categoria" });
             ViewBag.Categorias = categorias;
@@ -60,14 +71,12 @@ namespace ControleFinanceiro.Controllers
             ViewBag.StatusCompras = status;
 
             return View();
-
         }
 
         //POST: DespesaDiretas/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DespesaDirNome, DespesaDirDescricao, DespDirValor,DespDirData, StatusId, FormaId, CategoriaId")] DespesaDireta direta)
-
         {
             try
             {
@@ -82,7 +91,6 @@ namespace ControleFinanceiro.Controllers
                 ModelState.AddModelError("", "Não foi possível inserir os dados.");
             }
             return View(direta);
-
         }
 
         //GET: Direta/Edit
@@ -113,7 +121,6 @@ namespace ControleFinanceiro.Controllers
               , "StatusId", "StatusNome", despDireta.StatusId);
 
             return viewDireta;
-
         }
 
         //POST: Desejo/Edit
@@ -121,7 +128,6 @@ namespace ControleFinanceiro.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id, [Bind("DespDirId,DespesaDirNome,DespesaDirDescricao,DespDirValor,DespDirData,StatusId,FormaId,CategoriaId")] DespesaDireta direta)
         {
-
             if (id != direta.DespDirId)
             {
                 return RedirectToAction(nameof(Error), new { message = "Desejo não encontrado" });
@@ -145,12 +151,12 @@ namespace ControleFinanceiro.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-
             ViewBag.Categorias = new SelectList(categoriaServicos.PegarCategoriasPorNome(), "CategoriaId", "CategoriaNome", direta.CategoriaId);
             ViewBag.Formas = new SelectList(formaServicos.PegarFormaPorNome(), "FormaId", "FormaNome", direta.FormaId);
             ViewBag.StatusCompras = new SelectList(statusServicos.PegarStatusPorNome(), "StatusId", "StatusNome", direta.StatusId);
             return View(direta);
         }
+
         private async Task<bool> DiretaExists(int? id)
         {
             return await listaDespDiretaServico.PegarDiretaPorIdAsync(id.Value) != null;
@@ -190,7 +196,6 @@ namespace ControleFinanceiro.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não Encontrado" });
             }
-
             return View(direta);
         }
 
@@ -204,6 +209,5 @@ namespace ControleFinanceiro.Controllers
             };
             return View(viewModel);
         }
-    }
-    
+    }   
 }

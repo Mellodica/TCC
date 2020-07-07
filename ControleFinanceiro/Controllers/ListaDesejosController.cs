@@ -33,21 +33,32 @@ namespace ControleFinanceiro.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Buscar)
         {
-           // var list = await desejoServicos.EncontrarTudoDesejoAsync();
-           // return View(list);
-            return View(await desejoServicos.PegarDesejoPorNome().ToListAsync());
-
+            var desejos = from d in _context.Desejos
+                        .Include(i => i.Categoria)
+                        .Include(i => i.FormaPagamento)
+                        .Include(i => i.StatusCompra)
+                        .OrderBy(p => p.DesejoNome)
+                    select d;
+            if (!string.IsNullOrEmpty(Buscar))
+            {
+                desejos = desejos.Where(s => s.DesejoNome.Contains(Buscar));
+               
+            }
+            return View(await desejos.ToListAsync());
         }
 
-        
+        [HttpPost]
+        public string Index(string Buscar, bool notUsed)
+        {
+            return "From [HttpPost]Index: filtrar on " + Buscar;
+        }
+
         //GET Desejo/Create   
-        [HttpGet]
         [Authorize]
         public IActionResult Create()
         {
-
             var categorias = categoriaServicos.PegarCategoriasPorNome().ToList();
             categorias.Insert(0, new Categoria() { CategoriaId = 0, CategoriaNome = "Selecione a Categoria" });
             ViewBag.Categorias = categorias;
@@ -61,14 +72,12 @@ namespace ControleFinanceiro.Controllers
             ViewBag.StatusCompras = status;
 
             return View();
-
         }
 
         //POST: Desejo/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DesejoNome, DesejoDescricao, DesejoValor, DesejoData,DesejoLoja, StatusId, FormaId, CategoriaId")] ListaDesejo desejo)
-
         {
             try
             {
@@ -83,7 +92,6 @@ namespace ControleFinanceiro.Controllers
                 ModelState.AddModelError("", "Não foi possível inserir os dados.");
             }
             return View(desejo);
-
         }
 
         //GET: Desejo/Edit
@@ -94,13 +102,11 @@ namespace ControleFinanceiro.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = "Produto nao encontrado" });
             }
-
             var desejo = await desejoServicos.PegarDesejoPorIdAsync(id.Value);
             if (desejo == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Produto nao existe" });
             }
-
             ViewResult viewDesejo = (ViewResult)await PegarViewDesejoPorId(id);
             ListaDesejo listaDesejo = (ListaDesejo)viewDesejo.Model;
 
@@ -114,7 +120,6 @@ namespace ControleFinanceiro.Controllers
               , "StatusId", "StatusNome", listaDesejo.StatusId);
 
             return viewDesejo;
-
         }
 
         //POST: Desejo/Edit
@@ -122,7 +127,6 @@ namespace ControleFinanceiro.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id, [Bind("DesejoId,DesejoNome,DesejoDescricao,DesejoValor,DesejoLoja,DesejoData,StatusId,FormaId,CategoriaId")] ListaDesejo desejo)
         {
-
             if (id != desejo.DesejoId)
             {
                 return RedirectToAction(nameof(Error), new { message = "Desejo não encontrado" });
@@ -146,7 +150,6 @@ namespace ControleFinanceiro.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-
             ViewBag.Categorias = new SelectList(categoriaServicos.PegarCategoriasPorNome(), "CategoriaId", "CategoriaNome", desejo.CategoriaId);
             ViewBag.Formas = new SelectList(formaServicos.PegarFormaPorNome(), "FormaId", "FormaNome", desejo.FormaId);
             ViewBag.StatusCompras = new SelectList(statusServicos.PegarStatusPorNome(), "StatusId", "StatusNome", desejo.StatusId);
@@ -186,13 +189,11 @@ namespace ControleFinanceiro.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não providenciado" });
             }
-
             var desejo = await desejoServicos.PegarDesejoPorIdAsync(id.Value);
             if (desejo == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não Encontrado" });
             }
-
             return View(desejo);
         }
 

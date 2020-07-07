@@ -12,19 +12,16 @@ namespace ControleFinanceiro.Servico
     public class SalarioServico
     {
         private readonly ControlePessoalContext _context;
-
         public SalarioServico(ControlePessoalContext context)
         {
             _context = context;
         }
-
         public IQueryable<Salario> PegarSalarioPorNome()
         {
             return _context.Salarios
                 .OrderBy(p => p.SalarioNome);
         }
-
-        public async Task<List<Salario>> EncontrarPorData(DateTime? minDate, DateTime? maxDate)
+        public async Task<List<Salario>> EncontrarPorDataAsync(DateTime? minDate, DateTime? maxDate)
         {
             var result = from obj in _context.Salarios select obj;
             if (minDate.HasValue)
@@ -39,13 +36,11 @@ namespace ControleFinanceiro.Servico
                 .OrderByDescending(x => x.SalarioData)
                 .ToListAsync();
         }
-
         public async Task<Salario> PegarSalarioPorIdAsync(int? id)
         {
             var salario = await _context.Salarios.FirstOrDefaultAsync(m => m.SalarioId == id);
             return salario;
         }
-
         public async Task AtualizarAsync(Salario salario)
         {
             bool hasAny = await _context.Salarios.AnyAsync(x => x.SalarioId == salario.SalarioId);
@@ -63,7 +58,6 @@ namespace ControleFinanceiro.Servico
                 throw new DbConcurrencyException(e.Message);
             }
         }
-
         public async Task<Salario> RegistrarSalario(Salario salario)
         {
             if (salario.SalarioId == null)
@@ -77,7 +71,6 @@ namespace ControleFinanceiro.Servico
             await _context.SaveChangesAsync();
             return salario;
         }
-
         public async Task<Salario> DeletarSalarioPorId(int? id)
         {
             Salario salario = await PegarSalarioPorIdAsync(id.Value);

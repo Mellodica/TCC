@@ -6,7 +6,6 @@ namespace ControleFinanceiro.Servico.Erros
     {
         public IntegrityException(string message) : base(message)
         {
-
         }
     }
 }

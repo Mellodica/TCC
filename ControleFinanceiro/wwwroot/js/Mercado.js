@@ -54,7 +54,6 @@ function SalvarLista() {
 	});
 }
 
-
 function ListarProdutos(idMercado) {
 
 	var url = "/ProdutosMercado/ListarProdutos";
@@ -108,8 +107,7 @@ function ExcluirItem(id) {
 			if (data.Resultado) {
 				var linha = "#tr" + id;
 				$(linha).fadeOut(id);
-				//$(linha).fadeOut(500);
-				
+				//$(linha).fadeOut(500);				
 			}
 		}
 	});

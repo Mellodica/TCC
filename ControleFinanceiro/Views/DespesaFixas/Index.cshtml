@@ -54,78 +54,28 @@
 									</a>
 								</div>
 								<div class="row">
-									<div class="col-md-10">
-										<div class="col-md-6">
-											<span></span>
-											<div class="col-md-1 input-field ">
-												<input type="text" class="controle-form" name="" required="">
-												<label>Digite o Nome do Produto</label>
+									<div class="col-md-8">
+										<form asp-controller="DepesaFixas" asp-action="Index" method="get">
+											<div class="col-md-5">
 												<span></span>
+												<div class="input-field ">
+													<input type="text" class="controle-form" name="Buscar" required="">
+													<label>Digite o Nome da Despesa</label>
+													<span></span>
+												</div>
 											</div>
-										</div>
-										<div class="col-md-4">
-											<button type="submit" value="Buscar" name="" class="btn btn-info btn-fill pull-leftt">
-												<span class="glyphicon glyphicon-search"></span>
-											</button>
-										</div>
+											<div class="col-md-5">
+												<button type="submit" value="Filtrar" class="btn btn-info btn-fill pull-left">
+													<span class="glyphicon glyphicon-search"></span>
+												</button>
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="content">
-							<table class="table">
-								<thead>
-									<tr>
-										<th>
-											@Html.DisplayNameFor(model => model.DespFixaNome)
-										</th>
-										<th>
-											@Html.DisplayNameFor(model => model.DespFixaData)
-										</th>
-										<th>
-											@Html.DisplayNameFor(model => model.Categoria.CategoriaNome)
-										</th>
-										<th>
-											@Html.DisplayNameFor(model => model.DespFixaValor)
-										</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-									@foreach (var item in Model)
-									{
-										<tr>
-											<td>
-												<i class="fa fa-shopping-bag title" aria-hidden="true"></i>
-												@Html.DisplayFor(modelItem => item.DespFixaNome)
-											</td>
-											<td>
-												<i class="fa fa-calendar title" aria-hidden="true"></i>
-												@Html.DisplayFor(modelItem => item.DespFixaData)
-											</td>
-											<td>
-												<i class="fa fa-list-alt title" aria-hidden="true"></i>
-												@Html.DisplayFor(modelItem => item.Categoria.CategoriaNome)
-											</td>
-											<td>
-												<i class="fa fa-usd title" aria-hidden="true"></i>
-												@Html.DisplayFor(modelItem => item.DespFixaValor)
-											</td>
-											<td>
-												<a asp-action="Edit" asp-route-id="@item.DespFixaId" class="btn btn-warning pull-right">
-													<span class="glyphicon glyphicon-edit"></span>
-												</a>
-												<a asp-action="Details" asp-route-id="@item.DespFixaId" class="btn btn-info pull-right">
-													<span class="glyphicon glyphicon-eye-open"></span>
-												</a>
-												<a asp-action="Delete" asp-route-id="@item.DespFixaId" class="btn btn-danger pull-right">
-													<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-												</a>
-											</td>
-										</tr>
-									}
-								</tbody>
-							</table>
+							@{ await Html.RenderPartialAsync("~/Views/ListaDesejos/_PartialIndexDespesaFixas.cshtml", Model); }
 						</div>
 					</div>
 				</div>

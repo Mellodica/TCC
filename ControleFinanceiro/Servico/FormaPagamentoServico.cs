@@ -9,19 +9,15 @@ namespace ControleFinanceiro.Servico
 {
     public class FormaPagamentoServico
     {
-
         private readonly ControlePessoalContext _context;
-
         public FormaPagamentoServico(ControlePessoalContext context)
         {
             _context = context;
         }
-
         public async Task<List<FormaPagamento>> EncontrarTudoFormasAsync()
         {          
             return await _context.Formas.OrderBy(x => x.FormaNome).ToListAsync();
         }
-
         //IQueryable<> é específico para o LINQ.Um IQueryable<> também é 
         //derivado de um IEnumerable<T> e admite lazy loading permitindo uma melhor otimização 
         //de uma consulta.Ou seja, apenas os elementos realmente necessários para uma determinada 
@@ -30,7 +26,6 @@ namespace ControleFinanceiro.Servico
         {
             return _context.Formas.OrderBy(c => c.FormaNome);
         }
-
         public async Task<FormaPagamento> PegarFormaPorId(int id)
         {
             return await _context.Formas

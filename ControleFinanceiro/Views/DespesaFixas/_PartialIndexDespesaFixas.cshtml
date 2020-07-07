@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ControleFinanceiro.Models.DespesaFixa>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.DespFixaNome)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.DespFixaData)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Categoria.CategoriaNome)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.DespFixaValor)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					<i class="fa fa-shopping-bag title" aria-hidden="true"></i>
+					@Html.DisplayFor(modelItem => item.DespFixaNome)
+				</td>
+				<td>
+					<i class="fa fa-calendar title" aria-hidden="true"></i>
+					@Html.DisplayFor(modelItem => item.DespFixaData)
+				</td>
+				<td>
+					<i class="fa fa-list-alt title" aria-hidden="true"></i>
+					@Html.DisplayFor(modelItem => item.Categoria.CategoriaNome)
+				</td>
+				<td>
+					<i class="fa fa-usd title" aria-hidden="true"></i>
+					@Html.DisplayFor(modelItem => item.DespFixaValor)
+				</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.DespFixaId" class="btn btn-warning pull-right">
+						<span class="glyphicon glyphicon-edit"></span>
+					</a>
+					<a asp-action="Details" asp-route-id="@item.DespFixaId" class="btn btn-info pull-right">
+						<span class="glyphicon glyphicon-eye-open"></span>
+					</a>
+					<a asp-action="Delete" asp-route-id="@item.DespFixaId" class="btn btn-danger pull-right">
+						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+					</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

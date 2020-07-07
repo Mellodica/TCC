@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ControleFinanceiro.Controllers
 {
@@ -33,10 +34,25 @@ namespace ControleFinanceiro.Controllers
         }
 
         [Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string Buscar)
         {
-          
-            return View(mercadoServicos.PegarMercadoPorNome().ToList());
+            var mercado = from d in _context.Mercados
+                 .Include(i => i.Categoria)
+                 .Include(i => i.FormaPagamento)
+                 .Include(i => i.StatusCompra)
+                 .OrderBy(p => p.MercadoNome)
+                          select d;
+            if (!string.IsNullOrEmpty(Buscar))
+            {
+                mercado = mercado.Where(s => s.MercadoNome.Contains(Buscar));
+            }
+            return View(await mercado.ToListAsync());
+        }
+
+        [HttpPost]
+        public string Index(string Buscar, bool notUsed)
+        {
+            return "From [HttpPost]Index: filtrar on " + Buscar;
         }
 
         //GET Mercado/Create   
