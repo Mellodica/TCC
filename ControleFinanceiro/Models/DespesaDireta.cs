@@ -40,15 +40,6 @@ namespace ControleFinanceiro.Models
         public FormaPagamento FormaPagamento { get; set; }
         public int FormaId { get; set; }
 
-        /*
-        public IEnumerable<DespesaDireta> DespesasDiretas { get; private set; }
-
-        public double TotalDespesaDireta(DateTime inicial, DateTime final)
-        {
-            return DespesasDiretas.Where(dd => dd.DespDirData >= inicial && dd.DespDirData <= final).Sum(dd => dd.DespDirValor);
-        }
-        */
-
         public DespesaDireta()
         {
 

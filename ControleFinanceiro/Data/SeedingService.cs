@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using ControleFinanceiro.Models;
 
 namespace ControleFinanceiro.Data
@@ -24,20 +25,7 @@ namespace ControleFinanceiro.Data
             {
                 return; //Já tem dados.
             }
-
-            /*
-            ListaProduto p1 = new ListaProduto(new int(), "CELULAR A50", "CELULAR SAMSUNG A50 128GB");
-            ListaProduto p2 = new ListaProduto(new int(), "MONITOR 22 DELL", "MONITOR DELL P2219H FULLHD");
-            ListaProduto p3 = new ListaProduto(new int(), "TV LED 4K SAMSUNG 50", "TV LED 4K SANSUMG RU7100 50 POLEDADAS");
-            ListaProduto p4 = new ListaProduto(new int(), "BOLSA GRANDE FEMININA DE COURO", "BOLSA GRANDE FEMININA DE COURO MACIO COM 2 ALÇAS");
-            ListaProduto p5 = new ListaProduto(new int(), "XIAOMI SMARTWATCH AMAZIFIT BIP", "AMAZIFIT BIP XIAOMI A1608, PRETO");
-            ListaProduto p6 = new ListaProduto(new int(), "GAMEPAD 5X1 PARA CELULAR", " SUPORTE PARA CELULAR GAMEPAD 5 EM 1");
-            ListaProduto p7 = new ListaProduto(new int(), "XIAOMI MIBAND 4", "PULSEIRA XIAOMI MIBAND 4 PRETO");
-            ListaProduto p8 = new ListaProduto(new int(), "TAPETE DE SISAL 2X3M", "TAPETE SISAL 2X3M");
-            ListaProduto p9 = new ListaProduto(new int(), "PANELA PRESSÃO 10L", "PANELA PRESSÃO 10L EIRILAR TRAVA EXTERNA");
-            ListaProduto p10 = new ListaProduto(new int(), "SUPORTE DE TABLET", "SUPORTE DE MESA PARA TABLET");
-            */
-
+                   
             StatusCompra s1 = new StatusCompra(new int(), "Pendente");
             StatusCompra s2 = new StatusCompra(new int(), "Comprado");
             StatusCompra s3 = new StatusCompra(new int(), "Cancelado");
@@ -90,8 +78,11 @@ namespace ControleFinanceiro.Data
             Categoria c37 = new Categoria(new int(), "Vestuário");
             Categoria c38 = new Categoria(new int(), "Compras");
 
-            //ListaDesejo l1 = new ListaDesejo(new int(), "400", 200, DateTime.Now, s1, c38, f1);
 
+            //SEED SERVICE DE DESPESA DIRETA
+            DespesaDireta d1 = new DespesaDireta(new int(), "Conta de Luz", "Conta mensal", 200, DateTime.Now, s1, f3, c6);
+            DespesaDireta d2 = new DespesaDireta(new int(), "Conta de Agua", "Conta mensal", 250, DateTime.Now, s2, f1, c4);
+            //ListaDesejo l1 = new ListaDesejo(new int(), "400", 200, DateTime.Now, s1, c38, f1);
 
             _context.StatusCompras.AddRange(s1, s2, s3);
             _context.Formas.AddRange(f1, f2, f3, f4, f5, f6);
@@ -100,7 +91,7 @@ namespace ControleFinanceiro.Data
                 c11, c12, c13, c14, c15, c16, c17, c18, c19, c20,
                 c21, c22, c23, c24, c25, c26, c27, c28, c29, c30,
                 c31, c32, c33, c34, c35, c36, c37, c38);
-            //_context.ListaProduto.AddRange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+            _context.DespDiretas.AddRange(d1,d2);
 
             //_context.ListaDesejo.AddRange(l1);
 
