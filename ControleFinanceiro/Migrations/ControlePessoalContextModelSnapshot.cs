@@ -245,9 +245,6 @@ namespace ControleFinanceiro.Migrations
                     b.Property<string>("MercadoNome")
                         .IsRequired();
 
-                    b.Property<decimal>("MercadoValor")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int?>("ServicoControlesId");
 
                     b.Property<int>("StatusId");

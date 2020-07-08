@@ -5,7 +5,9 @@
 	if (url.indexOf("Edit") > 0) {
 
 		var id = $("#MercadoId").val();
+		type: "GET";
 		ListarProdutos(id);
+		//return url.indexOf("Edit");
 	}
 });
 

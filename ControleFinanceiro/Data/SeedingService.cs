@@ -88,7 +88,7 @@ namespace ControleFinanceiro.Data
             ListaDesejo l2 = new ListaDesejo("IPHONE 8","64GB ROSE GOLD",2000.0, "www.mercadolivra.com.br", new DateTime(2021, 12, 11), s1, c1, f1);
 
             //SEED DE DESPESA FIXA
-            DespesaFixa df1 = new DespesaFixa("Telefone", " ", 200.0, new DateTime(2020, 6,7),s1,f1,c2);
+            DespesaFixa df1 = new DespesaFixa("Telefone", " ", 200.0, new DateTime(2020, 6,7),s1,f1,c1);
             DespesaFixa df2 = new DespesaFixa("Internet", " ", 150.0, new DateTime(2020, 6,7),s1,f1,c2);
 
             Salario sa1 = new Salario("Vale", 450, new DateTime(2020,5,7));
@@ -101,10 +101,10 @@ namespace ControleFinanceiro.Data
                 c11, c12, c13, c14, c15, c16, c17, c18, c19, c20,
                 c21, c22, c23, c24, c25, c26, c27, c28, c29, c30,
                 c31, c32, c33, c34, c35, c36, c37, c38);
-            _context.DespDiretas.AddRange(d1);
-            _context.Desejos.Add(l1);
-            _context.DespFixas.Add(df1);
-            _context.Salarios.Add(sa1);
+            _context.DespDiretas.AddRange(d1,d2);
+            _context.Desejos.AddRange(l1,l2);
+            _context.DespFixas.AddRange(df1,df2);
+            _context.Salarios.AddRange(sa1);
 
             _context.SaveChanges();
         }

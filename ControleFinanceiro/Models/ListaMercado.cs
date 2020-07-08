@@ -15,12 +15,14 @@ namespace ControleFinanceiro.Models
         [Required(ErrorMessage = "O nome do produto é obrigatório", AllowEmptyStrings = false)]
         public string MercadoNome { get; set; }
 
+        /*
         [Display(Name = "Valor Total")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = true)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal MercadoValor { get; set; }
+        */
 
-        [Display(Name = "Dia da Compra")]
+        [Display(Name = "Data da Compra")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime MercadoData { get; set; }
@@ -41,7 +43,7 @@ namespace ControleFinanceiro.Models
 
         public decimal TotalMercado(int qntd, int valor)
         {
-            return Produtos.Sum(p => p.ValorUnitario * p.Quantidade);
+            return Produtos.Sum(p => p.ValorUnitario + p.Quantidade);
         }
 
         /*

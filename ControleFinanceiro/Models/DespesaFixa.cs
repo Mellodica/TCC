@@ -40,19 +40,10 @@ namespace ControleFinanceiro.Models
         public FormaPagamento FormaPagamento { get; set; }
         public int FormaId { get; set; }
 
-        /* public IEnumerable<DespesaFixa> DespesasFixas { get; private set; }
-
-         public double TotalDespesaFixa(DateTime inicial, DateTime final)
-         {
-             return DespesasFixas.Where(df => df.DespFixaData >= inicial && df.DespFixaData <= final).Sum(df => df.DespFixaValor);
-         }
-         */
-
         public DespesaFixa()
         {
 
         }
-
         public DespesaFixa(string despFixaNome, string despFixaDescricao, double despFixaValor, DateTime despFixaData, StatusCompra statusCompra, FormaPagamento formaPagamento, Categoria categoria)
         {
             DespFixaNome = despFixaNome;

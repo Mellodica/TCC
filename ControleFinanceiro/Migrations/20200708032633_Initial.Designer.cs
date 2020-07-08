@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleFinanceiro.Migrations
 {
     [DbContext(typeof(ControlePessoalContext))]
-    [Migration("20200707030419_ListaMercado")]
-    partial class ListaMercado
+    [Migration("20200708032633_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -246,9 +246,6 @@ namespace ControleFinanceiro.Migrations
 
                     b.Property<string>("MercadoNome")
                         .IsRequired();
-
-                    b.Property<decimal>("MercadoValor")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("ServicoControlesId");
 

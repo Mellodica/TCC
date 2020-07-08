@@ -94,8 +94,6 @@ namespace ControleFinanceiro.Controllers
                 return Json(new { Resultado = mercado.MercadoId }, new JsonSerializerSettings());
             }
             return View(mercado);
-
-
         }
 
         //GET: Mercado/Edit
@@ -113,7 +111,7 @@ namespace ControleFinanceiro.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Lista nao existe" });
             }
 
-            ViewResult viewMercado = (ViewResult)PegarViewMercadoPorId(id.Value);
+            ViewResult viewMercado = (ViewResult)PegarViewMercadoPorId(id);
             ListaMercado mercaDo = (ListaMercado)viewMercado.Model;
 
             ViewBag.Categorias = new SelectList(categoriaServicos.PegarCategoriasPorNome()
