@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Cryptography;
 using ControleFinanceiro.Models;
 
 namespace ControleFinanceiro.Data
@@ -81,11 +82,19 @@ namespace ControleFinanceiro.Data
 
             //SEEDDE DESPESA DIRETA
             DespesaDireta d1 = new DespesaDireta("Conta de Luz","Conta mensal", 200.0, new DateTime(2020, 7, 7), s1, f1, c1);
-            DespesaDireta d2 = new DespesaDireta("Conta de Água", "Conta mensal", 150.0, new DateTime(2020, 7, 7), s1, f1, c1);   
+            DespesaDireta d2 = new DespesaDireta("Conta de Água", "Conta mensal", 150.0, new DateTime(2020, 7, 7), s1, f1, c1);
+            DespesaDireta d3 = new DespesaDireta("Pizza", "Pizza de Sexta", 59.90, new DateTime(2020, 7, 3), s2, f4, c19);
+            DespesaDireta d4 = new DespesaDireta("Escolinha", "Escolinha Mensal", 890.00, new DateTime(2020, 7, 3), s3, f5, c15);
+            DespesaDireta d5 = new DespesaDireta("Passagem", "Passagem URBS", 180.00, new DateTime(2020, 6, 3), s2, f3, c12);
+            DespesaDireta d6 = new DespesaDireta("Conta Internet", "INternet mes 7", 149.00, new DateTime(2020, 7, 25), s2, f4, c12);
+            DespesaDireta d7 = new DespesaDireta("Compra Bicileta", "Bicileta para passeio", 785.00, new DateTime(2020, 3, 16), s3, f4, c13);
+            DespesaDireta d8 = new DespesaDireta("Sorvete", "Sorvete para semana 4Litros", 20.00, new DateTime(2020, 2, 22), s2, f5, c15);
+            DespesaDireta d9 = new DespesaDireta("Ração 20Kg", "Ração para o mês 06", 122.00, new DateTime(2020, 6, 10), s1, f3, c18);
+            DespesaDireta d10 = new DespesaDireta("Pão Padaria", "Pão para Lanche", 3.00, new DateTime(2020, 7, 6), s3, f2, c10);
           
             //SEED DE LISTA DESEJO
             ListaDesejo l1 = new ListaDesejo("FOGÃO","5 BOCAS CONSUL",800.00, "www.casasbahia.com", new DateTime(2020, 8,12 ), s1, c1, f1);
-            ListaDesejo l2 = new ListaDesejo("IPHONE 8","64GB ROSE GOLD",2000.0, "www.mercadolivra.com.br", new DateTime(2021, 12, 11), s1, c1, f1);
+            ListaDesejo l2 = new ListaDesejo("IPHONE 8","64GB ROSE GOLD",2000.0, "www.mercadolivre.com.br", new DateTime(2021, 12, 11), s1, c1, f1);
 
             //SEED DE DESPESA FIXA
             DespesaFixa df1 = new DespesaFixa("Telefone", " ", 200.0, new DateTime(2020, 6,7),s1,f1,c2);
@@ -101,9 +110,9 @@ namespace ControleFinanceiro.Data
                 c11, c12, c13, c14, c15, c16, c17, c18, c19, c20,
                 c21, c22, c23, c24, c25, c26, c27, c28, c29, c30,
                 c31, c32, c33, c34, c35, c36, c37, c38);
-            _context.DespDiretas.AddRange(d1);
-            _context.Desejos.Add(l1);
-            _context.DespFixas.Add(df1);
+            _context.DespDiretas.AddRange(d1, d2, d3, d4, d5, d6, d7, d8, d9, d10);
+            _context.Desejos.AddRange(l1, l2);
+            _context.DespFixas.AddRange(df1, df2);
             _context.Salarios.Add(sa1);
 
             _context.SaveChanges();
