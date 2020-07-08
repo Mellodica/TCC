@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
 using ControleFinanceiro.Servico.Erros;
+using System;
 
 namespace ControleFinanceiro.Servico
 {
@@ -43,6 +44,16 @@ namespace ControleFinanceiro.Servico
         {
             if (desejo.DesejoId == null)
             {
+
+                if (desejo.DesejoData < DateTime.Now)
+                {
+                    desejo.StatusId = 1;
+
+                    _context.Desejos.AddAsync(desejo);
+
+                }
+
+
                 _context.Desejos.Add(desejo);
             }
             else
