@@ -45,9 +45,8 @@ namespace ControleFinanceiro.Models
 
         }
 
-        public DespesaDireta(int despDirId, string despDirNome, string despDirDescricao, double despDirValor, DateTime despDirData, StatusCompra statusCompra, FormaPagamento formaPagamento, Categoria categoria)
+        public DespesaDireta(string despDirNome, string despDirDescricao, double despDirValor, DateTime despDirData, StatusCompra statusCompra, FormaPagamento formaPagamento, Categoria categoria)
         {
-            DespDirId = despDirId;
             DespesaDirNome = despDirNome;
             DespesaDirDescricao = despDirDescricao;
             DespDirValor = despDirValor;

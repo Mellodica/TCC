@@ -48,12 +48,12 @@ namespace ControleFinanceiro.Models
 
         }
 
-        public ListaDesejo(int desejoId, string desejoNome,string desejoDescricao, double desejoValor, DateTime desejoData, StatusCompra statusCompra, Categoria categoria, FormaPagamento formaPagamento)
+        public ListaDesejo(string desejoNome,string desejoDescricao, double desejoValor, string desejoLoja,DateTime desejoData, StatusCompra statusCompra, Categoria categoria, FormaPagamento formaPagamento)
         {
-            DesejoId = desejoId;
             DesejoNome = desejoNome;
             DesejoDescricao = desejoDescricao;
             DesejoValor = desejoValor;
+            DesejoLoja = desejoLoja;
             DesejoData = desejoData;
             StatusCompra = statusCompra;
             Categoria = categoria;

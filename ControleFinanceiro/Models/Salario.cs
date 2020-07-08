@@ -30,9 +30,9 @@ namespace ControleFinanceiro.Models
         {
 
         }
-        public Salario(int? salarioId, decimal salarioValor, DateTime salarioData)
+        public Salario(string salarioNome,decimal salarioValor, DateTime salarioData)
         {
-            SalarioId = salarioId;
+            SalarioNome = salarioNome;
             SalarioValor = salarioValor;
             SalarioData = salarioData;
         }

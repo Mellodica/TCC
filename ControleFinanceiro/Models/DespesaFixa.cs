@@ -53,9 +53,8 @@ namespace ControleFinanceiro.Models
 
         }
 
-        public DespesaFixa(int despFixaId, string despFixaNome, string despFixaDescricao, double despFixaValor, DateTime despFixaData, StatusCompra statusCompra, FormaPagamento formaPagamento, Categoria categoria)
+        public DespesaFixa(string despFixaNome, string despFixaDescricao, double despFixaValor, DateTime despFixaData, StatusCompra statusCompra, FormaPagamento formaPagamento, Categoria categoria)
         {
-            DespFixaId = despFixaId;
             DespFixaNome = despFixaNome;
             DespFixaDescricao = despFixaDescricao;
             DespFixaValor = despFixaValor;

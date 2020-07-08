@@ -11,7 +11,8 @@ namespace ControleFinanceiro.Data
         public ControlePessoalContext(DbContextOptions<ControlePessoalContext> options)
             : base(options)
         {
-            //Database.MigrateAsync();
+            //  Database.EnsureCreated();
+            //  Database.MigrateAsync();
         }
 
         public DbSet<Salario> Salarios { get; set; }
@@ -28,6 +29,7 @@ namespace ControleFinanceiro.Data
         public DbSet<FormaPagamento> Formas { get; set; }
         public DbSet<StatusCompra> StatusCompras { get; set; }
         public DbSet<UsuarioApp> Usuarios { get; set; }
+
     }
     
 }

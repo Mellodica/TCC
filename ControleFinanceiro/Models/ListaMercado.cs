@@ -44,11 +44,11 @@ namespace ControleFinanceiro.Models
             return Produtos.Sum(p => p.ValorUnitario * p.Quantidade);
         }
 
+        /*
         public ListaMercado()
         {
 
         }
-
         public ListaMercado(int mercadoId, string mercadoNome, decimal mercadoValor, DateTime mercadoData, StatusCompra statusCompra, Categoria categoria, FormaPagamento formaPagamento)
         {
             MercadoId = mercadoId;
@@ -59,5 +59,6 @@ namespace ControleFinanceiro.Models
             Categoria = categoria;
             FormaPagamento = formaPagamento;
         }
+        */
     }
 }

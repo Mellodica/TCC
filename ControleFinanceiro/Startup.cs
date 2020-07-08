@@ -76,7 +76,6 @@ namespace ControleFinanceiro
             app.UseCookiePolicy();
 
             app.UseAuthentication();       
-            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
